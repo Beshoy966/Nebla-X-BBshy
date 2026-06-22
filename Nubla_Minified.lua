@@ -1,9 +1,8 @@
--- Hide.lat Basic v21 | 531237bbbc08ae875ce2ba527ae40fe6
+
 local _fs512 = game:GetService("HttpService")
 local _fp818 = game:GetService("Players").LocalPlayer or game:GetService("Players").PlayerAdded:Wait()
 local _fc651 = {id="UJCJJEW0A6Z",k=false,h=false,t=1778945559153}
 
--- Free tier validation (different from premium)
 if _fc651.k then
     local _fk688 = nil
     pcall(function() if _G and _G.script_key then _fk688 = tostring(_G.script_key) end end)
@@ -23,32 +22,32 @@ if _fc651.k then
         return _fp818:Kick("[Hide.lat] Could not validate key")
     end
 end
--- Script content follows
 
+if getgenv().__ZytheraX_Loaded then
+    warn("[ZytheraX] Script already loaded. Use a fresh executor state.")
+    return
+end
+getgenv().__ZytheraX_Loaded = true
 
--- ============================================================
--- ZYTHERA-X | LOADING SCREEN + NOTIFICATIONS (V3.9.2 rebuilt)
--- All wrapped in one task.spawn so locals don't overflow the main chunk
--- ============================================================
-getgenv().ZX_Notify = function() end  -- placeholder until spawn defines the real one
+getgenv().ZX_Notify = function() end
 
 task.spawn(function()
     local TweenService = game:GetService("TweenService")
     local Players = game:GetService("Players")
     local lp = Players.LocalPlayer
 
-    -- ============================================================
-    -- NOTIFICATION ANTI-SPAM SYSTEM
-    -- ============================================================
-    -- suppressNotifs = true  -> block all notifications (during loading)
-    -- lastNotifTime          -> cooldown tracker (0.35s between notifs)
+
+
+
+
+
     local suppressNotifs = true
     local lastNotifTime = 0
     local NOTIF_COOLDOWN = 0.35
 
-    -- ============================================================
-    -- 1. BUILD THE LOADING SCREEN (compact, centered, nothing out of bounds)
-    -- ============================================================
+
+
+
     pcall(function()
         local old = game.CoreGui:FindFirstChild("ZX_Load")
         if old then old:Destroy() end
@@ -64,7 +63,7 @@ task.spawn(function()
         loadGui.Parent = lp:WaitForChild("PlayerGui")
     end
 
-    -- Full-screen dark background
+
     local bg = Instance.new("Frame")
     bg.Size = UDim2.new(1, 0, 1, 0)
     bg.BackgroundColor3 = Color3.fromRGB(5, 2, 7)
@@ -80,14 +79,14 @@ task.spawn(function()
     bgGrad.Rotation = 90
     bgGrad.Parent = bg
 
-    -- Centered container (compact: 380 x 200)
+
     local box = Instance.new("Frame")
     box.Size = UDim2.new(0, 380, 0, 200)
     box.Position = UDim2.new(0.5, -190, 0.5, -100)
     box.BackgroundTransparency = 1
     box.Parent = bg
 
-    -- Glow behind emblem (fits within reasonable bounds)
+
     local glow = Instance.new("ImageLabel")
     glow.Size = UDim2.new(0, 500, 0, 180)
     glow.Position = UDim2.new(0.5, -250, 0, -10)
@@ -99,7 +98,7 @@ task.spawn(function()
     glow.SliceCenter = Rect.new(100, 100, 100, 100)
     glow.Parent = box
 
-    -- "ZX" emblem (centered, 72px - the iconic logo)
+
     local emblem = Instance.new("TextLabel")
     emblem.Size = UDim2.new(1, 0, 0, 72)
     emblem.Position = UDim2.new(0, 0, 0, 8)
@@ -121,7 +120,7 @@ task.spawn(function()
     emblemGrad.Rotation = 90
     emblemGrad.Parent = emblem
 
-    -- Title (Zythera-X below the "ZX" emblem)
+
     local title = Instance.new("TextLabel")
     title.Size = UDim2.new(1, 0, 0, 22)
     title.Position = UDim2.new(0, 0, 0, 82)
@@ -132,7 +131,7 @@ task.spawn(function()
     title.TextSize = 17
     title.Parent = box
 
-    -- Subtitle
+
     local subtitle = Instance.new("TextLabel")
     subtitle.Size = UDim2.new(1, 0, 0, 14)
     subtitle.Position = UDim2.new(0, 0, 0, 106)
@@ -143,7 +142,7 @@ task.spawn(function()
     subtitle.TextSize = 10
     subtitle.Parent = box
 
-    -- Decorative line
+
     local line = Instance.new("Frame")
     line.Size = UDim2.new(0, 140, 0, 1)
     line.Position = UDim2.new(0.5, -70, 0, 126)
@@ -158,7 +157,7 @@ task.spawn(function()
     lineGrad.Parent = line
     line.Parent = box
 
-    -- Progress bar background (320px wide, centered)
+
     local barBg = Instance.new("Frame")
     barBg.Size = UDim2.new(0, 320, 0, 4)
     barBg.Position = UDim2.new(0.5, -160, 0, 142)
@@ -169,7 +168,7 @@ task.spawn(function()
     barBgCorner.Parent = barBg
     barBg.Parent = box
 
-    -- Progress bar fill
+
     local barFill = Instance.new("Frame")
     barFill.Size = UDim2.new(0, 0, 1, 0)
     barFill.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
@@ -186,7 +185,7 @@ task.spawn(function()
     barFillGrad.Parent = barFill
     barFill.Parent = barBg
 
-    -- Percentage (CENTERED below bar, clean position)
+
     local pctLabel = Instance.new("TextLabel")
     pctLabel.Size = UDim2.new(1, 0, 0, 16)
     pctLabel.Position = UDim2.new(0, 0, 0, 152)
@@ -198,7 +197,7 @@ task.spawn(function()
     pctLabel.TextXAlignment = Enum.TextXAlignment.Center
     pctLabel.Parent = box
 
-    -- Status text (centered, below percentage)
+
     local statusText = Instance.new("TextLabel")
     statusText.Size = UDim2.new(1, 0, 0, 14)
     statusText.Position = UDim2.new(0, 0, 0, 172)
@@ -210,7 +209,7 @@ task.spawn(function()
     statusText.TextXAlignment = Enum.TextXAlignment.Center
     statusText.Parent = box
 
-    -- Skip button (bottom-right of FULL SCREEN)
+
     local skipBtn = Instance.new("TextButton")
     skipBtn.Size = UDim2.new(0, 72, 0, 22)
     skipBtn.Position = UDim2.new(1, -88, 1, -32)
@@ -230,7 +229,7 @@ task.spawn(function()
     skipStroke.Parent = skipBtn
     skipBtn.Parent = bg
 
-    -- Credits (bottom-left of full screen)
+
     local credits = Instance.new("TextLabel")
     credits.Size = UDim2.new(0, 250, 0, 12)
     credits.Position = UDim2.new(0, 16, 1, -24)
@@ -242,15 +241,15 @@ task.spawn(function()
     credits.TextXAlignment = Enum.TextXAlignment.Left
     credits.Parent = bg
 
-    -- ============================================================
-    -- 2. ANIMATIONS
-    -- ============================================================
+
+
+
     local skipped = false
     skipBtn.MouseButton1Click:Connect(function()
         skipped = true
     end)
 
-    -- Glow + emblem pulse
+
     task.spawn(function()
         while loadGui and loadGui.Parent and not skipped do
             local t = tick()
@@ -260,7 +259,7 @@ task.spawn(function()
         end
     end)
 
-    -- Ember particles (30 dots, contained within screen)
+
     local embers = {}
     for i = 1, 30 do
         local e = Instance.new("Frame")
@@ -307,9 +306,9 @@ task.spawn(function()
         end
     end)
 
-    -- ============================================================
-    -- 3. PROGRESS + HIDE HELPERS
-    -- ============================================================
+
+
+
     local function setProgress(pct, msg)
         if barFill then
             barFill.Size = UDim2.new(pct, 0, 1, 0)
@@ -324,7 +323,7 @@ task.spawn(function()
 
     local function hideLoadScreen()
         if not loadGui then return end
-        -- Fade out all elements simultaneously
+
         local tweens = {}
         local fadeInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
         for _, obj in ipairs({bg, emblem, title, subtitle, statusText, pctLabel, barFill, barBg, line, glow, skipBtn, credits}) do
@@ -338,7 +337,7 @@ task.spawn(function()
                 end
             end
         end
-        -- Fade out embers too
+
         for _, em in ipairs(embers) do
             if em.frame then
                 table.insert(tweens, TweenService:Create(em.frame, fadeInfo, {BackgroundTransparency = 1}))
@@ -350,9 +349,9 @@ task.spawn(function()
         loadGui = nil
     end
 
-    -- ============================================================
-    -- 4. NOTIFICATION SYSTEM (with anti-spam + smooth animations)
-    -- ============================================================
+
+
+
     pcall(function()
         local oldN = game.CoreGui:FindFirstChild("ZX_NotifGui")
         if oldN then oldN:Destroy() end
@@ -368,7 +367,7 @@ task.spawn(function()
     end
 
     local notifContainer = Instance.new("Frame")
-    -- Responsive: narrower on mobile
+
     local vw = workspace.CurrentCamera.ViewportSize.X
     local notifWidth = vw < 500 and 240 or 300
     notifContainer.Size = UDim2.new(0, notifWidth, 1, -50)
@@ -397,7 +396,7 @@ task.spawn(function()
     local function notify(title, message, notifType)
         notifType = notifType or "info"
 
-        -- ANTI-SPAM: block during loading + cooldown after each notif
+
         if suppressNotifs then return end
         if tick() - lastNotifTime < NOTIF_COOLDOWN then return end
         lastNotifTime = tick()
@@ -408,15 +407,15 @@ task.spawn(function()
         local notif = Instance.new("Frame")
         notif.Size = UDim2.new(1, 0, 0, 56)
         notif.BackgroundColor3 = preset.bg
-        notif.BackgroundTransparency = 1  -- start invisible
+        notif.BackgroundTransparency = 1
         notif.BorderSizePixel = 0
         notif.LayoutOrder = notifCounter
-        notif.Position = UDim2.new(1, 40, 0, 0)  -- start off-screen right
+        notif.Position = UDim2.new(1, 40, 0, 0)
         local corner = Instance.new("UICorner")
         corner.CornerRadius = UDim.new(0, 6)
         corner.Parent = notif
 
-        -- Accent bar (left side)
+
         local accentBar = Instance.new("Frame")
         accentBar.Size = UDim2.new(0, 3, 1, 0)
         accentBar.BackgroundColor3 = preset.accent
@@ -427,14 +426,14 @@ task.spawn(function()
         acCorner.Parent = accentBar
         accentBar.Parent = notif
 
-        -- Border glow stroke
+
         local stroke = Instance.new("UIStroke")
         stroke.Color = preset.accent
         stroke.Thickness = 1
         stroke.Transparency = 1
         stroke.Parent = notif
 
-        -- Icon circle
+
         local iconCircle = Instance.new("Frame")
         iconCircle.Size = UDim2.new(0, 24, 0, 24)
         iconCircle.Position = UDim2.new(0, 11, 0.5, -12)
@@ -456,7 +455,7 @@ task.spawn(function()
         iconLabel.TextTransparency = 1
         iconLabel.Parent = iconCircle
 
-        -- Title
+
         local titleLabel = Instance.new("TextLabel")
         titleLabel.Size = UDim2.new(1, -70, 0, 18)
         titleLabel.Position = UDim2.new(0, 44, 0, 7)
@@ -470,7 +469,7 @@ task.spawn(function()
         titleLabel.TextTransparency = 1
         titleLabel.Parent = notif
 
-        -- Message
+
         local msgLabel = Instance.new("TextLabel")
         msgLabel.Size = UDim2.new(1, -70, 0, 24)
         msgLabel.Position = UDim2.new(0, 44, 0, 25)
@@ -486,7 +485,7 @@ task.spawn(function()
         msgLabel.TextTransparency = 1
         msgLabel.Parent = notif
 
-        -- Close button
+
         local closeBtn = Instance.new("TextButton")
         closeBtn.Size = UDim2.new(0, 14, 0, 14)
         closeBtn.Position = UDim2.new(1, -18, 0, 5)
@@ -500,29 +499,29 @@ task.spawn(function()
 
         notif.Parent = notifContainer
 
-        -- ============================================================
-        -- ANIMATION: slide-in + fade-in + stroke glow
-        -- ============================================================
+
+
+
         local slideInfo = TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
         local fadeInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
-        -- Slide position from right to 0
+
         TweenService:Create(notif, slideInfo, {Position = UDim2.new(0, 0, 0, 0)}):Play()
-        -- Fade in background
+
         TweenService:Create(notif, fadeInfo, {BackgroundTransparency = 0.02}):Play()
-        -- Fade in accent bar
+
         TweenService:Create(accentBar, fadeInfo, {BackgroundTransparency = 0}):Play()
-        -- Fade in icon circle
+
         TweenService:Create(iconCircle, fadeInfo, {BackgroundTransparency = 0.85}):Play()
-        -- Fade in stroke (starts thick for glow, then thins)
+
         TweenService:Create(stroke, fadeInfo, {Transparency = 0.7}):Play()
-        -- Fade in text elements
+
         TweenService:Create(iconLabel, fadeInfo, {TextTransparency = 0}):Play()
         TweenService:Create(titleLabel, fadeInfo, {TextTransparency = 0}):Play()
         TweenService:Create(msgLabel, fadeInfo, {TextTransparency = 0}):Play()
         TweenService:Create(closeBtn, fadeInfo, {TextTransparency = 0}):Play()
 
-        -- Auto-dismiss after 3.5 seconds
+
         task.spawn(function()
             task.wait(3.5)
             if notif and notif.Parent then
@@ -555,12 +554,12 @@ task.spawn(function()
         end)
     end
 
-    -- Export notify globally (MakeTab hook calls this)
+
     getgenv().ZX_Notify = notify
 
-    -- ============================================================
-    -- 5. RUN THE LOADING SEQUENCE (5.4 seconds, skippable)
-    -- ============================================================
+
+
+
     local steps = {
         { 0.10, "Initializing core..." },
         { 0.22, "Loading services..." },
@@ -586,34 +585,17 @@ task.spawn(function()
         task.wait(0.3)
     end
 
-    -- Hide loading screen
+
     hideLoadScreen()
 
-    -- Enable notifications (anti-spam flag OFF)
+
     task.wait(0.3)
     suppressNotifs = false
 
-    -- Send welcome notification
+
     notify("Zythera-X Loaded", "Script ready. Toggle any feature to begin.", "success")
 end)
--- Script Content
--- ============================================================
--- ZYTHERA-X V3.9 (Epic Edition)
---   * Epic loading screen (7s, dark fantasy crimson theme)
---   * Professional notification system (auto-fires on toggle/button)
---   * Auto-notify hook wraps Library:MakeTab + AddToggle/AddButton/AddDropdown
---   * All V3.8.1 features preserved (HTTP fix, Tiro Hub backport, etc.)
---   * FIXED: game:HttpGet crashes on executors like "Ugc" -> added _ZX_HttpGet wrapper
---            that tries game:GetService("HttpService"):GetAsync -> request() -> syn.request
---   * Improved Hop() with 3x retry pattern + GetNewServer() helper
---   * Added Anti-reset toggle (auto-hop every 30 min) in Status tab
---   * Added Auto Sail Rough Sea + danger-zone dropdown in Event tab
---   * Added Distance Radius slider for nearest-mob farm in Farm tab
---   * Added Auto Relic Draco Trial [Beta] in Dojo tab (V3.7 already had it, confirmed preserved)
---   * Added Sea/Boat settings section (Lightning, NoClipRock, bulk skill toggles)
---   * Kept all V3.7 improvements (cached commF, throttled loops, consolidated tabs)
--- ============================================================
--- Cache all services at start for better performance
+
 local Services = setmetatable({}, {
     __index = function(self, serviceName)
         local service = game:GetService(serviceName)
@@ -622,15 +604,10 @@ local Services = setmetatable({}, {
     end
 })
 
--- ========================================
--- HTTP WRAPPER (V3.8.1 fix: game:HttpGet fails on many executors)
--- ========================================
--- Some executors (notably "Ugc" / older ones) do NOT expose game:HttpGet.
--- We fall back to: request() -> http_request -> syn.request -> http_get.
 local _ZX_HttpGet
 do
     local function pickRequestFn()
-        -- Most modern executors expose `request`
+
         if type(request) == "function" then return request end
         if type(http_request) == "function" then return http_request end
         if syn and type(syn.request) == "function" then return syn.request end
@@ -639,7 +616,7 @@ do
     end
 
     function _ZX_HttpGet(url)
-        -- Try native game:HttpGet first (only works on some executors)
+
         local ok, result = pcall(function()
             if game and type(game.GetService) == "function" then
                 local hs = game:GetService("HttpService")
@@ -653,7 +630,7 @@ do
             return result
         end
 
-        -- Fallback to executor-level request
+
         local reqFn = pickRequestFn()
         if reqFn then
             local ok2, resp = pcall(function()
@@ -664,7 +641,7 @@ do
                 })
             end)
             if ok2 and resp then
-                -- Different executors return different shapes
+
                 if type(resp) == "string" then return resp end
                 if type(resp.Body) == "string" then return resp.Body end
                 if type(resp.body) == "string" then return resp.body end
@@ -672,7 +649,7 @@ do
             end
         end
 
-        -- Last resort: HttpService:GetAsync (will work on Studio, may fail on exploit)
+
         local ok3, result3 = pcall(function()
             return game:GetService("HttpService"):GetAsync(url, false)
         end)
@@ -680,22 +657,19 @@ do
             return result3
         end
 
-        -- If everything failed, return empty string (so :gsub won't crash)
+
         warn("[ZytheraX] HTTP GET failed for: " .. tostring(url))
         return ""
     end
 end
 
--- ========================================
--- SAVE SYSTEM (Optimized)
--- ========================================
 local HttpService = Services.HttpService
 local FolderName = "Zythera-X"
 local FileName = "Settings.json"
 local FullPath = FolderName .. "/" .. FileName
 
-if makefolder and not isfolder(FolderName) then 
-    makefolder(FolderName) 
+if makefolder and not isfolder(FolderName) then
+    makefolder(FolderName)
 end
 
 _G.SaveData = _G.SaveData or {}
@@ -715,7 +689,7 @@ function LoadSettings()
         local content = readfile(FullPath)
         return HttpService:JSONDecode(content)
     end)
-    if success and result then 
+    if success and result then
         _G.SaveData = result
         return true
     end
@@ -728,9 +702,6 @@ end
 
 LoadSettings()
 
--- ========================================
--- AUTO KEN (Observation Haki)
--- ========================================
 local Players = Services.Players
 local CollectionService = Services.CollectionService
 local ReplicatedStorage = Services.ReplicatedStorage
@@ -739,7 +710,7 @@ local player = Players.LocalPlayer
 local commE = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("CommE")
 local commF = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("CommF_")
 
-_G.AutoKen = false -- [ZX-FIX] was hardcoded true - now requires toggle
+_G.AutoKen = false
 
 local function HasKen()
     local char = player.Character
@@ -757,9 +728,6 @@ task.spawn(function()
     end
 end)
 
--- ========================================
--- AUTO TEAM & LIGHTING
--- ========================================
 local desiredTeam = "Marines"
 
 if not player.Team or player.Team.Name ~= desiredTeam then
@@ -770,16 +738,12 @@ end
 
 local Lighting = Services.Lighting
 
--- Full bright (optimized lighting)
 Lighting.Ambient = Color3.new(0.695, 0.695, 0.695)
 Lighting.ColorShift_Bottom = Color3.new(0.695, 0.695, 0.695)
 Lighting.ColorShift_Top = Color3.new(0.695, 0.695, 0.695)
 Lighting.Brightness = 2
 Lighting.FogEnd = 1e10
 
--- ========================================
--- GLOBAL VARIABLES (Cached & Organized)
--- ========================================
 do
     ply = Services.Players
     plr = ply.LocalPlayer
@@ -796,14 +760,14 @@ do
     RunSer = Services.RunService
     Stats = Services.Stats
     Energy = plr.Character.Energy.Value
-    
-    -- Tables
+
+
     Boss = {}
     BringConnections = {}
     MaterialList = {}
     NPCList = {}
-    
-    -- Flags
+
+
     shouldTween = false
     SoulGuitar = false
     KenTest = true
@@ -816,13 +780,12 @@ do
     Num_self = 25
 end
 
--- Wait for game to load
 repeat
     local loading = plr.PlayerGui:FindFirstChild("Main")
     loading = loading and loading:FindFirstChild("Loading")
     task.wait()
 until game:IsLoaded() and not (loading and loading.Visible)
--- World Detection (Optimized)
+
 local placeId = game.PlaceId
 if placeId == 2753915549 or placeId == 85211729168715 then
     World1 = true
@@ -1022,7 +985,7 @@ pcall(function()
 end)
 pcall(function() hookfunction(error, function() end) end)
 pcall(function() hookfunction(warn, function() end) end)
--- Fix: Disable WaterCFrame LocalScript that uses deprecated BackTexture property
+
 pcall(function()
     local waterScript = game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChild("WaterCFrame")
     if waterScript then
@@ -1037,7 +1000,7 @@ InitLighting = (function()
     local I = game:GetService("Lighting");
     local e = I:FindFirstChild("LightingLayers");
 
-    -- DO NOT remove DarkFog
+
 
     local K = workspace._WorldOrigin["Foam;"];
     if K and workspace._WorldOrigin["Foam;"] then
@@ -1063,7 +1026,7 @@ G.Dist = function(I, e)
 G.DistH = function(I, e)
                 return (Root.Position - (I:FindFirstChild("HumanoidRootPart")).Position).Magnitude > e;
         end;
--- ADJUSTABLE SINGLE MOB HEIGHT
+
 _G.MobHeight = _G.MobHeight or 30
 _G.SaveData.BringMobs_Save = true
 _G.BringRadius = 200
@@ -1082,7 +1045,7 @@ G.Kill = function(I, e)
     local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
     if not root then return end
 
-    -- LOCK POSITION
+
     if not I:GetAttribute("Locked") then
         I:SetAttribute("Locked", hrp.CFrame)
     end
@@ -1091,7 +1054,7 @@ G.Kill = function(I, e)
     PosMon = centerCF.Position
     _B = true
 
-    -- ONLY RUN BRING IF ENABLED
+
     if _G.SaveData.BringMobs_Save then
         local mobs = {}
 
@@ -1137,14 +1100,14 @@ G.Kill = function(I, e)
         end
     end
 
-    -- KEEP ATTACK SYSTEM
+
     BringEnemy()
     EquipWeapon(_G.SelectWeapon)
 
     local tool = player.Character:FindFirstChildOfClass("Tool")
     if not tool then return end
 
-    -- TP above mob (single height)
+
     _tp(centerCF * CFrame.new(0, _G.MobHeight, 0))
 end
 G.Kill2 = function(I, e)
@@ -1219,7 +1182,7 @@ G.Sword = function(I, e)
                         end;
                 end;
         end;
--- FRUIT SKILLS CONTROL (MASTERY)
+
 _G.FruitSkills = {
     Z = false,
     X = false,
@@ -1306,150 +1269,132 @@ statsSetings = function(I, e)
                 end;
         end;
 
-
-
-
---==================================================
--- NECESSARY CONTROL VARIABLES
---==================================================
 _G = _G or {}
 
 _B = false
 PosMon = nil
 
 _G.BringRange = _G.BringRange or 250
-_G.MaxBringMobs = _G.MaxBringMobs or 15 -- MOB LIMIT
+_G.MaxBringMobs = _G.MaxBringMobs or 15
 
 _G.FarmPriorityElf = _G.FarmPriorityElf or false
 _G.FarmMastery_S   = _G.FarmMastery_S or false
 
 local TweenService = game:GetService("TweenService")
 local TweenInfoBring = TweenInfo.new(
-    0.50, -- tween speed
+    0.50,
     Enum.EasingStyle.Linear,
     Enum.EasingDirection.Out
 )
 
---==================================================
--- FUNCTION: CHECKS IF ANY FARM IS ACTIVE
---==================================================
 local function FarmAtivo()
-    -- ABSOLUTE PRIORITY (ELF)
+
     if _G.FarmPriorityElf or _G.FarmElfLevelCustom then
         return true
     end
 
-    -- AUTO MASTERY ALL SWORD (INDEPENDENT FROM START FARM)  
-    if _G.FarmMastery_S then  
-        return true  
-    end  
 
-    -- OTHER FARMS (DEPENDENT ON START FARM)  
+    if _G.FarmMastery_S then
+        return true
+    end
+
+
     return _G.StartFarm and (
-        _G.Level or  
-        _G.AutoFarm_Bone or  
-        _G.AutoFarm_Cake or  
-        _G.FarmMastery_Dev or  
-        _G.FarmMastery_G or  
-        (getgenv()).AutoMaterial or  
+        _G.Level or
+        _G.AutoFarm_Bone or
+        _G.AutoFarm_Cake or
+        _G.FarmMastery_Dev or
+        _G.FarmMastery_G or
+        (getgenv()).AutoMaterial or
         _G.AutoTyrant or
         _G.SailBoat_Hydra or _G.WardenBoss or _G.AutoFactory or _G.HighestMirage or _G.HCM or _G.PGB or _G.Leviathan1 or _G.UPGDrago or _G.Complete_Trials or _G.TpDrago_Prehis or _G.BuyDrago or _G.AutoFireFlowers or _G.DT_Uzoth or _G.AutoBerry or _G.Prehis_Find or _G.Prehis_Skills or _G.Prehis_DB or _G.Prehis_DE or _G.FarmBlazeEM or _G.Dojoo or _G.CollectPresent or _G.AutoLawKak or _G.TpLab or _G.AutoPhoenixF or _G.AutoFarmChest or _G.AutoHytHallow or _G.LongsWord or _G.BlackSpikey or _G.AutoHolyTorch or _G.TrainDrago or _G.AutoSaber or _G.FarmMastery_Dev or _G.CitizenQuest or _G.AutoEctoplasm or _G.KeysRen or _G.Auto_Rainbow_Haki or _G.obsFarm or _G.AutoBigmom or _G.Doughv2 or _G.AuraBoss or _G.Raiding or _G.Auto_Cavender or _G.TpPly or _G.Bartilo_Quest or _G.Level or _G.FarmEliteHunt or _G.AutoZou or _G.AutoFarm_Bone or (getgenv()).AutoMaterial or _G.CraftVM or _G.FrozenTP or _G.TPDoor or _G.AcientOne or _G.AutoFarmNear or _G.AutoRaidCastle or _G.DarkBladev3 or _G.AutoFarmRaid or _G.Auto_Cake_Prince or _G.Addealer or _G.TPNpc or _G.TwinHook or _G.FindMirage or _G.FarmChestM or _G.Shark or _G.TerrorShark or _G.Piranha or _G.MobCrew or _G.SeaBeast1 or _G.AutoAttackSeabeasts or _G.FishBoat or _G.Auto or _G.AutoPoleV2 or _G.Auto_SuperHuman or _G.AutoDeathStep or _G.Auto_SharkMan_Karate or _G.Auto_Electric_Claw or _G.AutoDragonTalon or _G.Auto_Def_DarkCoat or _G.Auto_God_Human or _G.Auto_Tushita or _G.AutoMatSoul or _G.AutoKenVTWO or _G.AutoSerpentBow or _G.AutoFMon or _G.Auto_Soul_Guitar or _G.TPGEAR or _G.AutoSaw or _G.AutoTridentW2 or _G.Auto_StartRaid or _G.AutoEvoRace or _G.AutoGetQuestBounty or _G.MarinesCoat or _G.TravelDres or _G.Defeating or _G.DummyMan or _G.Auto_Yama or _G.Auto_SwanGG or _G.SwanCoat or _G.AutoEcBoss or _G.Auto_Mink or _G.Auto_Human or _G.Auto_Skypiea or _G.Auto_Fish or _G.CDK_TS or _G.CDK_YM or _G.CDK or _G.AutoFarmGodChalice or _G.AutoFistDarkness or _G.AutoMiror or _G.Teleport or _G.AutoKilo or _G.AutoGetUsoap or _G.Praying or _G.TryLucky or _G.AutoColShad or _G.AutoUnHaki or _G.Auto_DonAcces or _G.AutoRipIngay or _G.DragoV3 or _G.DragoV1 or _G.SailBoats or NextIs or _G.FarmGodChalice or _G.IceBossRen or senth or senth2 or _G.Lvthan or _G.beasthunter or _G.DangerLV or _G.Relic123 or _G.tweenKitsune or _G.Collect_Ember or _G.AutofindKitIs or _G.snaguine or _G.TwFruits or _G.tweenKitShrine or _G.Tp_LgS or _G.Tp_MasterA or _G.tweenShrine or _G.SummonPrehistoricIsland or _G.SummonForzenDimension or _G.SummonKitsuneIsland or _G.TweenToPrehistoricIsland or _G.TweenToFrozenDimension or _G.TweenToKitsuneIsland or _G.TweenToMirageIsland or _G.AutoAttackMonDungeon or _G.AutoKillLavaGolem or _G.AutoFarmCandy or _G.FarmMastery_G or _G.FarmMastery_S
     )
 end
 
---==================================================
--- FUNCTION: IGNORE UNWANTED MOBS
---==================================================
 local function IsRaidMob(mob)
     local n = mob.Name:lower()
 
-    if n:find("raid") or n:find("microchip") or n:find("island") then  
-        return true  
-    end  
+    if n:find("raid") or n:find("microchip") or n:find("island") then
+        return true
+    end
 
-    if mob:GetAttribute("IsRaid")  
-        or mob:GetAttribute("RaidMob")  
-        or mob:GetAttribute("IsBoss") then  
-        return true  
-    end  
+    if mob:GetAttribute("IsRaid")
+        or mob:GetAttribute("RaidMob")
+        or mob:GetAttribute("IsBoss") then
+        return true
+    end
 
-    local hum = mob:FindFirstChild("Humanoid")  
-    if hum and hum.WalkSpeed == 0 then  
-        return true  
-    end  
+    local hum = mob:FindFirstChild("Humanoid")
+    if hum and hum.WalkSpeed == 0 then
+        return true
+    end
 
-    if mob.Parent and tostring(mob.Parent):lower():find("_worldorigin") then  
-        return true  
-    end  
+    if mob.Parent and tostring(mob.Parent):lower():find("_worldorigin") then
+        return true
+    end
 
     return false
 end
 
---==================================================
--- MAIN FUNCTION: BRING
---==================================================
 BringEnemy = function()
     if not FarmAtivo() or not _B then return end
 
-    local plr = game.Players.LocalPlayer  
-    local char = plr.Character  
-    local hrp = char and char:FindFirstChild("HumanoidRootPart")  
-    if not hrp then return end  
+    local plr = game.Players.LocalPlayer
+    local char = plr.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
 
-    -- Simulation Radius  
-    pcall(function()  
-        sethiddenproperty(plr, "SimulationRadius", math.huge)  
-    end)  
 
-    local targetPos = PosMon or hrp.Position  
-    local enemies = workspace.Enemies:GetChildren()  
-    local count = 0  
+    pcall(function()
+        sethiddenproperty(plr, "SimulationRadius", math.huge)
+    end)
 
-    for _, mob in ipairs(enemies) do  
-        if count >= _G.MaxBringMobs then break end  
+    local targetPos = PosMon or hrp.Position
+    local enemies = workspace.Enemies:GetChildren()
+    local count = 0
 
-        local hum = mob:FindFirstChild("Humanoid")  
-        local root = mob:FindFirstChild("HumanoidRootPart")  
+    for _, mob in ipairs(enemies) do
+        if count >= _G.MaxBringMobs then break end
 
-        if hum and root and hum.Health > 0 and not IsRaidMob(mob) then  
-            local dist = (root.Position - targetPos).Magnitude  
+        local hum = mob:FindFirstChild("Humanoid")
+        local root = mob:FindFirstChild("HumanoidRootPart")
 
-            if dist <= _G.BringRange and not root:GetAttribute("Tweening") then  
-                count = count + 2  
-                root:SetAttribute("Tweening", true)  
+        if hum and root and hum.Health > 0 and not IsRaidMob(mob) then
+            local dist = (root.Position - targetPos).Magnitude
 
-                local tween = TweenService:Create(  
-                    root,  
-                    TweenInfoBring,  
-                    { CFrame = CFrame.new(targetPos) }  
-                )  
+            if dist <= _G.BringRange and not root:GetAttribute("Tweening") then
+                count = count + 2
+                root:SetAttribute("Tweening", true)
 
-                tween:Play()  
-                tween.Completed:Once(function()  
-                    if root then  
-                        root:SetAttribute("Tweening", false)  
-                    end  
-                end)  
-            end  
-        end  
+                local tween = TweenService:Create(
+                    root,
+                    TweenInfoBring,
+                    { CFrame = CFrame.new(targetPos) }
+                )
+
+                tween:Play()
+                tween.Completed:Once(function()
+                    if root then
+                        root:SetAttribute("Tweening", false)
+                    end
+                end)
+            end
+        end
     end
 end
 
---==================================================
--- CONTROL LOOP
---==================================================
 task.spawn(function()
     while task.wait(1) do
         if FarmAtivo() then
             _B = true
             BringEnemy()
             task.wait(1)
-            _B = false  
-            task.wait(1)  
-        else  
-            _B = false  
-            task.wait(1)  
-        end  
+            _B = false
+            task.wait(1)
+        else
+            _B = false
+            task.wait(1)
+        end
     end
 end)
 Useskills = function(I, e)
@@ -1802,14 +1747,14 @@ getInfinity_Ability = function(I, e)
                         I.Value = math.huge;
                 end;
         end;
--- [V3.8] Improved Hop with 3x retry pattern + HTTP server-list fallback
+
 Hop = function()
     pcall(function()
         local Http = game:GetService("HttpService")
         local ServerBrowser = replicated:FindFirstChild("__ServerBrowser")
         local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
         local target = nil
-        -- Try HTTP first (fastest path)
+
         local success, data = pcall(function()
             return Http:JSONDecode(_ZX_HttpGet(url))
         end)
@@ -1821,7 +1766,7 @@ Hop = function()
                 end
             end
         end
-        -- Fallback to legacy __ServerBrowser paginated lookup
+
         if not target and ServerBrowser then
             for I = math.random(1, math.random(40, 75)), 100, 1 do
                 local e = ServerBrowser:InvokeServer(I)
@@ -1837,7 +1782,7 @@ Hop = function()
             end
         end
         if target and target.id then
-            -- 3x retry teleport pattern (Tiro Hub style)
+
             for _ = 1, 3 do
                 task.spawn(function()
                     pcall(function()
@@ -1853,7 +1798,6 @@ Hop = function()
     end)
 end;
 
--- [V3.8] GetNewServer helper - returns a random non-full server ID
 function GetNewServer()
     local Http = game:GetService("HttpService")
     local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
@@ -1886,6 +1830,7 @@ if M and M ~= C then
 end;
 
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 if C and C.Parent == workspace then
                         if shouldTween then
@@ -1901,7 +1846,8 @@ end);
 
 task.spawn(function()
         local I = game.Players.LocalPlayer;
-        repeat task.wait() until I.Character and I.Character.PrimaryPart;
+        local _charTimeout = 0
+        repeat task.wait(0.1) _charTimeout = _charTimeout + 1 until (I.Character and I.Character.PrimaryPart) or _charTimeout > 100
 
         C.CFrame = I.Character.PrimaryPart.CFrame;
 
@@ -1940,14 +1886,9 @@ task.spawn(function()
         end;
 end);
 
--- =======================
--- TWEEN ADJUSTED BY DISTANCE
--- =======================
-
--- [[ VARIABLES FOR YOUR INPUT ]] --
-getgenv().TweenSpeedFar = 180   -- was 370, slowed down for anti-bypass
-getgenv().TweenSpeedNear = 180  -- was 370, slowed down
-getgenv().TweenSpeedTravel = 100 -- was 170, slowed down
+getgenv().TweenSpeedFar = 180
+getgenv().TweenSpeedNear = 180
+getgenv().TweenSpeedTravel = 100
 
 _tp = function(I)
 local e = plr.Character;
@@ -1955,47 +1896,39 @@ if not e or not e:FindFirstChild("HumanoidRootPart") then
 return;
 end;
 
-local HRP = e.HumanoidRootPart;  
+local HRP = e.HumanoidRootPart;
 
--- Disable farm while tweening  
-shouldTween = true  
-getgenv().OnFarm = false  
+shouldTween = true
+getgenv().OnFarm = false
 
--- Ensure it is not anchored  
-if HRP.Anchored then  
-        HRP.Anchored = false  
-        task.wait()  
-end  
+if HRP.Anchored then
+        HRP.Anchored = false
+        task.wait()
+end
 
-local dist = (I.Position - HRP.Position).Magnitude  
+local dist = (I.Position - HRP.Position).Magnitude
 
--- ===============================  
---  IF WITHIN 15 STUDS → USE CLOSE SPEED
---  OTHERWISE → USE DEFAULT SPEED
--- ===============================  
 local speed = dist <= 15 and (getgenv().TweenSpeedNear or 370) or (getgenv().TweenSpeedFar or 370)
 
-local info = TweenInfo.new(dist / speed, Enum.EasingStyle.Linear)  
-local tween = game:GetService("TweenService"):Create(C, info, { CFrame = I })  
+local info = TweenInfo.new(dist / speed, Enum.EasingStyle.Linear)
+local tween = game:GetService("TweenService"):Create(C, info, { CFrame = I })
 
--- Caso esteja sentado  
-if e.Humanoid.Sit == true then  
-        C.CFrame = CFrame.new(C.Position.X, I.Y, C.Position.Z)  
-end  
+if e.Humanoid.Sit == true then
+        C.CFrame = CFrame.new(C.Position.X, I.Y, C.Position.Z)
+end
 
-tween:Play()  
+tween:Play()
 
--- Anti-freeze / control  
-task.spawn(function()  
-        while tween.PlaybackState == Enum.PlaybackState.Playing do  
-                if not shouldTween then  
-                        tween:Cancel()  
-                        break  
-                end  
-                task.wait(.1)  
-        end  
+task.spawn(function()
+        while tween.PlaybackState == Enum.PlaybackState.Playing do
+                if not shouldTween then
+                        tween:Cancel()
+                        break
+                end
+                task.wait(.1)
+        end
 
-        getgenv().OnFarm = true  
+        getgenv().OnFarm = true
 end)
 
 end
@@ -2007,7 +1940,6 @@ end
 notween = function(I)
 plr.Character.HumanoidRootPart.CFrame = I
 end
-
 
 function BTP(I)
         local e = game.Players.LocalPlayer;
@@ -2273,14 +2205,14 @@ QuestBeta = function()
         end;
 QuestCheck = function()
     local I = game.Players.LocalPlayer.Data.Level.Value
-    
-    -- [FIX] Clamp level within mission limit
+
+
     if World1 and I > 699 then
-        I = 650 -- Force Galley Captain mission (Lv 650)
+        I = 650
     end
-    
+
     if World2 and I > 1499 then
-        I = 1450 -- Force Water Fighter mission (Lv 1450)
+        I = 1450
     end
 
     if World1 then
@@ -2909,7 +2841,7 @@ elseif I == 1650 or I <= 1699 then
                         NameMon = "Serpent Hunter"
                         PosQ = CFrame.new(-16668.03,105.32,1568.60)
                         PosM = CFrame.new(-16645.64,163.09,1352.87)
-                elseif I >= 2575 and I <= 2599 then 
+                elseif I >= 2575 and I <= 2599 then
                         Mon = "Skull Slayer"
                         Qdata = 2
                         Qname = "TikiQuest3"
@@ -2925,7 +2857,7 @@ elseif I == 1650 or I <= 1699 then
                                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RF/SubmarineWorkerSpeak"):InvokeServer(unpack(args))
                                 return
                         end
-                        -- Code to execute ONLY if already on the island
+
                         Mon = "Reef Bandit"
                         Qdata = 1
                         Qname = "SubmergedQuest1"
@@ -2940,7 +2872,7 @@ elseif I == 1650 or I <= 1699 then
                                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RF/SubmarineWorkerSpeak"):InvokeServer(unpack(args))
                                 return
                         end
-                        -- Code to execute ONLY if already on the island
+
                         Mon = "Coral Pirate"
                         Qdata = 2
                         Qname = "SubmergedQuest1"
@@ -2955,7 +2887,7 @@ elseif I == 1650 or I <= 1699 then
                                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RF/SubmarineWorkerSpeak"):InvokeServer(unpack(args))
                                 return
                         end
-                        -- Code to execute ONLY if already on the island
+
                         Mon = "Sea Chanter"
                         Qdata = 1
                         Qname = "SubmergedQuest2"
@@ -2970,7 +2902,7 @@ elseif I == 1650 or I <= 1699 then
                                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RF/SubmarineWorkerSpeak"):InvokeServer(unpack(args))
                                 return
                         end
-                        -- Code to execute ONLY if already on the island
+
                         Mon = "Ocean Prophet"
                         Qdata = 2
                         Qname = "SubmergedQuest2"
@@ -2985,7 +2917,7 @@ elseif I == 1650 or I <= 1699 then
                                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RF/SubmarineWorkerSpeak"):InvokeServer(unpack(args))
                                 return
                         end
-                        -- Code to execute ONLY if already on the island
+
                         Mon = "High Disciple"
                         Qdata = 1
                         Qname = "SubmergedQuest3"
@@ -3000,7 +2932,7 @@ elseif I == 1650 or I <= 1699 then
                                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RF/SubmarineWorkerSpeak"):InvokeServer(unpack(args))
                                 return
                         end
-                        -- Code to execute ONLY if already on the island
+
                         Mon = "Grand Devotee"
                         Qdata = 2
                         Qname = "SubmergedQuest3"
@@ -3068,11 +3000,11 @@ MaterialMon = function()
         };
     MPos = CFrame.new(911.35827636719, 125.95812988281, 33159.5390625);
     SP = "Default";
-    -- Coordenada CORRIGIDA para a entrada do Navio Assombrado (Sea 2)
+
     local I = Vector3.new(923.21252441406, 126.9760055542, 32852.83203125);
-    
-    -- Check if you are far from the entrance. If so, request to enter.
-    shouldRequestEntrance(I, 1000); 
+
+
+    shouldRequestEntrance(I, 1000);
 
                         elseif SelectMaterial == "Mystic Droplet" then
                                 MMon = { "Water Fighter" };
@@ -3131,38 +3063,38 @@ QuestNeta = function()
                 };
         end;
                 local Library = (function()
-    -- Fetch xRedzLib from GitHub and apply dark water-gloss theme
+
     local libCode = _ZX_HttpGet("https://raw.githubusercontent.com/TurboLite/Script/refs/heads/main/xRedzLib.lua")
 
-    -- ========================================
-    -- THEME: Dark Water Gloss (Black + Deep Red)
-    -- ========================================
 
-    -- Patch 1: Bright green -> crimson red
+
+
+
+
     libCode = libCode:gsub("Color3%.fromRGB%(0, 255, 0%)", "Color3.fromRGB(200, 15, 15)")
-    -- Patch 2: Darker green -> dark blood red
+
     libCode = libCode:gsub("Color3%.fromRGB%(50, 150, 50%)", "Color3.fromRGB(140, 10, 10)")
-    -- Patch 3: Blue accent -> crimson
+
     libCode = libCode:gsub("Color3%.fromRGB%(40, 150, 255%)", "Color3.fromRGB(200, 15, 15)")
 
-    -- Patch 4: Light backgrounds -> deep dark/black
+
     libCode = libCode:gsub("Color3%.fromRGB%(30, 30, 30%)", "Color3.fromRGB(8, 8, 12)")
     libCode = libCode:gsub("Color3%.fromRGB%(25, 25, 25%)", "Color3.fromRGB(6, 6, 10)")
     libCode = libCode:gsub("Color3%.fromRGB%(20, 20, 20%)", "Color3.fromRGB(4, 4, 8)")
 
-    -- Patch 5: Mid-tone backgrounds -> darker
+
     libCode = libCode:gsub("Color3%.fromRGB%(40, 40, 40%)", "Color3.fromRGB(12, 12, 18)")
     libCode = libCode:gsub("Color3%.fromRGB%(35, 35, 35%)", "Color3.fromRGB(10, 10, 15)")
     libCode = libCode:gsub("Color3%.fromRGB%(45, 45, 45%)", "Color3.fromRGB(14, 14, 20)")
 
-    -- Patch 6: Sidebar / tab bar backgrounds
+
     libCode = libCode:gsub("Color3%.fromRGB%(15, 15, 15%)", "Color3.fromRGB(3, 3, 6)")
 
-    -- Patch 7: Hover/selection colors -> dark red tint
+
     libCode = libCode:gsub("Color3%.fromRGB%(50, 50, 50%)", "Color3.fromRGB(25, 8, 8)")
     libCode = libCode:gsub("Color3%.fromRGB%(60, 60, 60%)", "Color3.fromRGB(30, 10, 10)")
 
-    -- Patch 8: Text colors -> keep bright but with slight warmth
+
     libCode = libCode:gsub("Color3%.fromRGB%(200, 200, 200%)", "Color3.fromRGB(220, 215, 220)")
     libCode = libCode:gsub("Color3%.fromRGB%(150, 150, 150%)", "Color3.fromRGB(160, 155, 165)")
     libCode = libCode:gsub("Color3%.fromRGB%(100, 100, 100%)", "Color3.fromRGB(80, 70, 80)")
@@ -3174,11 +3106,6 @@ end)({Color = Color3.fromRGB(200, 15, 15)}):MakeWindow({
     SaveFolder = "zytherax.json"
 })
 
--- ============================================================
--- ZYTHERA-X | AUTO-NOTIFY HOOK
--- Wraps Library:MakeTab so every AddToggle/AddButton fires
--- a ZX_Notify when activated. No changes to original behavior.
--- ============================================================
 do
     local _origMakeTab = Library.MakeTab
     Library.MakeTab = function(self, opts)
@@ -3187,7 +3114,7 @@ do
 
         local tabName = (opts and opts.Title) or "Tab"
 
-        -- Wrap AddToggle
+
         local _origAddToggle = tab.AddToggle
         tab.AddToggle = function(t, toggleOpts)
             local origCallback = toggleOpts.Callback
@@ -3207,7 +3134,7 @@ do
             return _origAddToggle(t, toggleOpts)
         end
 
-        -- Wrap AddButton
+
         local _origAddButton = tab.AddButton
         tab.AddButton = function(t, btnOpts)
             local origCallback = btnOpts.Callback
@@ -3223,7 +3150,7 @@ do
             return _origAddButton(t, btnOpts)
         end
 
-        -- Wrap AddDropdown
+
         local _origAddDropdown = tab.AddDropdown
         tab.AddDropdown = function(t, ddOpts)
             local origCallback = ddOpts.Callback
@@ -3243,20 +3170,15 @@ do
     end
 end
 
--- ============================================================
--- ZYTHERA-X | MOBILE RESPONSIVE SCALING SYSTEM
--- ============================================================
--- Detects screen size and applies a UIScale to the main library UI
--- so it fits on mobile phones without getting cut off.
 do
     local camera = workspace.CurrentCamera
     local function getScale()
         local vp = camera.ViewportSize
         local w = vp.X
-        -- PC (>= 1200px): 1.0 scale
-        -- Tablet (700-1199px): 0.85
-        -- Large phone (500-699px): 0.75
-        -- Small phone (< 500px): 0.65
+
+
+
+
         if w >= 1200 then return 1.0
         elseif w >= 700 then return 0.85
         elseif w >= 500 then return 0.75
@@ -3264,14 +3186,14 @@ do
     end
 
     local function applyScaleToLibrary()
-        -- Find the xRedzLib ScreenGui in CoreGui
+
         local targetGui = nil
         pcall(function()
             for _, gui in ipairs(game.CoreGui:GetChildren()) do
                 if gui:IsA("ScreenGui") and gui.Name ~= "ControlGUI"
                    and gui.Name ~= "ZX_Load" and gui.Name ~= "ZX_NotifGui"
                    and gui.Name ~= "RobloxGui" then
-                    -- Check if this GUI has the library's main frame
+
                     local hasMain = false
                     for _, child in ipairs(gui:GetChildren()) do
                         if child:IsA("Frame") or child:IsA("ScrollingFrame") then
@@ -3288,17 +3210,17 @@ do
         end)
 
         if targetGui then
-            -- Remove existing UIScale if present
+
             local existing = targetGui:FindFirstChildOfClass("UIScale")
             if existing then existing:Destroy() end
 
-            -- Add new UIScale
+
             local scale = Instance.new("UIScale")
             scale.Name = "ZX_MobileScale"
             scale.Scale = getScale()
             scale.Parent = targetGui
 
-            -- Update on viewport change (rotation, resize)
+
             camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
                 if scale and scale.Parent then
                     scale.Scale = getScale()
@@ -3307,12 +3229,12 @@ do
         end
     end
 
-    -- Wait for the library UI to be built, then apply scale
+
     task.spawn(function()
-        -- Wait a moment for xRedzLib to finish building
+
         task.wait(0.5)
         applyScaleToLibrary()
-        -- Retry a few times in case the UI isn't ready yet
+
         for i = 1, 5 do
             task.wait(1)
             if not game.CoreGui:FindFirstChildOfClass("UIScale") then
@@ -3322,22 +3244,14 @@ do
     end)
 end
 
--- ========================================
--- CUSTOM UI: Water Gloss Background + Visual Enhancements
--- ========================================
-
--- Create ScreenGui with proper settings
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ControlGUI"
 screenGui.ResetOnSpawn = false
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = game.CoreGui
 
--- ========================================
--- TOGGLE BUTTON: Centered Dark Gloss with ZX
--- ========================================
 local toggleBtn = Instance.new("TextButton")
--- Smaller on mobile screens
+
 local _vw = workspace.CurrentCamera.ViewportSize.X
 local _btnSize = _vw < 500 and 42 or 55
 toggleBtn.Size = UDim2.new(0, _btnSize, 0, _btnSize)
@@ -3356,12 +3270,10 @@ toggleBtn.TextYAlignment = Enum.TextYAlignment.Center
 imageButton = toggleBtn
 toggleBtn.Parent = screenGui
 
--- Rounded corners (more rounded for premium look)
 local uiCorner = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0.4, 0)
 uiCorner.Parent = toggleBtn
 
--- Inner glow gradient (dark water effect)
 local btnGradient = Instance.new("UIGradient", toggleBtn)
 btnGradient.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0, Color3.fromRGB(18, 12, 22)),
@@ -3370,13 +3282,11 @@ btnGradient.Color = ColorSequence.new({
 })
 btnGradient.Rotation = 45
 
--- Crimson border with glow effect
 local uiStroke = Instance.new("UIStroke", toggleBtn)
 uiStroke.Thickness = 2
 uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 uiStroke.Color = Color3.fromRGB(200, 15, 15)
 
--- Pulsing glow animation for the toggle button
 local glowStroke = Instance.new("UIStroke", toggleBtn)
 glowStroke.Thickness = 4
 glowStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -3401,7 +3311,6 @@ task.spawn(function()
     end
 end)
 
--- Hover effect for toggle button
 toggleBtn.MouseEnter:Connect(function()
     pcall(function()
         game:GetService("TweenService"):Create(toggleBtn, TweenInfo.new(0.2), {
@@ -3424,13 +3333,12 @@ toggleBtn.MouseLeave:Connect(function()
 end)
 
 do
--- Variables for dragging
+
 local dragging = false
 local dragInput
 local dragStart
 local startPos
 
--- Function to update position
 local function update(input)
     local delta = input.Position - dragStart
     imageButton.Position = UDim2.new(
@@ -3441,13 +3349,12 @@ local function update(input)
     )
 end
 
--- Detect drag start
 imageButton.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true
         dragStart = input.Position
         startPos = imageButton.Position
-        
+
         input.Changed:Connect(function()
             if input.UserInputState == Enum.UserInputState.End then
                 dragging = false
@@ -3456,32 +3363,29 @@ imageButton.InputBegan:Connect(function(input)
     end
 end)
 
--- Detectar movimento do mouse
 imageButton.InputChanged:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
         dragInput = input
     end
 end)
 
--- Update position during drag
 game:GetService("UserInputService").InputChanged:Connect(function(input)
     if dragging and input == dragInput then
         update(input)
     end
 end)
 
--- Abrir/Fechar GUI (Minimize)
 local isOpen = true
-local _zxToggled = false -- debounce to prevent drag from eating click
+local _zxToggled = false
 imageButton.MouseButton1Click:Connect(function()
     if _zxToggled then return end
     _zxToggled = true
     task.delay(0.1, function() _zxToggled = false end)
-    
+
     pcall(function()
         isOpen = not isOpen
-        -- xRedzLib names the window "Hub" (NOT "Main")
-        -- Search CoreGui for the library's ScreenGui and toggle the Hub frame
+
+
         local coreGui = game:GetService("CoreGui")
         for _, gui in pairs(coreGui:GetChildren()) do
             if gui:IsA("ScreenGui") then
@@ -3492,7 +3396,7 @@ imageButton.MouseButton1Click:Connect(function()
                 end
             end
         end
-        -- Also check PlayerGui
+
         for _, gui in pairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
             if gui:IsA("ScreenGui") then
                 for _, child in pairs(gui:GetChildren()) do
@@ -3505,22 +3409,19 @@ imageButton.MouseButton1Click:Connect(function()
     end)
 end)
 
-end -- drag setup
+end
 
--- ========================================
--- WATER GLOSS BACKGROUND EFFECT ON MAIN WINDOW
--- ========================================
 task.spawn(function()
-    task.wait(2) -- Wait for library to fully render
+    task.wait(2)
     pcall(function()
         local coreGui = game:GetService("CoreGui")
         local tweenService = game:GetService("TweenService")
 
-        -- Find ONLY the xRedzLib ScreenGui (skip ControlGUI, Roblox GUIs, and other game UIs)
+
         local libGui = nil
         for _, gui in pairs(coreGui:GetChildren()) do
             if gui:IsA("ScreenGui") and gui.Name ~= "ControlGUI" and gui.Name ~= "RobloxGui" and gui.Name ~= "TopBar" then
-                -- Check if this ScreenGui contains xRedzLib elements (has a "Main" frame)
+
                 local hasMain = false
                 for _, child in pairs(gui:GetChildren()) do
                     if child:IsA("Frame") and child.Name == "Main" then
@@ -3536,10 +3437,10 @@ task.spawn(function()
         end
 
         if libGui then
-        -- Apply water gloss effect to the main frame ONLY inside the library GUI
+
         for _, frame in pairs(libGui:GetDescendants()) do
             if frame:IsA("Frame") and frame.Name == "Main" then
-                        -- Dark water gradient background
+
                         local waterGradient = Instance.new("UIGradient", frame)
                         waterGradient.Name = "ZX_WaterGradient"
                         waterGradient.Color = ColorSequence.new({
@@ -3551,7 +3452,7 @@ task.spawn(function()
                         })
                         waterGradient.Rotation = 135
 
-                        -- Subtle animated water shimmer
+
                         task.spawn(function()
                             while task.wait(3) do
                                 pcall(function()
@@ -3569,11 +3470,11 @@ task.spawn(function()
                                 end)
                             end
                         end)
-                        break -- Only apply to the first matching frame
+                        break
                     end
                 end
 
-                -- Apply gradient to frames inside the library GUI only for water-gloss consistency
+
                 for _, frame in pairs(libGui:GetDescendants()) do
                     if frame:IsA("Frame") and not frame:FindFirstChild("ZX_WaterGradient") and frame.BackgroundTransparency < 0.5 then
                         local waterGrad = Instance.new("UIGradient", frame)
@@ -3587,7 +3488,7 @@ task.spawn(function()
                     end
                 end
 
-                -- Add glow border to frames inside library GUI only
+
                 for _, frame in pairs(libGui:GetDescendants()) do
                     if frame:IsA("Frame") and frame:FindFirstChild("ZX_WaterGradient") then
                         local borderStroke = Instance.new("UIStroke", frame)
@@ -3616,7 +3517,7 @@ task.spawn(function()
                     end
                 end
 
-        end -- if libGui
+        end
     end)
 end)
 
@@ -3933,8 +3834,9 @@ Shop:AddButton({
         local targetPosition = Vector3.new(5814.42724609375, 1208.3267822265625, 884.5785522460938)
         local player = game.Players.LocalPlayer
         local character = player.Character or player.CharacterAdded:Wait()
-        repeat task.wait()
-        until (character.HumanoidRootPart.Position - targetPosition).Magnitude < 1
+        local _tpTimeout = 0
+        repeat task.wait(0.1) _tpTimeout = _tpTimeout + 1
+        until (character.HumanoidRootPart.Position - targetPosition).Magnitude < 1 or _tpTimeout > 50
         local args = {
             [1] = {
                 ["NPC"] = "Dragon Wizard",
@@ -3985,6 +3887,7 @@ function UpdateOS()
     Time:SetDesc(datetime .. " - " .. timezone .. " [ " .. code .. " ]")
 end
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         UpdateOS()
         game:GetService("RunService").RenderStepped:Wait()
@@ -4002,6 +3905,7 @@ function UpdateTime()
     Timmessss:SetDesc(Hour .. " Hour (h) " ..Minute .. " Minute (m) " ..Second .. " Second (s) ")
 end
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         UpdateTime()
         task.wait()
@@ -4072,6 +3976,7 @@ local MobCakePrince = Status:AddParagraph({
     Desc = ""
 })
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
             local response = commF:InvokeServer("CakePrinceSpawner")
@@ -4108,9 +4013,10 @@ local CheckRip = Status:AddParagraph({
     Desc = "Status: "
 })
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
-            if game:GetService("ReplicatedStorage"):FindFirstChild("rip_indra True Form") 
+            if game:GetService("ReplicatedStorage"):FindFirstChild("rip_indra True Form")
             or game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") then
                 CheckRip:SetDesc("Status : ✅️")
             else
@@ -4124,9 +4030,10 @@ local CheckDoughKing = Status:AddParagraph({
     Desc = "Status: "
 })
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
-            if game:GetService("ReplicatedStorage"):FindFirstChild("Dough King") 
+            if game:GetService("ReplicatedStorage"):FindFirstChild("Dough King")
             or game:GetService("Workspace").Enemies:FindFirstChild("Dough King") then
                 CheckDoughKing:SetDesc("Status : ✅️")
             else
@@ -4140,6 +4047,7 @@ local EliteHunter = Status:AddParagraph({
     Desc = "Status: "
 })
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
             local rs = game:GetService("ReplicatedStorage")
@@ -4159,6 +4067,7 @@ local Pullever = Status:AddParagraph({
     Desc = "Status: "
 })
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
             if commF:InvokeServer("CheckTempleDoor") then
@@ -4174,6 +4083,7 @@ local FM = Status:AddParagraph({
     Desc = ""
 })
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
             local moonId = game:GetService("Lighting").Sky.MoonTextureId
@@ -4297,7 +4207,6 @@ Status:AddButton({
     end
 })
 
--- [V3.8] Anti-reset toggle (auto-hop every 30 min)
 _G.AutoRejoin30m = false
 local RejoinRunning = false
 Status:AddToggle({
@@ -4310,7 +4219,7 @@ Status:AddToggle({
             RejoinRunning = true
             task.spawn(function()
                 while _G.AutoRejoin30m do
-                    task.wait(1800) -- 30 minutes
+                    task.wait(1800)
                     if not _G.AutoRejoin30m then break end
                     local NewServer = GetNewServer()
                     if NewServer then
@@ -4324,7 +4233,6 @@ Status:AddToggle({
         end
     end,
 })
-
 
 Farm:AddSection({"Local Main"})
 
@@ -4352,51 +4260,42 @@ task.spawn(function()
         end)
     end
 end)
--- VARIAVEIS GLOBAIS
+
 _G.SelectedFarmMode = "Level"
 _G.StartFarm = false
 _G.Level = false
 _G.AutoFarm_Bone = false
 _G.AutoFarm_Cake = false
-_G.AutoTyrant = false -- Adicionado
+_G.AutoTyrant = false
 _G.AcceptQuest = false
 
--- Variable to store the Level Farm mob
 local CurrentMobLevel = nil
 local CurrentMobLevelSystem = nil
 
--- Set the distance limit for conditional teleport (in studs)
-local TELEPORT_DISTANCE_THRESHOLD = 15 
+local TELEPORT_DISTANCE_THRESHOLD = 15
 
--- Helper function for conditional teleport
 local function TeleportConditional(hrp, targetCFrame, threshold)
     if not hrp or not targetCFrame then return end
-    
-    local dist = (targetCFrame.Position - hrp.Position).Magnitude  
-    if dist > threshold then  
-        _tp(targetCFrame)  
+
+    local dist = (targetCFrame.Position - hrp.Position).Magnitude
+    if dist > threshold then
+        _tp(targetCFrame)
     end
 end
 
----
-
-----------------------------------------------------------------------------
--- 1. UI: DROPDOWN + TOGGLES (Place this in your UI section)
-----------------------------------------------------------------------------
 Farm:AddToggle({
         Name = "Super Attack",
         Description = "Attack super fast",
-        -- 1. Load saved state or start as true (original default)
+
         Default = GetSetting("AutoAttack_Save", true),
         Callback = function(I)
                 _G.Seriality = I
-        -- 2. Salva
+
         _G.SaveData["AutoAttack_Save"] = I
         SaveSettings()
         end,
 })
 
--- [ZX-MOVED] Bring Mob and Fps Fix Lag moved to Setting tab
 local V5 = game.Players.LocalPlayer;
 local function y5(I)
         if not I then
@@ -4426,22 +4325,22 @@ Farm:AddToggle({
     Callback = function(v)
         _G.StartFarm = v
 
-        -- Full reset of control variables to avoid conflicts
-        _G.Level = false  
-        _G.AutoFarm_Bone = false  
-        _G.AutoFarm_Cake = false  
-        _G.AutoTyrant = false 
 
-        if v then  
-            if _G.SelectedFarmMode == "Level" then  
-                _G.Level = true  
-            elseif _G.SelectedFarmMode == "Bone" then  
-                _G.AutoFarm_Bone = true  
-            elseif _G.SelectedFarmMode == "Cake Prince" then  
-                _G.AutoFarm_Cake = true  
-            elseif _G.SelectedFarmMode == "Tyrant Of The Skies" then  
-                _G.AutoTyrant = true -- Enable Tyrant logic
-            end  
+        _G.Level = false
+        _G.AutoFarm_Bone = false
+        _G.AutoFarm_Cake = false
+        _G.AutoTyrant = false
+
+        if v then
+            if _G.SelectedFarmMode == "Level" then
+                _G.Level = true
+            elseif _G.SelectedFarmMode == "Bone" then
+                _G.AutoFarm_Bone = true
+            elseif _G.SelectedFarmMode == "Cake Prince" then
+                _G.AutoFarm_Cake = true
+            elseif _G.SelectedFarmMode == "Tyrant Of The Skies" then
+                _G.AutoTyrant = true
+            end
         end
 
         _G.SaveData["StartFarm_Save"] = v
@@ -4460,14 +4359,8 @@ Farm:AddToggle({
     end
 })
 
-----------------------------------------------------------------------------
--- 2. TYRANT LOGIC (FARM, QUESTS AND BOSS)
-----------------------------------------------------------------------------
+local FarmHeight = 30
 
--- Settings
-local FarmHeight = 30 -- Safe height to avoid glitching on mob
-
--- Reinforced NoClip (To avoid getting stuck on walls/mobs)
 task.spawn(function()
     game:GetService("RunService").Stepped:Connect(function()
         if _G.AutoTyrant and _G.StartFarm then
@@ -4479,19 +4372,18 @@ task.spawn(function()
                     end
                 end
                 if char:FindFirstChild("Humanoid") then
-                    char.Humanoid.AutoRotate = true 
-                    char.Humanoid:ChangeState(11) 
+                    char.Humanoid.AutoRotate = true
+                    char.Humanoid:ChangeState(11)
                 end
             end
         end
     end)
 end)
 
--- Magic Function: Selects the exact Mob/Quest by Level
 local function GetTargetByLevel()
     local myLevel = game.Players.LocalPlayer.Data.Level.Value
-    
--- [LEVEL 2575+] SKULL SLAYER
+
+
 if myLevel >= 2575 then
     return {
         Name = "Skull Slayer",
@@ -4505,7 +4397,6 @@ if myLevel >= 2575 then
         FarmPos = CFrame.new(-16709.49, 419.68, 1751.09)
     }
 
--- [LEVEL 2551 - 2574] SERPENT HUNTER
 elseif myLevel > 2550 then
     return {
         Name = "Serpent Hunter",
@@ -4519,7 +4410,6 @@ elseif myLevel > 2550 then
         FarmPos = CFrame.new(-16645.64, 163.09, 1352.87)
     }
 
--- [LEVEL 2525 - 2550] ISLE CHAMPION
 elseif myLevel >= 2525 then
     return {
         Name = "Isle Champion",
@@ -4533,7 +4423,6 @@ elseif myLevel >= 2525 then
         FarmPos = CFrame.new(-16602.1015625, 130.38734436035, 1087.2456054688)
     }
 
--- [LEVEL 2500 - 2524] SUN-KISSED WARRIOR
 elseif myLevel >= 2500 then
     return {
         Name = "Sun-kissed Warrior",
@@ -4547,7 +4436,6 @@ elseif myLevel >= 2500 then
         FarmPos = CFrame.new(-16347, 64, 984)
     }
 
--- [LEVEL 2475 - 2499] ISLAND BOY
 elseif myLevel >= 2475 then
     return {
         Name = "Island Boy",
@@ -4561,7 +4449,6 @@ elseif myLevel >= 2475 then
         FarmPos = CFrame.new(-16670, 43, -270)
     }
 
--- [LEVEL < 2475] ISLE OUTLAW
 else
     return {
         Name = "Isle Outlaw",
@@ -4577,7 +4464,6 @@ else
 end
 end
 
--- Verifica quantos "Olhos" (Vasos) foram quebrados
 local function GetEyesCount()
     local model = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("TikiOutpost") and workspace.Map.TikiOutpost:FindFirstChild("IslandModel")
     local count = 0
@@ -4595,7 +4481,6 @@ local function GetEyesCount()
     return count
 end
 
--- Usa skills para quebrar os vasos
 local function UseAllCategorySkills()
     local VirtualInputManager = game:GetService("VirtualInputManager")
     local VirtualUser = game:GetService("VirtualUser")
@@ -4628,25 +4513,24 @@ local function UseAllCategorySkills()
                     task.wait(0.05)
                     VirtualInputManager:SendKeyEvent(false, skillKey, false, game)
                 end
-                task.wait(0.1) 
+                task.wait(0.1)
             end
         end
     end
 end
 
--- LOOP PRINCIPAL DO FARM
 task.spawn(function()
-    local VaseIndex = 1 -- Index to control which vase to attack
-    
+    local VaseIndex = 1
+
     while task.wait() do
-        -- Only runs if the toggle is active AND the mode is Tyrant
+
         if _G.AutoTyrant and _G.StartFarm then
             pcall(function()
                 local plr = game.Players.LocalPlayer
                 local boss = workspace.Enemies:FindFirstChild("Tyrant of the Skies")
                 local eyes = GetEyesCount()
 
-                -- [PRIORIDADE 1] MATAR BOSS
+
                 if boss and boss.Humanoid.Health > 0 then
                     _tp(boss.HumanoidRootPart.CFrame * CFrame.new(0, FarmHeight, 0))
                     repeat task.wait()
@@ -4659,7 +4543,7 @@ task.spawn(function()
                         end
                     until not boss.Parent or boss.Humanoid.Health <= 0 or not _G.StartFarm or not _G.AutoTyrant
 
-                -- [PRIORITY 2] BREAK 4 VASES TO SUMMON
+
                 elseif eyes == 4 then
                     local targetsty = {
                         CFrame.new(-16335.1, 158.1, 1465.6), CFrame.new(-16288.6, 158.1, 1470.3),
@@ -4667,23 +4551,23 @@ task.spawn(function()
                         CFrame.new(-16335.0, 159.3, 1324.8), CFrame.new(-16286.0, 155.9, 1323.8),
                         CFrame.new(-16250.3, 159.3, 1316.3)
                     }
-                    
-                    -- FIX: Uses VaseIndex to cycle through vases instead of resetting the loop
+
+
                     local pos = targetsty[VaseIndex]
-                    
+
                     if pos then
                         _tp(pos)
-                        
+
                         local char = plr.Character
                         if char and char:FindFirstChild("HumanoidRootPart") then
-                            -- Only attacks if close enough
+
                             if (char.HumanoidRootPart.Position - pos.Position).Magnitude < 15 then
                                 char.HumanoidRootPart.Anchored = true
                                 UseAllCategorySkills()
-                                task.wait(0.1) 
+                                task.wait(0.1)
                                 char.HumanoidRootPart.Anchored = false
-                                
-                                -- Move to next vase
+
+
                                 VaseIndex = VaseIndex + 1
                                 if VaseIndex > #targetsty then
                                     VaseIndex = 1
@@ -4692,18 +4576,18 @@ task.spawn(function()
                         end
                     end
 
-                -- [PRIORITY 3] NORMAL FARM (ALL MOBS + QUEST)
+
                 else
-                    local TargetData = GetTargetByLevel() 
+                    local TargetData = GetTargetByLevel()
                     local QuestUI = plr.PlayerGui.Main.Quest
                     local hasQuest = QuestUI.Visible
 
-                    -- A. PEGAR QUEST 
+
                     if _G.AcceptQuest and not hasQuest then
                         local char = plr.Character
                         if char and char:FindFirstChild("HumanoidRootPart") then
                             local distToNPC = (char.HumanoidRootPart.Position - TargetData.QuestPos.Position).Magnitude
-                            
+
                             if distToNPC <= 3 then
                                 char.HumanoidRootPart.CFrame = TargetData.QuestPos
                                 task.wait(0.1)
@@ -4713,18 +4597,18 @@ task.spawn(function()
                                 _tp(TargetData.QuestPos)
                             end
                         end
-                    
-                    -- B. MATAR MOBS
+
+
                     else
                         local char = plr.Character or plr.CharacterAdded:Wait()
                         local hrp = char:WaitForChild("HumanoidRootPart", 1)
 
-                        if hrp then 
+                        if hrp then
                             local closestEnemy = nil
-                            local shortestDistance = math.huge 
+                            local shortestDistance = math.huge
 
                             local AllMobs = {"Skull Slayer", "Serpent Hunter", "Isle Champion", "Sun-kissed Warrior", "Island Boy", "Isle Outlaw"}
-                            
+
                             for _, v in pairs(workspace.Enemies:GetChildren()) do
                                 if table.find(AllMobs, v.Name) and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") then
                                     local distance = (hrp.Position - v.HumanoidRootPart.Position).Magnitude
@@ -4737,7 +4621,7 @@ task.spawn(function()
 
                             if closestEnemy then
                                 local enemyPos = closestEnemy.HumanoidRootPart.CFrame
-                                _tp(enemyPos * CFrame.new(0, FarmHeight, 0)) 
+                                _tp(enemyPos * CFrame.new(0, FarmHeight, 0))
                                 EquipWeapon(_G.SelectWeapon)
                                 G.Kill(closestEnemy, true)
                             else
@@ -4751,80 +4635,72 @@ task.spawn(function()
     end
 end)
 
-
-
-
-
--- 3. SISTEMA BONE FARM (CORRIGIDO)
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         if _G.AutoFarm_Bone and _G.StartFarm then
             pcall(function()
-                local plr = game.Players.LocalPlayer  
-                local hrp = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")  
-                if not hrp then return end  
-                
-                local QuestUI = plr.PlayerGui.Main.Quest      
-                local MOBS = {"Reborn Skeleton", "Living Zombie", "Demonic Soul", "Posessed Mummy"}
-                local npcPos = CFrame.new(-9516.99, 172.01, 6078.46) -- Bones NPC position
+                local plr = game.Players.LocalPlayer
+                local hrp = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+                if not hrp then return end
 
-                -- [PASSO 1] SE PRECISAR DE QUEST, VAI AO NPC PRIMEIRO
-                if _G.AcceptQuest and not QuestUI.Visible then      
+                local QuestUI = plr.PlayerGui.Main.Quest
+                local MOBS = {"Reborn Skeleton", "Living Zombie", "Demonic Soul", "Posessed Mummy"}
+                local npcPos = CFrame.new(-9516.99, 172.01, 6078.46)
+
+
+                if _G.AcceptQuest and not QuestUI.Visible then
                     local distToNPC = (npcPos.Position - hrp.Position).Magnitude
-                    
+
                     if distToNPC > 10 then
-                        _tp(npcPos) -- Teleporta direto para o NPC
+                        _tp(npcPos)
                     else
-                        -- Se estiver perto, tenta pegar a quest
+
                         task.wait(0.1)
                         local quests = {
-                            {"StartQuest","HauntedQuest1",1}, 
+                            {"StartQuest","HauntedQuest1",1},
                             {"StartQuest","HauntedQuest1",2},
-                            {"StartQuest","HauntedQuest2",1}, 
+                            {"StartQuest","HauntedQuest2",1},
                             {"StartQuest","HauntedQuest2",2}
                         }
-                        -- Try to get quest based on your level (optional: left random as in your original)
+
                         commF:InvokeServer(unpack(quests[math.random(1,#quests)]))
-                        task.wait(1) -- Espera a quest carregar na UI
+                        task.wait(1)
                     end
 
-                -- [STEP 2] IF ALREADY HAS QUEST OR DOESN'T WANT TO ACCEPT, GO FARM
-                else
-                    local function GetClosestMob()      
-                        local closest, shortest = nil, math.huge      
-                        for _, mobName in pairs(MOBS) do      
-                            for _, mob in pairs(workspace.Enemies:GetChildren()) do      
-                                if mob.Name == mobName and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then      
-                                    local dist = (mob.PrimaryPart.Position - hrp.Position).Magnitude      
-                                    if dist < shortest then 
-                                        shortest = dist 
-                                        closest = mob 
-                                    end      
-                                end      
-                            end      
-                        end      
-                        return closest      
-                    end      
 
-                    local mob = GetClosestMob()      
-                    if mob then      
-                        -- Teleporta para o mob e mata
-                        _tp(mob.PrimaryPart.CFrame)      
+                else
+                    local function GetClosestMob()
+                        local closest, shortest = nil, math.huge
+                        for _, mobName in pairs(MOBS) do
+                            for _, mob in pairs(workspace.Enemies:GetChildren()) do
+                                if mob.Name == mobName and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then
+                                    local dist = (mob.PrimaryPart.Position - hrp.Position).Magnitude
+                                    if dist < shortest then
+                                        shortest = dist
+                                        closest = mob
+                                    end
+                                end
+                            end
+                        end
+                        return closest
+                    end
+
+                    local mob = GetClosestMob()
+                    if mob then
+
+                        _tp(mob.PrimaryPart.CFrame)
                         EquipWeapon(_G.SelectWeapon)
                         G.Kill(mob, true)
-                    else      
-                        -- If no mobs found, go to their spawn spot
-                        _tp(CFrame.new(-9495.68, 453.58, 5977.34))      
-                    end      
+                    else
+
+                        _tp(CFrame.new(-9495.68, 453.58, 5977.34))
+                    end
                 end
-            end)  
-        end  
+            end)
+        end
     end
 end)
-
----
-
--- 4. SISTEMA LEVEL FARM
 
 local CurrentMob = nil
 
@@ -4832,129 +4708,124 @@ local function GetNearestMob(TargetName)
     local plr = game.Players.LocalPlayer
     local Root = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
     if not Root then return nil end
-    local Closest, Dist = nil, math.huge    
-    for _, Mob in pairs(workspace.Enemies:GetChildren()) do    
-        if G.Alive(Mob) and Mob.Name == TargetName and Mob:FindFirstChild("HumanoidRootPart") then    
-            local d = (Mob.HumanoidRootPart.Position - Root.Position).Magnitude    
-            if d < Dist then Dist = d Closest = Mob end    
-        end    
-    end  
+    local Closest, Dist = nil, math.huge
+    for _, Mob in pairs(workspace.Enemies:GetChildren()) do
+        if G.Alive(Mob) and Mob.Name == TargetName and Mob:FindFirstChild("HumanoidRootPart") then
+            local d = (Mob.HumanoidRootPart.Position - Root.Position).Magnitude
+            if d < Dist then Dist = d Closest = Mob end
+        end
+    end
     return Closest
 end
 
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         if _G.Level and _G.StartFarm then
             pcall(function()
-                local plr = game.Players.LocalPlayer  
-                local Root = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")  
-                if not Root then return end  
-                local QuestTitle = plr.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text      
-                local Q = QuestNeta()  
-                if not string.find(QuestTitle, Q[5]) then commF:InvokeServer("AbandonQuest") end      
-                if not plr.PlayerGui.Main.Quest.Visible then      
-                    TeleportConditional(Root, Q[6], TELEPORT_DISTANCE_THRESHOLD)      
-                    if (Root.Position - Q[6].Position).Magnitude <= 50 then      
-                        task.wait(1.9)  
-                        commF:InvokeServer("StartQuest", Q[3], Q[2])      
-                    end      
-                    return      
-                end      
-                local Nearest = GetNearestMob(Q[1])  
-                if CurrentMob and G.Alive(CurrentMob) and CurrentMob.Parent then      
-                    G.Kill(CurrentMob, true)      
-                    return      
-                else CurrentMob = nil end      
+                local plr = game.Players.LocalPlayer
+                local Root = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+                if not Root then return end
+                local QuestTitle = plr.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
+                local Q = QuestNeta()
+                if not string.find(QuestTitle, Q[5]) then commF:InvokeServer("AbandonQuest") end
+                if not plr.PlayerGui.Main.Quest.Visible then
+                    TeleportConditional(Root, Q[6], TELEPORT_DISTANCE_THRESHOLD)
+                    if (Root.Position - Q[6].Position).Magnitude <= 50 then
+                        task.wait(1.9)
+                        commF:InvokeServer("StartQuest", Q[3], Q[2])
+                    end
+                    return
+                end
+                local Nearest = GetNearestMob(Q[1])
+                if CurrentMob and G.Alive(CurrentMob) and CurrentMob.Parent then
+                    G.Kill(CurrentMob, true)
+                    return
+                else CurrentMob = nil end
                 if not Nearest then TeleportConditional(Root, Q[4], TELEPORT_DISTANCE_THRESHOLD) return end
                 CurrentMob = Nearest
                 if CurrentMob and CurrentMob:FindFirstChild("HumanoidRootPart") then _tp(CurrentMob.HumanoidRootPart.CFrame) end
-                repeat task.wait() G.Kill(CurrentMob, true) until not _G.StartFarm or not _G.Level or not CurrentMob.Parent or CurrentMob.Humanoid.Health <= 0      
-                CurrentMob = nil      
-            end)  
-        end  
+                repeat task.wait() G.Kill(CurrentMob, true) until not _G.StartFarm or not _G.Level or not CurrentMob.Parent or CurrentMob.Humanoid.Health <= 0
+                CurrentMob = nil
+            end)
+        end
     end
 end)
 
----
-
--- 5. SISTEMA CAKE PRINCE FARM
-
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         if _G.AutoFarm_Cake and _G.StartFarm then
             pcall(function()
                 local plr = game.Players.LocalPlayer
                 local hrp = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
                 if not hrp then return end
-                local enemies = workspace:FindFirstChild("Enemies")  
-                if not enemies then return end  
-                local CakePos = CFrame.new(-2091.91, 70.00, -12142.83)  
-                local PortalEntrance = CFrame.new(-2151.82, 149.32, -12404.91)  
-                local mirror = workspace.Map:FindFirstChild("CakeLoaf")  
-                mirror = mirror and mirror:FindFirstChild("BigMirror")  
-                local other = mirror and mirror:FindFirstChild("Other")  
-                local portalOpen = other and other.Transparency == 0  
-                local boss = enemies:FindFirstChild("Cake Prince") or enemies:FindFirstChild("Dough King")  
+                local enemies = workspace:FindFirstChild("Enemies")
+                if not enemies then return end
+                local CakePos = CFrame.new(-2091.91, 70.00, -12142.83)
+                local PortalEntrance = CFrame.new(-2151.82, 149.32, -12404.91)
+                local mirror = workspace.Map:FindFirstChild("CakeLoaf")
+                mirror = mirror and mirror:FindFirstChild("BigMirror")
+                local other = mirror and mirror:FindFirstChild("Other")
+                local portalOpen = other and other.Transparency == 0
+                local boss = enemies:FindFirstChild("Cake Prince") or enemies:FindFirstChild("Dough King")
 
-                if not boss and not portalOpen and (hrp.Position - CakePos.Position).Magnitude > 300000 then  
-                    _tp(CakePos) 
-                    return  
-                end  
+                if not boss and not portalOpen and (hrp.Position - CakePos.Position).Magnitude > 300000 then
+                    _tp(CakePos)
+                    return
+                end
 
-                if boss or portalOpen then  
-                    if boss and boss:FindFirstChild("Humanoid") and boss.Humanoid.Health > 0 and boss.PrimaryPart then  
-                        local bossTarget = boss.PrimaryPart.CFrame * CFrame.new(0, 5, 0)  
-                        _tp(bossTarget)  
-                        local bossPos = boss.PrimaryPart.CFrame * CFrame.new(0, 25, 0) * CFrame.Angles(math.rad(-90), 0, 0)  
-                        _tp(bossPos)  
-                        G.Kill(boss, true)  
-                        return  
-                    end  
-                    if (hrp.Position - PortalEntrance.Position).Magnitude < 500000 then  
-                        TeleportConditional(hrp, PortalEntrance, TELEPORT_DISTANCE_THRESHOLD)  
-                    end  
-                    return  
-                end  
+                if boss or portalOpen then
+                    if boss and boss:FindFirstChild("Humanoid") and boss.Humanoid.Health > 0 and boss.PrimaryPart then
+                        local bossTarget = boss.PrimaryPart.CFrame * CFrame.new(0, 5, 0)
+                        _tp(bossTarget)
+                        local bossPos = boss.PrimaryPart.CFrame * CFrame.new(0, 25, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+                        _tp(bossPos)
+                        G.Kill(boss, true)
+                        return
+                    end
+                    if (hrp.Position - PortalEntrance.Position).Magnitude < 500000 then
+                        TeleportConditional(hrp, PortalEntrance, TELEPORT_DISTANCE_THRESHOLD)
+                    end
+                    return
+                end
 
-                local CAKE_MOBS = {"Cookie Crafter", "Cake Guard", "Baking Staff", "Head Baker"}  
-                if _G.AcceptQuest and not plr.PlayerGui.Main.Quest.Visible then  
-                    local questPos = CFrame.new(-1927.92, 37.80, -12842.54)  
-                    TeleportConditional(hrp, questPos, TELEPORT_DISTANCE_THRESHOLD)  
-                    if (hrp.Position - questPos.Position).Magnitude <= 40 then  
-                        local q = {{"StartQuest", "CakeQuest2", 2}, {"StartQuest", "CakeQuest2", 1}, {"StartQuest", "CakeQuest1", 1}, {"StartQuest", "CakeQuest1", 2}}  
-                        commF:InvokeServer(unpack(q[math.random(1, 4)]))  
-                    end  
-                    return  
-                end  
+                local CAKE_MOBS = {"Cookie Crafter", "Cake Guard", "Baking Staff", "Head Baker"}
+                if _G.AcceptQuest and not plr.PlayerGui.Main.Quest.Visible then
+                    local questPos = CFrame.new(-1927.92, 37.80, -12842.54)
+                    TeleportConditional(hrp, questPos, TELEPORT_DISTANCE_THRESHOLD)
+                    if (hrp.Position - questPos.Position).Magnitude <= 40 then
+                        local q = {{"StartQuest", "CakeQuest2", 2}, {"StartQuest", "CakeQuest2", 1}, {"StartQuest", "CakeQuest1", 1}, {"StartQuest", "CakeQuest1", 2}}
+                        commF:InvokeServer(unpack(q[math.random(1, 4)]))
+                    end
+                    return
+                end
 
-                local bestMob, bestDist = nil, math.huge  
-                for _, mob in ipairs(enemies:GetChildren()) do  
-                    if table.find(CAKE_MOBS, mob.Name) and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then  
-                        local dist = (mob.HumanoidRootPart.Position - hrp.Position).Magnitude  
-                        if dist < bestDist then bestDist = dist bestMob = mob end  
-                    end  
-                end  
-                if bestMob then  
-                    repeat task.wait()  
-                        if (workspace.Map.CakeLoaf.BigMirror.Other.Transparency == 0) or enemies:FindFirstChild("Cake Prince") then break end  
-                        if bestMob.Parent and bestMob.Humanoid.Health > 0 then  
-                            _tp(bestMob.HumanoidRootPart.CFrame * CFrame.new(0, 20, 0) * CFrame.Angles(math.rad(-90), 0, 0))  
-                            G.Kill(bestMob, true)  
-                        else break end  
-                    until not _G.StartFarm or not _G.AutoFarm_Cake or not bestMob.Parent or bestMob.Humanoid.Health <= 0  
-                else  
-                    TeleportConditional(hrp, CFrame.new(-1927.92, 37.80, -12842.54), TELEPORT_DISTANCE_THRESHOLD)  
-                end  
-            end)  
-        end  
+                local bestMob, bestDist = nil, math.huge
+                for _, mob in ipairs(enemies:GetChildren()) do
+                    if table.find(CAKE_MOBS, mob.Name) and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then
+                        local dist = (mob.HumanoidRootPart.Position - hrp.Position).Magnitude
+                        if dist < bestDist then bestDist = dist bestMob = mob end
+                    end
+                end
+                if bestMob then
+                    repeat task.wait()
+                        if (workspace.Map.CakeLoaf.BigMirror.Other.Transparency == 0) or enemies:FindFirstChild("Cake Prince") then break end
+                        if bestMob.Parent and bestMob.Humanoid.Health > 0 then
+                            _tp(bestMob.HumanoidRootPart.CFrame * CFrame.new(0, 20, 0) * CFrame.Angles(math.rad(-90), 0, 0))
+                            G.Kill(bestMob, true)
+                        else break end
+                    until not _G.StartFarm or not _G.AutoFarm_Cake or not bestMob.Parent or bestMob.Humanoid.Health <= 0
+                else
+                    TeleportConditional(hrp, CFrame.new(-1927.92, 37.80, -12842.54), TELEPORT_DISTANCE_THRESHOLD)
+                end
+            end)
+        end
     end
 end)
 
-
 Farm:AddSection({"Other"})
 
--- Maximum Distance Configuration (in studs)
--- Aumente se quiser pegar mobs um pouco mais longe, diminua se quiser bem perto.
 _G.MaxFarmDistance = 325
 
 local Players = game:GetService("Players")
@@ -4963,20 +4834,21 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 Farm:AddToggle({
     Name = "Kill Mobs Nearest",
     Description = "Kill nearest mob",
-    -- 1. Carrega se estava ligado ou desligado ao abrir o script
+
     Default = GetSetting("AutoFarmNear_Save", false),
     Callback = function(I)
         _G.AutoFarmNear = I
-        
-        -- 2. Store in settings table for Save
+
+
         _G.SaveData["AutoFarmNear_Save"] = I
-        
-        -- 3. Save in Settings.json file na pasta do executor
+
+
         SaveSettings()
     end,
 })
 
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
             if not _G.AutoFarmNear then return end
@@ -4989,13 +4861,13 @@ task.spawn(function()
             local ClosestEnemy = nil
             local ShortestDistance = math.huge
 
-            -- 🔍 1. Procurar inimigos no WORKSPACE
+
             if workspace:FindFirstChild("Enemies") then
                 for _, e in pairs(workspace.Enemies:GetChildren()) do
                     if e:FindFirstChild("Humanoid")
                     and e:FindFirstChild("HumanoidRootPart")
                     and e.Humanoid.Health > 0 then
-                        
+
                         local dist = (Root.Position - e.HumanoidRootPart.Position).Magnitude
                         if dist < ShortestDistance then
                             ShortestDistance = dist
@@ -5005,11 +4877,11 @@ task.spawn(function()
                 end
             end
 
-            -- 🔍 2. Procurar inimigos no REPLICATEDSTORAGE
+
             if ReplicatedStorage:FindFirstChild("Enemies") then
                 for _, e in pairs(ReplicatedStorage.Enemies:GetChildren()) do
                     if e:IsA("Model") and e:FindFirstChild("Humanoid") then
-                        -- If none found in workspace yet
+
                         if not ClosestEnemy then
                             ClosestEnemy = e
                         end
@@ -5017,7 +4889,7 @@ task.spawn(function()
                 end
             end
 
-            -- ⚔️ 3. Atacar
+
             if ClosestEnemy and (not _G.MaxFarmDistance or ShortestDistance <= _G.MaxFarmDistance) then
                 repeat
                     task.wait()
@@ -5032,22 +4904,22 @@ task.spawn(function()
         end)
     end
 end)
--- Delay do sistema (pode ajustar)
+
 local Sec = 0.5
 
 if World2 then
 Farm:AddToggle({
     Name = "Auto Factory Raid",
     Description = "Auto farm factory",
-    -- 1. Tenta carregar se estava ligado ou desligado
+
     Default = GetSetting("AutoFactory_Save", false),
     Callback = function(Value)
         _G.AutoFactory = Value
-        
-        -- 2. Store the info in the save table
+
+
         _G.SaveData["AutoFactory_Save"] = Value
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -5059,11 +4931,11 @@ task.spawn(function()
         pcall(function()
             if not _G.AutoFactory then return end
 
-            -- Procura o Core
+
             local Core = GetConnectionEnemies("Core")
 
             if Core and Core:FindFirstChild("Humanoid") and Core.Humanoid.Health > 0 then
-                -- Factory active
+
                 repeat
                     task.wait()
 
@@ -5080,7 +4952,7 @@ task.spawn(function()
                 until Core.Humanoid.Health <= 0 or _G.AutoFactory == false
 
             else
-                -- Core not found → go to factory center
+
                 _tp(FactoryPos)
             end
         end)
@@ -5091,15 +4963,15 @@ if World3 then
 Farm:AddToggle({
     Name = "Auto Pirate Raid",
     Description = "Auto farm pirates",
-    -- 1. Carrega se estava ligado ou desligado ao abrir o script
+
     Default = GetSetting("AutoRaidCastle_Save", false),
     Callback = function(I)
         _G.AutoRaidCastle = I
-        
-        -- 2. Store in settings table for Save
+
+
         _G.SaveData["AutoRaidCastle_Save"] = I
-        
-        -- 3. Save in Settings.json file automaticamente
+
+
         SaveSettings()
     end,
 })
@@ -5162,36 +5034,35 @@ task.spawn(function()
 end)
 end
 Farm:AddSection({"Collect"})
--- Auto Collect Chest Button
+
 Farm:AddToggle({
     Name = "Auto Collect Chest",
     Description = "Auto collect mirror",
-    -- 1. Load saved state (or false by default)
+
     Default = GetSetting("AutoFarmChest_Save", false),
     Callback = function(I)
         _G.AutoFarmChest = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoFarmChest_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 
--- Auto Collect Berry Button
 Farm:AddToggle({
         Name = "Auto Collect Berry",
         Description = "Auto collect berry",
-        -- 1. Carrega o estado salvo
+
         Default = GetSetting("AutoBerry_Save", false),
         Callback = function(I)
                 _G.AutoBerry = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoBerry_Save"] = I
-        
-        -- 3. Salva no arquivo
+
+
         SaveSettings()
         end,
 });
@@ -5253,7 +5124,7 @@ task.spawn(function()
 end)
 
 if World3 then
--- [V3.8] Distance Radius slider for Auto Farm Nearest
+
 _G.MaxFarmDistance = _G.MaxFarmDistance or 250
 Farm:AddSlider({
     Name = "Distance Radius (Nearest Farm)",
@@ -5263,7 +5134,7 @@ Farm:AddSlider({
 })
 
 Farm:AddSection({"Bone"})
--- AUTO RANDOM BONES
+
 Farm:AddToggle({
     Name = "Auto Random Bone",
     Description = "Auto trade bones",
@@ -5281,7 +5152,6 @@ task.spawn(function()
     end
 end)
 
--- AUTO SOUL REAPER
 Farm:AddToggle({
     Name = "Auto Soul Reaper",
     Description = "Trade bones and farm boss",
@@ -5324,33 +5194,32 @@ end)
 end
 
 Farm:AddSection({"Material"})
--- Dropdown de Selecionar Material
+
 Farm:AddDropdown({
         Name = "Select Material",
         Description = "Select material",
         Options = MaterialList,
-        -- 1. Carrega o material salvo ou deixa vazio se for a primeira vez
+
         Default = GetSetting("SelectMaterial_Save", nil),
         Multi = false,
         Callback = function(I)
                 (getgenv()).SelectMaterial = I
-        
-        -- 2. Salva o material escolhido
+
+
         _G.SaveData["SelectMaterial_Save"] = I
         SaveSettings()
         end,
 })
 
--- Toggle de Auto Farm (Material)
 Farm:AddToggle({
         Name = "Auto Farm",
         Description = "Start farm",
-        -- 1. Carrega se o farm de material estava ligado
+
         Default = GetSetting("AutoMaterial_Save", false),
         Callback = function(I)
                 (getgenv()).AutoMaterial = I
-        
-        -- 2. Salva o estado do toggle
+
+
         _G.SaveData["AutoMaterial_Save"] = I
         SaveSettings()
         end,
@@ -5396,21 +5265,20 @@ task.spawn(function()
         end;
 end);
 
-
 if World3 then
 Farm:AddSection({"Dark Dragger + Valkyrie"})
 Farm:AddToggle({
     Name = "Auto Kill Rip Indra",
     Description = "Auto farm rip indra",
-    -- 1. Load if it was on or off
+
     Default = GetSetting("AutoRipIndra_Save", false),
     Callback = function(I)
         _G.AutoRipIngay = I
-        
-        -- 2. Salva na tabela
+
+
         _G.SaveData["AutoRipIndra_Save"] = I
-        
-        -- 3. Grava no arquivo Settings.json
+
+
         SaveSettings()
     end,
 })
@@ -5437,15 +5305,15 @@ end);
 Farm:AddToggle({
     Name = "Auto Active Cores",
     Description = "Auto activate aura/color",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoActiveCores_Save", false),
     Callback = function(I)
         _G.AutoUnHaki = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoActiveCores_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -5495,11 +5363,11 @@ Setting:AddButton({
     Name = "Salvar Config UI",
     Description = "",
     Callback = function()
-        -- Check if the function exists before calling
+
         if SaveSettings then
             SaveSettings()
-            
-            -- Universal Notification (Works without Fluent lib)
+
+
             game.StarterGui:SetCore("SendNotification", {
                 Title = "Zythera-X",
                 Text = "Done",
@@ -5515,12 +5383,12 @@ Setting:AddButton({
     Name = "Resetar Config UI",
     Description = "",
     Callback = function()
-        -- Uses the FullPath variable defined at the top of the script
+
         if isfile and isfile(FullPath) then
             delfile(FullPath)
-            _G.SaveData = {} -- Clear the table from RAM
-            
-            -- Universal Notification
+            _G.SaveData = {}
+
+
             game.StarterGui:SetCore("SendNotification", {
                 Title = "Zythera-X",
                 Text = "Done",
@@ -5547,14 +5415,14 @@ Setting:AddButton({
         local hrp = char:FindFirstChild("HumanoidRootPart")
         local hum = char:FindFirstChild("Humanoid")
 
-        -- 🔴 FOR THE TWEEN (uses the variable that ALREADY EXISTS)
+
         shouldTween = false
 
-        -- 🔓 Solta o player
+
         if hrp then
             hrp.Anchored = false
 
-            -- Remove things that usually cause freezing
+
             for _, v in pairs(hrp:GetChildren()) do
                 if v:IsA("BodyVelocity")
                 or v:IsA("BodyPosition")
@@ -5573,10 +5441,10 @@ Setting:AddButton({
             hum:ChangeState(Enum.HumanoidStateType.Running)
         end
 
-        -- Libera o farm de novo
+
         getgenv().OnFarm = true
 
-        -- Permite novos tweens depois
+
         task.wait()
         shouldTween = true
     end
@@ -5585,11 +5453,11 @@ Setting:AddButton({
 Setting:AddToggle({
         Name = "Safe Mode",
         Description = "Enable to protect your health if low",
-        -- 1. Carrega o estado salvo
+
         Default = GetSetting("SafeMode_Save", false),
         Callback = function(I)
                 _G.Safemode = I
-        -- 2. Salva
+
         _G.SaveData["SafeMode_Save"] = I
         SaveSettings()
         end,
@@ -5598,11 +5466,11 @@ Setting:AddToggle({
 Setting:AddToggle({
         Name = "Auto Active Haki",
         Description = "Auto activate haki",
-        -- 1. Carrega o estado salvo
+
         Default = GetSetting("AutoHaki_Save", true),
         Callback = function(I)
                 Boud = I
-        -- 2. Salva
+
         _G.SaveData["AutoHaki_Save"] = I
         SaveSettings()
         end,
@@ -5622,15 +5490,15 @@ end);
 Setting:AddToggle({
         Name = "Auto Active V3",
         Description = "Auto use race v3",
-        -- 1. Carrega o estado salvo
+
         Default = GetSetting("AutoActiveV3_Save", false),
         Callback = function(I)
                 _G.RaceClickAutov3 = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoActiveV3_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
         end,
 })
@@ -5638,15 +5506,15 @@ Setting:AddToggle({
 Setting:AddToggle({
         Name = "Auto Active V4",
         Description = "Auto use race v4",
-        -- 1. Carrega o estado salvo
+
         Default = GetSetting("AutoActiveV4_Save", false),
         Callback = function(I)
                 _G.RaceClickAutov4 = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoActiveV4_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
         end,
 })
@@ -5692,15 +5560,15 @@ end);
 Setting:AddToggle({
         Name = "Disable Notify",
         Description = "Disable notifications",
-        -- 1. Load saved state or false by default
+
         Default = GetSetting("DisableNotify_Save", false),
         Callback = function(I)
                 RemoveDamage = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["DisableNotify_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
         end,
 })
@@ -5718,9 +5586,7 @@ task.spawn(function()
                 end);
         end;
 end);
--- ========================================
--- AUTO HOP
--- ========================================
+
 Setting:AddSection({"Auto Hop"})
 
 _G.ZX_AutoHopAdmin = GetSetting("ZX_AutoHopAdmin_Save", false)
@@ -5818,7 +5684,6 @@ task.spawn(function()
 end)
 
 Setting:AddSection({"Select"})
--- [ZX-MOVED] Bring Mobs Range is now a Slider in the "Bring Mobs & Fps" section above
 
 Setting:AddTextBox({
     Title = "Select Farm Height",
@@ -5845,9 +5710,6 @@ Setting:AddTextBox({
     end,
 });
 Others:AddSection({"Fishing"})
--- =========================================================
--- NOVO SISTEMA DE PESCA (COM SAVE SYSTEM INTEGRADO)
--- =========================================================
 
 local RS = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
@@ -5856,7 +5718,6 @@ local Workspace = game:GetService("Workspace")
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 
--- Required Services and Modules Definitions
 local FishReplicated = RS:WaitForChild("FishReplicated")
 local FishingRequest = FishReplicated:WaitForChild("FishingRequest")
 local FishingClientConfig = require(FishReplicated:WaitForChild("FishingClient"):WaitForChild("Config"))
@@ -5867,9 +5728,6 @@ local CraftRemote = Net:WaitForChild("RF/Craft")
 local JobsRemote = Net:WaitForChild("RF/JobsRemoteFunction")
 local ToolAbilities = Net:WaitForChild("RF/JobToolAbilities")
 
--- =========================================================
--- CUSTOM NOTIFICATION CONFIGURATION (FULL BLACK)
--- =========================================================
 local LogoID = nil
 
 local function NotifyNightMystic(texto)
@@ -5887,14 +5745,14 @@ local function NotifyNightMystic(texto)
         frame.Parent = sg
         frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
         frame.Size = UDim2.new(0, 260, 0, 60)
-        frame.Position = UDim2.new(1, 10, 0.85, 0) 
+        frame.Position = UDim2.new(1, 10, 0.85, 0)
         frame.BorderSizePixel = 0
 
         local stroke = Instance.new("UIStroke")
         stroke.Parent = frame
         stroke.Color = Color3.fromRGB(50, 50, 50)
         stroke.Thickness = 1
-        
+
         local corner = Instance.new("UICorner")
         corner.CornerRadius = UDim.new(0, 6)
         corner.Parent = frame
@@ -5918,7 +5776,7 @@ local function NotifyNightMystic(texto)
         iconLabel.TextColor3 = Color3.fromRGB(255, 30, 30)
         iconLabel.Font = Enum.Font.GothamBold
         iconLabel.TextSize = 16
-        
+
         local title = Instance.new("TextLabel")
         title.Parent = frame
         title.BackgroundTransparency = 1
@@ -5957,7 +5815,6 @@ local function NotifyNightMystic(texto)
     end)
 end
 
--- Global Initial Settings (will be overwritten by Save if they exist)
 _G.SelectedRod = "Fishing Rod"
 _G.SelectedBait = "Basic Bait"
 _G.AutoBuyBait = false
@@ -5967,8 +5824,6 @@ _G.AutoQuestComplete = false
 _G.AutoSellFish = false
 _G.AutoSkillZ = false
 
-
--- 1. ROD SELECTION
 Others:AddDropdown({
     Name = "Select Fishing Rod",
     Description = "Select fishing rod",
@@ -5979,17 +5834,15 @@ Others:AddDropdown({
         "Shell Rod",
         "Treasure Rod"
     },
-    -- Load last saved rod, or use "Fishing Rod"
-    Default = GetSetting("Fish_SelectedRod", "Fishing Rod"), 
+
+    Default = GetSetting("Fish_SelectedRod", "Fishing Rod"),
     Callback = function(Value)
         _G.SelectedRod = Value
-        -- Salva a nova escolha
+
         _G.SaveData["Fish_SelectedRod"] = Value
         SaveSettings()
     end
 })
-
--- 2. BAIT SELECTION
 
 Others:AddDropdown({
     Name = "Select Bait",
@@ -6003,11 +5856,11 @@ Others:AddDropdown({
         "Epic Bait",
         "Carnivore Bait"
     },
-    -- Load last saved bait, or use "Basic Bait"
+
     Default = GetSetting("Fish_SelectedBait", "Basic Bait"),
     Callback = function(Value)
         _G.SelectedBait = Value
-        -- Salva a nova escolha
+
         _G.SaveData["Fish_SelectedBait"] = Value
         SaveSettings()
 
@@ -6019,15 +5872,14 @@ Others:AddDropdown({
     end
 })
 
--- 3. TOGGLE AUTO BUY BAIT
 Others:AddToggle({
     Name = "Auto Buy Bait",
     Description = "Auto buy bait",
-    -- Carrega se estava ligado
+
     Default = GetSetting("Fish_AutoBuyBait", false),
     Callback = function(Value)
         _G.AutoBuyBait = Value
-        -- Salva o estado
+
         _G.SaveData["Fish_AutoBuyBait"] = Value
         SaveSettings()
 
@@ -6049,15 +5901,14 @@ task.spawn(function()
     end
 end)
 
--- 4. TOGGLE AUTO FISHING (CAST/CATCH)
 Others:AddToggle({
     Name = "Auto Fishing",
     Description = "Auto fish",
-    -- Carrega se estava ligado
+
     Default = GetSetting("Fish_AutoFishing", false),
     Callback = function(Value)
         _G.AutoFishing = Value
-        -- Salva o estado
+
         _G.SaveData["Fish_AutoFishing"] = Value
         SaveSettings()
     end
@@ -6070,38 +5921,38 @@ task.spawn(function()
                 local plr = Players.LocalPlayer
                 local char = plr.Character or plr.CharacterAdded:Wait()
                 local hrp = char:FindFirstChild("HumanoidRootPart")
-                
+
                 if not hrp then return end
 
                 local equippedTool = char:FindFirstChildOfClass("Tool")
-                
-                -- Check if the selected rod is equipped
+
+
                 if _G.SelectedRod and (not equippedTool or equippedTool.Name ~= _G.SelectedRod) then
                     local rodInBag = plr.Backpack:FindFirstChild(_G.SelectedRod)
-                    
+
                     if rodInBag then
-                        -- If in backpack, equip automatically
+
                         char.Humanoid:EquipTool(rodInBag)
                         equippedTool = rodInBag
                     else
 
                         NotifyNightMystic("please equip:" .. tostring(_G.SelectedRod))
-                        return -- Stop execution here to avoid error when trying to fish without a rod
+                        return
                     end
                 end
 
                 if equippedTool then
                     local maxLaunch = FishingClientConfig.Rod.MaxLaunchDistance
                     local waterHeight = GetWaterHeight(hrp.Position)
-                    
+
                     local rayOrigin = char.Head.Position
                     local rayDirection = hrp.CFrame.LookVector * maxLaunch
-                    
+
                     local ignoreList = {char, Workspace.Characters, Workspace.Enemies}
                     local _, hitPos = Workspace:FindPartOnRayWithIgnoreList(Ray.new(rayOrigin, rayDirection), ignoreList)
-                    
+
                     local targetPos = hitPos and Vector3.new(hitPos.X, math.max(hitPos.Y, waterHeight), hitPos.Z)
-                    
+
                     local state = equippedTool:GetAttribute("State")
                     local serverState = equippedTool:GetAttribute("ServerState")
 
@@ -6109,13 +5960,13 @@ task.spawn(function()
                         FishingRequest:InvokeServer("StartCasting")
                         task.wait()
                         FishingRequest:InvokeServer("CastLineAtLocation", targetPos, 100, true)
-                    
+
                     elseif serverState == "Biting" then
                         FishingRequest:InvokeServer("Catching", true)
                         task.wait(0.1)
                         FishingRequest:InvokeServer("Catch", 1)
-                        
-                        -- [[ BLACK NOTIFICATION WHEN CATCHING FISH ]]
+
+
                         NotifyNightMystic("New item caught")
                     end
                 end
@@ -6124,15 +5975,14 @@ task.spawn(function()
     end
 end)
 
--- 5. AUTO QUEST FISHING
 Others:AddToggle({
     Name = "Auto Quest Fishing",
     Description = "Auto fishing quest",
-    -- Carrega se estava ligado
+
     Default = GetSetting("Fish_AutoQuest", false),
     Callback = function(Value)
         _G.AutoFishingQuest = Value
-        -- Salva o estado
+
         _G.SaveData["Fish_AutoQuest"] = Value
         SaveSettings()
     end
@@ -6161,15 +6011,14 @@ task.spawn(function()
     end
 end)
 
--- 6. AUTO COMPLETE QUEST
 Others:AddToggle({
     Name = "Auto Complete Quest",
     Description = "Auto complete quest",
-    -- Carrega se estava ligado
+
     Default = GetSetting("Fish_AutoComplete", false),
     Callback = function(Value)
         _G.AutoQuestComplete = Value
-        -- Salva o estado
+
         _G.SaveData["Fish_AutoComplete"] = Value
         SaveSettings()
 
@@ -6191,15 +6040,14 @@ task.spawn(function()
     end
 end)
 
--- 7. AUTO SELL FISH
 Others:AddToggle({
     Name = "Auto Sell Fish",
     Description = "Auto sell fish",
-    -- Carrega se estava ligado
+
     Default = GetSetting("Fish_AutoSell", false),
     Callback = function(Value)
         _G.AutoSellFish = Value
-        -- Salva o estado
+
         _G.SaveData["Fish_AutoSell"] = Value
         SaveSettings()
 
@@ -6221,15 +6069,14 @@ task.spawn(function()
     end
 end)
 
--- 8. AUTO SPAM SKILL Z
 Others:AddToggle({
     Name = "Auto use skill of the rod",
     Description = "Auto use fishing rod skills",
-    -- Carrega se estava ligado
+
     Default = GetSetting("Fish_AutoSkillZ", false),
     Callback = function(Value)
         _G.AutoSkillZ = Value
-        -- Salva o estado
+
         _G.SaveData["Fish_AutoSkillZ"] = Value
         SaveSettings()
     end
@@ -6248,73 +6095,64 @@ local plr = game.Players.LocalPlayer
 local RS = game:GetService("ReplicatedStorage")
 local WS = game:GetService("Workspace")
 
-_G.AutoBoss = false       
-_G.FarmAllBoss = false    
-_G.AutoAcceptQuest = false 
-_G.CurrentTargetBoss = nil 
+_G.AutoBoss = false
+_G.FarmAllBoss = false
+_G.AutoAcceptQuest = false
+_G.CurrentTargetBoss = nil
 _G.FindBoss = _G.FindBoss or (Boss and Boss[1])
 
--- =====================
--- EQUIPAR WEAPON
--- =====================
 local function EquipWeapon()
     local char = plr.Character
     if not char then return end
-    local hum = char:FindFirstChildOfClass("Humanoid")  
-    if not hum then return end  
+    local hum = char:FindFirstChildOfClass("Humanoid")
+    if not hum then return end
 
-    if _G.SelectWeapon then  
-        local tool = plr.Backpack:FindFirstChild(_G.SelectWeapon)  
-            or char:FindFirstChild(_G.SelectWeapon)  
-        if tool and tool.Parent ~= char then  
-            hum:EquipTool(tool)  
-        end  
+    if _G.SelectWeapon then
+        local tool = plr.Backpack:FindFirstChild(_G.SelectWeapon)
+            or char:FindFirstChild(_G.SelectWeapon)
+        if tool and tool.Parent ~= char then
+            hum:EquipTool(tool)
+        end
     end
 end
 
--- =====================
--- MOVEMENT FUNCTION (LOCAL)
--- =====================
 local function GoToBoss(targetBoss)
     local char = plr.Character
     local hrp = char and char:FindFirstChild("HumanoidRootPart")
     local hum = char and char:FindFirstChildOfClass("Humanoid")
-    
+
     if not targetBoss or not hrp or not hum then return end
-    
+
     local bossHRP = targetBoss:FindFirstChild("HumanoidRootPart") or targetBoss:FindFirstChild("Torso")
     if not bossHRP then return end
 
-    local safeHeight = 22   
-    local targetPos = bossHRP.Position + Vector3.new(0, safeHeight, 0)  
-    local targetCFrame = CFrame.new(targetPos)  
-    local distToSafeSpot = (hrp.Position - targetPos).Magnitude  
+    local safeHeight = 22
+    local targetPos = bossHRP.Position + Vector3.new(0, safeHeight, 0)
+    local targetCFrame = CFrame.new(targetPos)
+    local distToSafeSpot = (hrp.Position - targetPos).Magnitude
 
-    EquipWeapon()  
+    EquipWeapon()
 
-    if distToSafeSpot <= 5 then  
-        hrp.CFrame = targetCFrame  
-        hrp.Velocity = Vector3.zero  
-        hrp.AssemblyLinearVelocity = Vector3.zero 
-        hum.AutoRotate = false 
-        
-        -- Auto Attack
+    if distToSafeSpot <= 5 then
+        hrp.CFrame = targetCFrame
+        hrp.Velocity = Vector3.zero
+        hrp.AssemblyLinearVelocity = Vector3.zero
+        hum.AutoRotate = false
+
+
         game:GetService("VirtualUser"):CaptureController()
         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
-    else  
+    else
         if _tp then _tp(targetCFrame) else hrp.CFrame = targetCFrame end
     end
 end
 
--- =====================
--- UI
--- =====================
 Others:AddSection({"Boss Farm"})
 
 local BossDropdown = Others:AddDropdown({
     Name = "Select Boss",
     Description = "Select boss",
-    Options = Boss, 
+    Options = Boss,
     Default = Boss[1],
     Callback = function(v) _G.FindBoss = v end
 })
@@ -6323,9 +6161,9 @@ Others:AddButton({
     Name = "Refresh Boss List",
     Description = "Refresh boss",
     Callback = function()
-        local LiveBosses = {}  
-        local FoundAny = false  
-        
+        local LiveBosses = {}
+        local FoundAny = false
+
         for _, obj in pairs(WS:GetDescendants()) do
             if obj:IsA("Model") and obj:GetAttribute("IsBoss") == true then
                 if not table.find(LiveBosses, obj.Name) then
@@ -6343,12 +6181,12 @@ Others:AddButton({
             end
         end
 
-        if FoundAny then 
+        if FoundAny then
             table.sort(LiveBosses)
-            BossDropdown:Refresh(LiveBosses, true)  
-        else 
-            BossDropdown:Refresh({"Nenhum Boss Encontrado"}, true) 
-        end  
+            BossDropdown:Refresh(LiveBosses, true)
+        else
+            BossDropdown:Refresh({"Nenhum Boss Encontrado"}, true)
+        end
     end
 })
 
@@ -6382,18 +6220,16 @@ Others:AddToggle({
     end
 })
 
--- =====================
--- THREAD 1: SCANNER FARM ALL (COM REPLICATEDSTORAGE)
--- =====================
 task.spawn(function()
-    while task.wait() do 
+    task.wait(0.1)
+    while task.wait() do
         if not _G.FarmAllBoss then
             task.wait(0.5)
             do break end
         end
 
         if _G.CurrentTargetBoss and _G.CurrentTargetBoss.Parent and _G.CurrentTargetBoss:FindFirstChild("Humanoid") and _G.CurrentTargetBoss.Humanoid.Health > 0 then
-            task.wait(0.2) 
+            task.wait(0.2)
             do break end
         end
 
@@ -6437,15 +6273,13 @@ task.spawn(function()
     end
 end)
 
--- =====================
--- THREAD 2: ATACANTE + QUEST
--- =====================
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
             if _G.AutoBoss and _G.FindBoss then
                 if QuestB then QuestB() end
-                
+
                 local NeedQuest = false
                 local char = plr.Character
                 if not char or not char:FindFirstChild("HumanoidRootPart") then return end
@@ -6466,12 +6300,12 @@ task.spawn(function()
                 end
 
                 local specificBoss = WS:FindFirstChild("Enemies") and WS.Enemies:FindFirstChild(_G.FindBoss) or WS:FindFirstChild(_G.FindBoss)
-                if specificBoss and specificBoss:FindFirstChild("Humanoid") and specificBoss.Humanoid.Health > 0 then 
+                if specificBoss and specificBoss:FindFirstChild("Humanoid") and specificBoss.Humanoid.Health > 0 then
                     GoToBoss(specificBoss)
-                elseif PosB then 
+                elseif PosB then
                     if _tp then _tp(PosB) else char.HumanoidRootPart.CFrame = PosB end
                 end
-            
+
             elseif _G.FarmAllBoss then
                 if _G.CurrentTargetBoss then
                     GoToBoss(_G.CurrentTargetBoss)
@@ -6481,7 +6315,6 @@ task.spawn(function()
     end
 end)
 
--- Auto Select Weapon
 task.spawn(function()
     while task.wait(0.5) do
         if plr.Backpack and _G.ChooseWP then
@@ -6495,15 +6328,15 @@ Others:AddSection({"Quests"})
  Others:AddToggle({
     Name = "Auto Farm Observation",
     Description = "Auto farm observation haki",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoObsFarm_Save", false),
     Callback = function(I)
         _G.obsFarm = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoObsFarm_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -6583,15 +6416,15 @@ if World3 then
 Others:AddToggle({
         Name = "Auto Observation V2",
         Description = "Auto get observation v2",
-        -- 1. Carrega se estava ligado ou desligado ao abrir o script
+
         Default = GetSetting("AutoKenV2_Save", false),
         Callback = function(I)
                 _G.AutoKenVTWO = I
-        
-        -- 2. Store in settings table for Save
+
+
         _G.SaveData["AutoKenV2_Save"] = I
-        
-        -- 3. Save in Settings.json file automaticamente
+
+
         SaveSettings()
         end,
 });
@@ -6755,15 +6588,15 @@ end);
 Others:AddToggle({
         Name = "Auto Elite Quest",
         Description = "Do elite hunter quest",
-        -- 1. Load saved state or false by default
+
         Default = GetSetting("AutoEliteQuest_Save", false),
         Callback = function(I)
                 _G.FarmEliteHunt = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoEliteQuest_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
         end,
 })
@@ -6797,15 +6630,15 @@ end);
  Others:AddToggle({
     Name = "Stop when got God's Chalice",
     Description = "Stop when got God's Chalice",
-    -- 1. Load saved state or start as true (your script default)
+
     Default = GetSetting("StopChalice_Save", true),
     Callback = function(I)
         _G.StopWhenChalice = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["StopChalice_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -6881,19 +6714,19 @@ task.spawn(function()
                 end);
         end;
 end);
--- AUTO YAMA (EXACTLY AS YOU SENT)
+
  Others:AddToggle({
     Name = "Auto Yama Sword",
     Description = "Auto get Yama sword",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoYama_Save", false),
     Callback = function(I)
         _G.Auto_Yama = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoYama_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -6923,25 +6756,26 @@ task.spawn(function()
 end);
 end
 if World2 or World3 then
--- SECTION BUSO/AURA COLOURS
+
 Others:AddSection({"Buso/Aura Colours"});
 
  Others:AddToggle({
     Name = "Teleport Barista Haki",
     Description = "Teleport to haki NPC",
-    -- 1. Carrega se estava ligado ou desligado ao abrir o script
+
     Default = GetSetting("TpBarista_Save", false),
     Callback = function(I)
         _G.Tp_MasterA = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["TpBarista_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         if _G.Tp_MasterA then
             pcall(function()
@@ -6967,15 +6801,15 @@ if World3 then
  Others:AddToggle({
     Name = "Auto Rainbow Haki",
     Description = "Auto get rainbow haki",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoRainbowHaki_Save", false),
     Callback = function(I)
         _G.Auto_Rainbow_Haki = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoRainbowHaki_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -7069,15 +6903,15 @@ end
  Others:AddToggle({
     Name = "Accept Quest Bypass [Risk]",
     Description = "Chấp nhận bỏ qua nhiệm vụ [Rủi ro]",
-    -- 1. Carrega se estava ligado ou desligado
+
     Default = GetSetting("BypassQuest_Save", false),
     Callback = function(I)
         _G.GetQFast = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["BypassQuest_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -7104,7 +6938,7 @@ local z5 = {
             _G.SelectedBoat = I;
         end,
     });
-    -- Danger Level Configuration (SEA 3 ONLY)
+
     if World3 then
         local H5 = {
             "Lv 1", "Lv 2", "Lv 3", "Lv 4", "Lv 5", "Lv 6", "Lv Infinite",
@@ -7130,11 +6964,12 @@ local z5 = {
         end,
     });
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         if _G.SailBoats then
             pcall(function()
                 local I = CheckBoat();
-                -- FIX: Buy boat even if there are enemies, to avoid getting stuck at spawn
+
                 if not I then
                     local BoatDealerPos = CFrame.new(-16927.451, 9.086, 433.864);
                     TeleportToTarget(BoatDealerPos);
@@ -7195,7 +7030,6 @@ task.spawn(function()
     end;
 end);
 
--- // DEFAULT SPEED VARIABLE // --
 _G.SetSpeedBoat = 300
 
 Event:AddToggle({
@@ -7225,12 +7059,12 @@ task.spawn(function()
         if _G.SpeedBoat then
             pcall(function()
                 local plr = game.Players.LocalPlayer
-                -- Check if the player is seated
+
                 if plr.Character and plr.Character:FindFirstChild("Humanoid") and plr.Character.Humanoid.Sit then
                     for _, boat in pairs(workspace.Boats:GetChildren()) do
                         local seat = boat:FindFirstChildWhichIsA("VehicleSeat")
                         if seat then
-                            -- Apply speed and improve direction
+
                             seat.MaxSpeed = _G.SetSpeedBoat
                             seat.Torque = 0.2
                             seat.TurnSpeed = 5
@@ -7318,7 +7152,6 @@ Event:AddToggle({
 });
 end
 
--- [[ SKILL SETTINGS ]]
 _G.SelectedSkills = {
     ["Melee"] = {["Z"] = true, ["X"] = true, ["C"] = true},
     ["Sword"] = {["Z"] = true, ["X"] = true},
@@ -7326,28 +7159,27 @@ _G.SelectedSkills = {
     ["Gun"] = {["Z"] = true, ["X"] = true}
 }
 
--- OPTIMIZED function to use all skills of a category before exiting
 local function ExecuteSkills(category)
     if _G.SelectedSkills[category] then
-        weaponSc(category) -- Ensure weapon is equipped
-        task.wait(0.2) -- Wait for equip
-        
+        weaponSc(category)
+        task.wait(0.2)
+
         local keys = {"Z", "X", "C", "V", "F"}
         for _, skill in ipairs(keys) do
             if _G.SelectedSkills[category][skill] then
                 Useskills(category, skill)
-                task.wait(0.35) -- Short wait between each skill to avoid glitching
+                task.wait(0.35)
             end
         end
     end
 end
 
--- [[ MAIN LOOP ]]
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
-            
-            -- 1. INIMIGOS NORMAIS
+
+
             local seaEnemies = {
                 {Flag = _G.Shark, Name = "Shark", Check = CheckShark, KillType = "Normal"},
                 {Flag = _G.TerrorShark, Name = "Terrorshark", Check = CheckTerrorShark, KillType = "Sea"},
@@ -7373,7 +7205,7 @@ task.spawn(function()
                 end
             end
 
-            -- 2. SEA BEAST (improved with IsLiveSeaBeast from Tiro Hub)
+
             if IsSeaBeastAttackEnabled() and workspace:FindFirstChild("SeaBeasts") then
                 for _, e in pairs(workspace.SeaBeasts:GetChildren()) do
                     if IsLiveSeaBeast(e) and e.Name ~= "Leviathan" then
@@ -7384,7 +7216,7 @@ task.spawn(function()
                                 local targetY = waterBase and waterBase.Position.Y + 200 or e.HumanoidRootPart.Position.Y + 200
                                 _tp(CFrame.new(e.HumanoidRootPart.Position.X, targetY, e.HumanoidRootPart.Position.Z))
                             end)
-                            
+
                             if plr:DistanceFromCharacter(e.HumanoidRootPart.CFrame.Position) <= 500 then
                                 MousePos = e.HumanoidRootPart.Position
                                 if CheckF() then
@@ -7401,7 +7233,7 @@ task.spawn(function()
                 end
             end
 
-            -- 3. LEVIATHAN
+
             if _G.Leviathan1 and workspace.SeaBeasts:FindFirstChild("Leviathan") then
                 for _, e in pairs(workspace.SeaBeasts:GetChildren()) do
                     local segment = e:FindFirstChild("Leviathan Segment")
@@ -7411,7 +7243,7 @@ task.spawn(function()
                             task.spawn(function()
                                 _tp(CFrame.new(e.HumanoidRootPart.Position.X, workspace.Map["WaterBase-Plane"].Position.Y + 200, e.HumanoidRootPart.Position.Z))
                             end)
-                            
+
                             if plr:DistanceFromCharacter(e.HumanoidRootPart.CFrame.Position) <= 500 then
                                 MousePos = segment.Position
                                 if CheckF() then
@@ -7428,7 +7260,7 @@ task.spawn(function()
                 end
             end
 
-            -- 4. BARCOS
+
             local boatConfigs = {
                 {Flag = _G.FishBoat, Check = CheckEnemiesBoat, Name = "FishBoat", Dist = 150, Offset = CFrame.new(0, -50, -25)},
                 {Flag = _G.PGB, Check = CheckPirateGrandBrigade, Name = "PirateBrigade", Dist = 150, Offset = CFrame.new(0, -30, -10)},
@@ -7444,7 +7276,7 @@ task.spawn(function()
                                 task.spawn(function()
                                     _tp(e.Engine.CFrame * boat.Offset)
                                 end)
-                                
+
                                 if plr:DistanceFromCharacter(e.Engine.CFrame.Position) <= boat.Dist then
                                     MousePos = e.Engine.Position
                                     if CheckF() then
@@ -7477,15 +7309,15 @@ Event:AddButton({
 Event:AddToggle({
     Name = "Teleport Frozen Dimension",
     Description = "Enable teleport to frozen dimension and start Leviathan portal.",
-    -- 1. Carrega se o teleporte estava ativo
+
     Default = GetSetting("FrozenTP_Save", false),
     Callback = function(I)
         _G.FrozenTP = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["FrozenTP_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -7500,7 +7332,7 @@ task.spawn(function()
                         end);
                 end;
         end;
-end); 
+end);
 Event:AddToggle({
         Name = "Auto Attack Leviathan",
         Description = "Farm leviathan",
@@ -7513,19 +7345,20 @@ Event:AddSection({"Kitsune Island / Event"});
 Event:AddToggle({
     Name = "Auto Find Kitsune Island",
     Description = "Enable Kitsune island search and movement",
-    -- 1. Load if it was previously activated
+
     Default = GetSetting("FindKitsune_Save", false),
     Callback = function(I)
         _G.AutofindKitIs = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["FindKitsune_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 if _G.AutofindKitIs then
                         pcall(function()
@@ -7595,15 +7428,15 @@ end);
 Event:AddToggle({
     Name = "Auto Collect Azure Ember",
     Description = "thu thập Azure Ember",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("CollectAzureEmber_Save", false),
     Callback = function(I)
         _G.Collect_Ember = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["CollectAzureEmber_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -7624,15 +7457,15 @@ end);
 Event:AddToggle({
     Name = "Auto Trade Azure Ember",
     Description = "Trade Azure Ember",
-    -- 1. Load if auto trade was on
+
     Default = GetSetting("TradeAzureEmber_Save", false),
     Callback = function(I)
         _G.Trade_Ember = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["TradeAzureEmber_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -7657,19 +7490,20 @@ Event:AddButton({ Name = "Talk with kitsune statue", Description = "", Callback 
 Event:AddToggle({
         Name = "Auto Find Mirage Island",
     Description = "Enable mystery island search",
-    -- 1. Carrega se estava ligado ou desligado
+
     Default = GetSetting("FindMirage_Save", false),
     Callback = function(I)
         _G.FindMirage = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["FindMirage_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 if _G.FindMirage then
                         pcall(function()
@@ -7708,27 +7542,26 @@ end);
 Event:AddToggle({
         Name = "Auto Tween To Highest Point",
     Description = "Fly to the highest point of Mirage (Ideal for moon viewing)",
-    -- 1. Carrega o estado salvo
+
     Default = GetSetting("HighestMirage_Save", false),
     Callback = function(I)
         _G.HighestMirage = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["HighestMirage_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 
--- Loop de Teleporte (Fora do Toggle para estabilidade)
 task.spawn(function()
     while task.wait(1) do
         if _G.HighestMirage then
             pcall(function()
-                -- Verifica se a Mirage existe no mapa
+
                 if workspace._WorldOrigin.Locations:FindFirstChild("Mirage Island", true) then
-                    -- Teleporta para o ponto central e sobe 400 studs (Topo)
+
                     if _tp then
                         _tp(workspace.Map.MysticIsland.Center.CFrame * CFrame.new(0, 400, 0))
                     end
@@ -7740,20 +7573,19 @@ end)
 Event:AddToggle({
         Name = "Auto Collect Gear",
     Description = "Coleta a engrenagem na Mirage (Blue Gear)",
-    -- 1. Carrega se o coletor estava ativo
+
     Default = GetSetting("AutoCollectGear_Save", false),
     Callback = function(I)
         _G.TPGEAR = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["AutoCollectGear_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 
--- Loop de Coleta (Otimizado)
 task.spawn(function()
     while task.wait(0.1) do
         if _G.TPGEAR then
@@ -7761,12 +7593,12 @@ task.spawn(function()
                 local mystic = workspace.Map:FindFirstChild("MysticIsland")
                 if mystic then
                     for _, e in pairs(mystic:GetChildren()) do
-                        -- The gear in Mirage is a MeshPart called "Part"
+
                         if e.Name == "Part" and e:IsA("MeshPart") then
                             if _tp then
                                 _tp(e.CFrame)
                             end
-                            -- Tenta coletar automaticamente ao chegar perto
+
                             if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - e.Position).Magnitude < 20 then
                                 fireproximityprompt(e:FindFirstChildOfClass("ProximityPrompt"), 30)
                             end
@@ -7780,18 +7612,18 @@ end)
 Event:AddToggle({
         Name = "Change Transparency can see",
     Description = "Make Mirage obstacles transparent",
-    -- 1. Carrega se estava ativo
+
     Default = GetSetting("MirageTransparency_Save", false),
     Callback = function(I)
         _G.can = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["MirageTransparency_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
-        
-        -- If turned off, try to reset transparency (Optional)
+
+
         if not I then
             pcall(function()
                 local mystic = workspace.Map:FindFirstChild("MysticIsland")
@@ -7805,9 +7637,8 @@ Event:AddToggle({
     end,
 })
 
--- Transparency Loop
 task.spawn(function()
-    while task.wait(1) do -- 1 second interval to avoid lag
+    while task.wait(1) do
         if _G.can then
             pcall(function()
                 local mystic = workspace.Map:FindFirstChild("MysticIsland")
@@ -7815,9 +7646,9 @@ task.spawn(function()
                     for _, e in pairs(mystic:GetChildren()) do
                         if e.Name == "Part" then
                             if e:IsA("MeshPart") then
-                                e.Transparency = 0 -- Keep important things visible
+                                e.Transparency = 0
                             else
-                                e.Transparency = 1 -- Hide the rest (walls/trees)
+                                e.Transparency = 1
                             end
                         end
                     end
@@ -7829,26 +7660,25 @@ end)
 Event:AddToggle({
         Name = "Auto Tween Advanced Fruit Dealer",
     Description = "Fly to the advanced fruit dealer in Mirage",
-    -- 1. Carrega se o teleporte estava ativo
+
     Default = GetSetting("AutoTweenAdvancedDealer_Save", false),
     Callback = function(I)
         _G.Addealer = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["AutoTweenAdvancedDealer_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 
--- Teleport Loop (Optimized with task.spawn)
 task.spawn(function()
-    while task.wait(1) do -- 1 second is enough to check the NPC
+    while task.wait(1) do
         if _G.Addealer then
             pcall(function()
-                -- The game stores NPCs in ReplicatedStorage or Workspace during Mirage
-                -- Geralmente em game:GetService("ReplicatedStorage").NPCs
+
+
                 local npcs = game:GetService("ReplicatedStorage"):FindFirstChild("NPCs")
                 if npcs then
                     for _, e in pairs(npcs:GetChildren()) do
@@ -7905,7 +7735,7 @@ task.spawn(function()
         end;
 end);
         Event:AddSection({"Volcanic Magnet"});
--- Settings de UI e Toggle
+
 Event:AddToggle({
     Name = "Auto Craft Volcanic Magnet",
     Description = "turn on for auto farm material and craft volcanic magnet & stop when you have 1 volcanic magnet",
@@ -7915,30 +7745,29 @@ Event:AddToggle({
     end,
 });
 
-Event:AddButton({ 
-    Name = "Craft Volcanic Magnet", 
-    Description = "", 
+Event:AddButton({
+    Name = "Craft Volcanic Magnet",
+    Description = "",
     Callback = function()
-        -- Visual craft notification
+
         pcall(function()
         game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RF/Craft"):InvokeServer("VolcanicMagnet")
     end)
-    end 
+    end
 });
 
--- Loop Principal de Farm
 task.spawn(function()
     while task.wait(Sec) do
         pcall(function()
             if _G.CraftVM then
-                -- Check if already has the final item
+
                 if GetM("Volcanic Magnet") < 1 then
-                    
-                    -- CASE 1: Already has materials, try to craft/notify
+
+
                     if GetM("Scrap Metal") >= 10 and GetM("Blaze Ember") >= 15 then
                         commF:FireServer("Notify", "<Color=Yellow>Crafted <Volcanic Magnet><Color=/>")
-                    
-                    -- CASO 2: Falta Scrap Metal (Farma Forest Pirate)
+
+
                     elseif GetM("Scrap Metal") < 10 then
                         local I = GetConnectionEnemies("Forest Pirate");
                         if I then
@@ -7947,20 +7776,20 @@ task.spawn(function()
                                 G.Kill(I, _G.CraftVM);
                             until not _G.CraftVM or not I.Parent or I.Humanoid.Health <= 0 or GetM("Scrap Metal") >= 10;
                         else
-                            -- Default teleport if enemy not found
+
                             _tp(CFrame.new(-13206.452148438, 425.89199829102, -7964.5537109375));
                         end;
 
-                    -- CASO 3: Falta Blaze Ember (Usa o Invoke e depois farma)
+
                     elseif GetM("Blaze Ember") < 15 then
-                        -- Tenta o Invoke por 1 segundo antes de iniciar o farm
+
                         local startTime = tick()
                         repeat
                             commF:InvokeServer("requestEntrance", Vector3.new(5643.4526367188, 1013.0858154297, -340.51025390625))
                             task.wait(0.1)
                         until (tick() - startTime) >= 1 or not _G.CraftVM
-                        
-                        -- Inicia o farm das brasas
+
+
                         repeat
                             task.wait();
                             _G.FarmBlazeEM = true;
@@ -7976,79 +7805,79 @@ Event:AddSection({"Prehistoric Island"});
 Event:AddToggle({
     Name = "Auto Find Prehistoric Island",
     Description = "",
-    -- 1. Load if the finder was activated
+
     Default = GetSetting("PrehistoricFinder_Save", false),
     Callback = function(I)
         _G.Prehis_Find = I
-        
-        -- 2. Save configuration to file
+
+
         _G.SaveData["PrehistoricFinder_Save"] = I
         SaveSettings()
     end,
 })
 
--- The Loop (spawn) should be outside AddToggle to avoid being created multiple times
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         if _G.Prehis_Find then
             pcall(function()
-                -- If the island has NOT been found yet
+
                 if not workspace._WorldOrigin.Locations:FindFirstChild("Prehistoric Island", true) then
-                    
+
                     local I = CheckBoat()
 
-                    -- [FIX] Check if the boat is too far away
+
                     if I and I:FindFirstChild("VehicleSeat") and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
                         local dist = (plr.Character.HumanoidRootPart.Position - I.VehicleSeat.Position).Magnitude
-                        if dist > 2500 then 
-                            I = nil -- Force buy a new one
+                        if dist > 2500 then
+                            I = nil
                         end
                     end
 
-                    -- If no boat
+
                     if not I then
                         local DealerPos = CFrame.new(-16927.451, 9.086, 433.864)
                         TeleportToTarget(DealerPos)
-                        
+
                         if (DealerPos.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 10 then
                             commF:InvokeServer("BuyBoat", _G.SelectedBoat)
                         end
                     else
-                        -- Se tem um barco PERTO, senta nele e navega
+
                         if plr.Character.Humanoid.Sit == false then
                             local seatCF = I.VehicleSeat.CFrame * CFrame.new(0, 1, 0)
                             _tp(seatCF)
                         else
-                            -- Navigation logic
+
                             local TargetPos = CFrame.new(-10000000, 31, 37016.25)
-                            
+
                             if CheckEnemiesBoat() or CheckTerrorShark() or CheckPirateGrandBrigade() then
                                 _tp(CFrame.new(-10000000, 150, 37016.25))
                             else
                                 _tp(TargetPos)
                             end
-                            
-                            -- Se a ilha aparecer ou o toggle desligar, ele para
+
+
                             if workspace._WorldOrigin.Locations:FindFirstChild("Prehistoric Island") or not _G.Prehis_Find then
                                 plr.Character.Humanoid.Sit = false
                             end
                         end
                     end
                 else
-                    -- If the island ALREADY EXISTS
+
                     local Island = workspace._WorldOrigin.Locations:FindFirstChild("Prehistoric Island")
-                    
+
                     if (Island.CFrame.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 2000 then
                         _tp(Island.CFrame)
                     end
 
-                    -- Logic to enter the event
+
                     if workspace.Map:FindFirstChild("PrehistoricIsland", true) or workspace._WorldOrigin.Locations:FindFirstChild("Prehistoric Island", true) then
                         local promptPart = workspace.Map.PrehistoricIsland.Core:FindFirstChild("ActivationPrompt")
                         if promptPart and promptPart:FindFirstChild("ProximityPrompt") then
                             if plr:DistanceFromCharacter(promptPart.Position) <= 150 then
                                 fireproximityprompt(promptPart.ProximityPrompt, math.huge)
-                                -- E key simulation to ensure entry
+
                                 game:GetService("VirtualInputManager"):SendKeyEvent(true, "E", false, game)
                                 task.wait(1.5)
                                 game:GetService("VirtualInputManager"):SendKeyEvent(false, "E", false, game)
@@ -8064,22 +7893,22 @@ end)
 Event:AddToggle({
     Name = "Auto Event Prehistoric Island",
     Description = "",
-    -- 1. Carrega o estado salvo
+
     Default = GetSetting("AutoEventPrehistoric_Save", false),
     Callback = function(I)
-        -- Set global variables
+
         _G.PrehistoricEvent = I
         _G.Prehis_Skills = I
-        
-        -- 2. Save the configuration
+
+
         _G.SaveData["AutoEventPrehistoric_Save"] = I
         SaveSettings()
 
-        -- 3. NoClip Optimization (Only runs if Toggle is ON)
+
         if I then
             local RunService = game:GetService("RunService")
             task.spawn(function()
-                -- We use a controlled loop to avoid overloading the processor
+
                 while _G.Prehis_Skills do
                     local char = game.Players.LocalPlayer.Character
                     if char then
@@ -8089,39 +7918,37 @@ Event:AddToggle({
                             end
                         end
                     end
-                    RunService.Stepped:Wait() -- Espera o frame do jogo
+                    RunService.Stepped:Wait()
                 end
             end)
         end
     end,
 })
---------------------------------------------------------------------
--- SISTEMA DE LIMPAR LAVA (OTIMIZADO)
---------------------------------------------------------------------
+
 task.spawn(function()
-    while task.wait(1.5) do -- Increased to 1.5s (Doesn't need to be instant)
+    while task.wait(1.5) do
         if _G.Prehis_Skills then
             pcall(function()
-                -- Focus ONLY on the island, not the entire game (This removes lag)
+
                 local MapIsland = game.Workspace.Map:FindFirstChild("PrehistoricIsland")
-                
+
                 if MapIsland then
-                    -- Remove o "InteriorLava" diretamente sem loop se existir
+
                     local core = MapIsland:FindFirstChild("Core")
                     if core and core:FindFirstChild("InteriorLava") then
                         core.InteriorLava:Destroy()
                     end
 
-                    -- Single loop to clear everything inside the island
+
                     for _, obj in pairs(MapIsland:GetDescendants()) do
-                        -- Remove Lava/Magma
+
                         if (obj:IsA("Part") or obj:IsA("MeshPart")) then
                             if obj.Name == "Lava" or obj.Name == "LavaPart" or obj.Name:lower():find("magma") then
                                 obj:Destroy()
                             end
                         end
-                        
-                        -- Remove TouchInterest nocivos (exceto trial)
+
+
                         if obj.Name == "TouchInterest" and obj.Parent then
                             if not obj.Parent.Name:find("TrialTeleport") then
                                 obj.Parent:Destroy()
@@ -8134,61 +7961,58 @@ task.spawn(function()
     end
 end)
 
-
---------------------------------------------------------------------
--- LOGICA DE ATAQUE (SAFE MODE & OTIMIZADO)
---------------------------------------------------------------------
 task.spawn(function()
-    while task.wait() do -- The empty task.wait() here is needed for attack speed
+    task.wait(0.1)
+    while task.wait() do
         if _G.Prehis_Skills then
             pcall(function()
                 local plr = game.Players.LocalPlayer
-                
-                -- 1. Matar Lava Golem
-                -- Verifica se a pasta existe antes de tentar buscar
+
+
+
                 if workspace.Enemies:FindFirstChild("Lava Golem") then
                     local enemy = nil
-                    
-                    -- Tenta pegar o inimigo de forma segura
-                    pcall(function() 
-                        -- Assuming you have this global function or in the script
+
+
+                    pcall(function()
+
                          if GetConnectionEnemies then
-                            enemy = GetConnectionEnemies("Lava Golem") 
+                            enemy = GetConnectionEnemies("Lava Golem")
                          else
-                            -- Fallback if function is not available
+
                             enemy = workspace.Enemies["Lava Golem"]
                          end
                     end)
 
                     if enemy and enemy:FindFirstChild("Humanoid") and enemy.Humanoid.Health > 0 then
                         repeat
-                            task.wait() -- Important to avoid freezing
+                            task.wait()
                             if enemy:FindFirstChild("HumanoidRootPart") and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
-                                -- TP Seguro
+
                                 _tp(enemy.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0))
                                 plr.Character.HumanoidRootPart.Velocity = Vector3.zero
                             end
-                            
-                            -- Chama o ataque
+
+
                             if G and G.Kill then
-                                G.Kill(enemy, _G.Prehis_Skills) 
+                                G.Kill(enemy, _G.Prehis_Skills)
                             end
                         until not _G.Prehis_Skills or not enemy.Parent or enemy.Humanoid.Health <= 0
                     end
                 end
 
-                -- 2. Break Volcano Rocks
+
                 local core = game.Workspace.Map:FindFirstChild("PrehistoricIsland") and game.Workspace.Map.PrehistoricIsland:FindFirstChild("Core")
-                
+
                 if core and core:FindFirstChild("VolcanoRocks") then
                     for _, rock in pairs(core.VolcanoRocks:GetChildren()) do
                         if rock:FindFirstChild("VFXLayer") then
                             local layer = rock.VFXLayer
                             if layer:FindFirstChild("At0") and layer.At0:FindFirstChild("Glow") and layer.At0.Glow.Enabled == true then
-                                
+
                                 repeat
-                                    task.wait() -- Wait aqui previne crash
-                                    
+                                    task.wait()
+
                                     if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
                                         local safePosition = layer.CFrame * CFrame.new(0, 30, 0) * CFrame.Angles(math.rad(-90), 0, 0)
                                         _tp(safePosition)
@@ -8196,14 +8020,14 @@ task.spawn(function()
                                     end
 
                                     if plr:DistanceFromCharacter(layer.CFrame.Position) <= 200 then
-                                        MousePos = layer.CFrame.Position 
-                                        
-                                        -- Added a small delay between keys to avoid overloading InputManager
+                                        MousePos = layer.CFrame.Position
+
+
                                         local VIM = game:GetService("VirtualInputManager")
                                         VIM:SendKeyEvent(true, "Z", false, game)
                                         VIM:SendKeyEvent(true, "X", false, game)
                                         VIM:SendKeyEvent(true, "C", false, game)
-                                        
+
                                         if Useskills then
                                             Useskills("Melee", "Z")
                                             Useskills("Melee", "X")
@@ -8221,26 +8045,23 @@ task.spawn(function()
                 end
             end)
         else
-            task.wait(1) -- If function is off, wait 1s to avoid wasting processing
+            task.wait(1)
         end
     end
 end)
---------------------------------------------------------------------
--- MANUAL LAVA EXTINGUISH BUTTON
---------------------------------------------------------------------
 
 Event:AddButton({
     Name = "Remove Lava",
     Description = "",
     Callback = function()
-        -- Workspace
+
         for _, v in pairs(game.Workspace:GetDescendants()) do
             if v.Name == "Lava" then
                 v:Destroy()
             end
         end
 
-        -- ReplicatedStorage
+
         for _, v in pairs(game.ReplicatedStorage:GetDescendants()) do
             if v.Name == "Lava" then
                 v:Destroy()
@@ -8248,7 +8069,7 @@ Event:AddButton({
         end
     end
 })
--- 1. TOGGLE: Dino Bones
+
 Event:AddToggle({
     Name = "Auto Collect Dino Bones",
     Description = "",
@@ -8260,7 +8081,6 @@ Event:AddToggle({
     end,
 })
 
--- 2. TOGGLE: Dragon Eggs
 Event:AddToggle({
     Name = "Auto Collect Dragon Eggs",
     Description = "",
@@ -8272,7 +8092,6 @@ Event:AddToggle({
     end,
 })
 
--- 3. TOGGLE: Auto Reset
 Event:AddToggle({
     Name = "Auto Reset When Complete Volcano",
     Description = "",
@@ -8284,15 +8103,13 @@ Event:AddToggle({
     end,
 })
 
---------------------------------------------------------------------
--- LOGICA DE COLETA (FORA DOS TOGGLES)
---------------------------------------------------------------------
 task.spawn(function()
+    task.wait(0.1)
     while task.wait() do
         pcall(function()
             local FoundTarget = false
-            
-            -- Prioridade 1: Dragon Eggs
+
+
             if _G.Prehis_DE then
                 local MapIsland = workspace.Map:FindFirstChild("PrehistoricIsland")
                 if MapIsland and MapIsland.Core:FindFirstChild("SpawnedDragonEggs") then
@@ -8308,7 +8125,7 @@ task.spawn(function()
                 end
             end
 
-            -- Priority 2: Dino Bones (If not grabbing egg)
+
             if _G.Prehis_DB and not FoundTarget then
                 local Bone = workspace:FindFirstChild("DinoBone")
                 if Bone then
@@ -8317,7 +8134,7 @@ task.spawn(function()
                     _tp(Bone.CFrame)
                 end
             end
-            
+
             if not FoundTarget then
                 _G.Collecting = false
             end
@@ -8325,23 +8142,20 @@ task.spawn(function()
     end
 end)
 
---------------------------------------------------------------------
--- LOGICA DE AUTO RESET (BLOQUEIO UNIVERSAL)
--------------------------------------------------------------------- 
 task.spawn(function()
     while task.wait(1) do
         pcall(function()
             if _G.ResetPH then
                 local MapIsland = workspace.Map:FindFirstChild("PrehistoricIsland")
                 local EventEnded = MapIsland and MapIsland:FindFirstChild("TrialTeleport") and MapIsland.TrialTeleport:FindFirstChild("TouchInterest")
-                
+
                 if EventEnded then
-                    task.wait(4.5) -- Tempo para spawnar itens
-                    
-                    -- Loop de Bloqueio (Espera acabar de coletar)
+                    task.wait(4.5)
+
+
                     while true do
                         local ShouldWait = false
-                        
+
                         if _G.Prehis_DE and MapIsland.Core.SpawnedDragonEggs:FindFirstChild("DragonEgg") then
                             ShouldWait = true
                         end
@@ -8349,7 +8163,7 @@ task.spawn(function()
                         if _G.Prehis_DB and workspace:FindFirstChild("DinoBone") then
                             ShouldWait = true
                         end
-                        
+
                         if _G.Collecting then
                             ShouldWait = true
                         end
@@ -8357,12 +8171,12 @@ task.spawn(function()
                         if ShouldWait then
                             task.wait(0.5)
                         else
-                            break 
+                            break
                         end
                     end
-                    
+
                     game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                    task.wait(8) -- Cooldown do reset
+                    task.wait(8)
                 end
             end
         end)
@@ -8370,10 +8184,6 @@ task.spawn(function()
 end)
 end
 
--- ============================================================
--- SEA STACK & ADDITIONAL SEA EVENTS (From Tiro Hub)
--- ============================================================
--- [V3.8] Auto Sail Rough Sea - buy boat and sail to selected danger zone
 _G.DangerSc = _G.DangerSc or "Lv 1"
 CFrameSelectedZone = nil
 Event:AddSection({"Sail Rough Sea (Auto)"})
@@ -8407,7 +8217,7 @@ task.spawn(function()
                         commF:InvokeServer("BuyBoat", _G.SelectedBoat or "Beast Hunter")
                     end
                 elseif boat then
-                    -- Resolve danger zone CFrame
+
                     if _G.DangerSc == "Lv 1" then
                         CFrameSelectedZone = CFrame.new(-21998.375, 30.0006084, -682.309143)
                     elseif _G.DangerSc == "Lv 2" then
@@ -8427,7 +8237,7 @@ task.spawn(function()
                         _tp(boat.VehicleSeat.CFrame * CFrame.new(0, 1, 0))
                     else
                         if CFrameSelectedZone then
-                            -- Lift player above threats when boats/enemies detected
+
                             local function hasThreat()
                                 return (CheckEnemiesBoat and CheckEnemiesBoat())
                                     or (CheckTerrorShark and CheckTerrorShark())
@@ -8445,7 +8255,7 @@ task.spawn(function()
         end)
     end
 end)
--- Boat NoClip while sailing
+
 task.spawn(function()
     while task.wait(0.5) do
         pcall(function()
@@ -8493,7 +8303,6 @@ task.spawn(function()
     end
 end)
 
--- Helper: Buy a boat if needed
 function BuySelectedSeaBoat()
     local boat = CheckBoat()
     if boat then return boat end
@@ -8506,7 +8315,6 @@ function BuySelectedSeaBoat()
     return CheckBoat()
 end
 
--- Helper: Sail to sea stack position for summoning
 function SailToSeaStack(targetCFrame, enabledFlag, spawnedCheck)
     local boat = BuySelectedSeaBoat()
     if not boat or not boat:FindFirstChild("VehicleSeat") or not plr.Character or not plr.Character:FindFirstChild("Humanoid") then
@@ -8604,7 +8412,6 @@ Event:AddToggle({
     end,
 })
 
--- Sea Stack Summon & Tween Loop
 task.spawn(function()
     while task.wait(0.2) do
         pcall(function()
@@ -8656,11 +8463,8 @@ task.spawn(function()
     end
 end)
 
-end -- end World3 Sea Stack section
+end
 
--- ============================================================
--- HOP FUNCTION (From Tiro Hub)
--- ============================================================
 local Http = game:GetService("HttpService")
 local ServerBrowser = game:GetService("ReplicatedStorage"):WaitForChild("__ServerBrowser")
 
@@ -8701,132 +8505,129 @@ end
 
 if World2 or World3 then
 Event:AddSection({"configures skills for maritime events (Melee)"})
--- [[ TOGGLES MELEE ]]
+
 Event:AddToggle({
     Name = "Skill Z",
-    Default = GetSetting("Skill_Melee_Z", true), 
+    Default = GetSetting("Skill_Melee_Z", true),
     Callback = function(I)
         _G.SelectedSkills["Melee"]["Z"] = I
-        _G.SaveData["Skill_Melee_Z"] = I 
+        _G.SaveData["Skill_Melee_Z"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill X",
-    Default = GetSetting("Skill_Melee_X", true), 
+    Default = GetSetting("Skill_Melee_X", true),
     Callback = function(I)
         _G.SelectedSkills["Melee"]["X"] = I
-        _G.SaveData["Skill_Melee_X"] = I 
+        _G.SaveData["Skill_Melee_X"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill C",
-    Default = GetSetting("Skill_Melee_C", true), 
+    Default = GetSetting("Skill_Melee_C", true),
     Callback = function(I)
         _G.SelectedSkills["Melee"]["C"] = I
-        _G.SaveData["Skill_Melee_C"] = I 
+        _G.SaveData["Skill_Melee_C"] = I
         SaveSettings()
     end
 })
 
 Event:AddSection({"Sword"})
 
--- [[ TOGGLES SWORD ]]
 Event:AddToggle({
     Name = "Skill Z",
-    Default = GetSetting("Skill_Sword_Z", true), 
+    Default = GetSetting("Skill_Sword_Z", true),
     Callback = function(I)
         _G.SelectedSkills["Sword"]["Z"] = I
-        _G.SaveData["Skill_Sword_Z"] = I 
+        _G.SaveData["Skill_Sword_Z"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill X",
-    Default = GetSetting("Skill_Sword_X", true), 
+    Default = GetSetting("Skill_Sword_X", true),
     Callback = function(I)
         _G.SelectedSkills["Sword"]["X"] = I
-        _G.SaveData["Skill_Sword_X"] = I 
+        _G.SaveData["Skill_Sword_X"] = I
         SaveSettings()
     end
 })
 
 Event:AddSection({"Gun"})
 
--- [[ TOGGLES GUN ]]
 Event:AddToggle({
     Name = "Skill Z",
-    Default = GetSetting("Skill_Gun_Z", true), 
+    Default = GetSetting("Skill_Gun_Z", true),
     Callback = function(I)
         _G.SelectedSkills["Gun"]["Z"] = I
-        _G.SaveData["Skill_Gun_Z"] = I 
+        _G.SaveData["Skill_Gun_Z"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill X",
-    Default = GetSetting("Skill_Gun_X", true), 
+    Default = GetSetting("Skill_Gun_X", true),
     Callback = function(I)
         _G.SelectedSkills["Gun"]["X"] = I
-        _G.SaveData["Skill_Gun_X"] = I 
+        _G.SaveData["Skill_Gun_X"] = I
         SaveSettings()
     end
 })
 
 Event:AddSection({"Blox Fruit"})
 
--- [[ TOGGLES BLOX FRUIT ]]
 Event:AddToggle({
     Name = "Skill Z",
-    Default = GetSetting("Skill_Fruit_Z", true), 
+    Default = GetSetting("Skill_Fruit_Z", true),
     Callback = function(I)
         _G.SelectedSkills["Blox Fruit"]["Z"] = I
-        _G.SaveData["Skill_Fruit_Z"] = I 
+        _G.SaveData["Skill_Fruit_Z"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill X",
-    Default = GetSetting("Skill_Fruit_X", true), 
+    Default = GetSetting("Skill_Fruit_X", true),
     Callback = function(I)
         _G.SelectedSkills["Blox Fruit"]["X"] = I
-        _G.SaveData["Skill_Fruit_X"] = I 
+        _G.SaveData["Skill_Fruit_X"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill C",
-    Default = GetSetting("Skill_Fruit_C", true), 
+    Default = GetSetting("Skill_Fruit_C", true),
     Callback = function(I)
         _G.SelectedSkills["Blox Fruit"]["C"] = I
-        _G.SaveData["Skill_Fruit_C"] = I 
+        _G.SaveData["Skill_Fruit_C"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill V",
-    Default = GetSetting("Skill_Fruit_V", true), 
+    Default = GetSetting("Skill_Fruit_V", true),
     Callback = function(I)
         _G.SelectedSkills["Blox Fruit"]["V"] = I
-        _G.SaveData["Skill_Fruit_V"] = I 
+        _G.SaveData["Skill_Fruit_V"] = I
         SaveSettings()
     end
 })
 
 Event:AddToggle({
     Name = "Skill F",
-    Default = GetSetting("Skill_Fruit_F", true), 
+    Default = GetSetting("Skill_Fruit_F", true),
     Callback = function(I)
         _G.SelectedSkills["Blox Fruit"]["F"] = I
-        _G.SaveData["Skill_Fruit_F"] = I 
+        _G.SaveData["Skill_Fruit_F"] = I
         SaveSettings()
     end
 })
@@ -8844,7 +8645,6 @@ Maestry:AddDropdown({
     end
 })
 
--- FUNCTION: get closest enemy from a list
 local function GetNearestMobFromList(list)
     local plr = game.Players.LocalPlayer
     local root = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
@@ -8866,7 +8666,6 @@ local function GetNearestMobFromList(list)
     return nearest
 end
 
--- FUNCTION: check if mob is still alive
 local function HasAliveMob(list)
     for _, mob in pairs(workspace.Enemies:GetChildren()) do
         if table.find(list, mob.Name)
@@ -8878,19 +8677,16 @@ local function HasAliveMob(list)
     return false
 end
 
-
-
--- CODE MODIFIED WITH SAVE
 Maestry:AddToggle({
     Name = "Auto Farm Mastery Fruit",
     Description = "",
-    -- 1. Use GetSetting to get saved value (or false if not saved)
-    Default = GetSetting("FarmMastery_Dev", false), 
+
+    Default = GetSetting("FarmMastery_Dev", false),
     Callback = function(I)
         _G.FarmMastery_Dev = I
-        
-        -- 2. Salva o valor na tabela e escreve no arquivo
-        _G.SaveData["FarmMastery_Dev"] = I 
+
+
+        _G.SaveData["FarmMastery_Dev"] = I
         SaveSettings()
     end
 })
@@ -8950,9 +8746,6 @@ task.spawn(function()
     end
 end)
 
-
-
--- AUTO FARM MASTERY GUN
 Maestry:AddToggle({
     Name = "Auto Farm Mastery Gun",
     Description = "",
@@ -9059,9 +8852,6 @@ Maestry:AddToggle({
     end,
 })
 
--- ========================================
--- USE SKILL (Farm Tab - BearHub style)
--- ========================================
 Maestry:AddSection({"Use Fruit Skills (During Farm)"})
 Maestry:AddToggle({ Name = "Use Skill Z (Fruit)", Default = false, Callback = function(v) _G.FruitSkills.Z = v end })
 Maestry:AddToggle({ Name = "Use Skill X (Fruit)", Default = false, Callback = function(v) _G.FruitSkills.X = v end })
@@ -9303,6 +9093,7 @@ function MoveCamtoMoon()
         plr.Character.HumanoidRootPart.CFrame = CFrame.new(plr.Character.HumanoidRootPart.Position, Lighting:GetMoonDirection() + plr.Character.HumanoidRootPart.CFrame.Position);
 end;
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 if LookM then
                         MoveCamtoMoon();
@@ -9722,6 +9513,7 @@ DragonMobClear = function(I, e, K)
                 end;
         end;
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 if _G.FarmBlazeEM then
                         pcall(function()
@@ -9988,9 +9780,7 @@ task.spawn(function()
                 end);
         end;
 end);
---================================================--
--- FLY TOGGLE
---================================================--
+
 Dojo:AddToggle({
         Name = "Fly",
         Description = "Fly controlled by joystick (Auto Ascent)",
@@ -10000,20 +9790,15 @@ Dojo:AddToggle({
         end,
 })
 
---================================================--
--- FLY SYSTEM
---================================================--
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 local flying = false
 
--- ===== FLY SPEED (reduced by 30%) =====
-local speed = 63        -- was 90, -30%
-local yForce = 35       -- was 50, -30%
+local speed = 63
+local yForce = 35
 
--- ===== FLY BYPASS: pause 0.4s every 8s =====
 local flyStartTime = 0
 local flyPaused = false
 local PAUSE_INTERVAL = 8
@@ -10027,7 +9812,7 @@ local function startFly()
         local hum = char:WaitForChild("Humanoid")
         local root = char:WaitForChild("HumanoidRootPart")
 
-        -- safety
+
         if bodyGyro then bodyGyro:Destroy() end
         if bodyVelocity then bodyVelocity:Destroy() end
 
@@ -10049,7 +9834,7 @@ local function startFly()
         flyConn = RunService.Heartbeat:Connect(function()
                 if not _G.Fly or not flying then return end
 
-                -- BYPASS: pause every 8s for 0.4s
+
                 if not flyPaused then
                         local elapsed = tick() - flyStartTime
                         if elapsed >= PAUSE_INTERVAL then
@@ -10110,10 +9895,8 @@ local function stopFly()
         end
 end
 
---================================================--
--- LOOP CONTROLLER
---================================================--
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 if _G.Fly and not flying then
                         startFly()
@@ -10194,7 +9977,6 @@ local function G5(I)
 end;
 Number = math.random(1, 1000000);
 
--- ESP DE PLAYERS (BRANCO) - APENAS NOME E LEVEL
 EspPly = function()
     for I, e in next, game.Players:GetChildren() do
         pcall(function()
@@ -10230,7 +10012,6 @@ EspPly = function()
     end;
 end;
 
--- ESP DE FRUTAS
 DevEsp = function()
     for I, e in next, workspace:GetChildren() do
         pcall(function()
@@ -10268,7 +10049,6 @@ DevEsp = function()
     end;
 end;
 
--- ESP DE FLORES
 flowerEsp = function()
     for I, e in pairs(workspace:GetChildren()) do
         pcall(function()
@@ -10309,7 +10089,6 @@ flowerEsp = function()
     end;
 end;
 
--- ESP DE GEAR
 gearEsp = function()
     for I, e in pairs(workspace.Map.MysticIsland:GetDescendants()) do
         pcall(function()
@@ -10344,7 +10123,6 @@ gearEsp = function()
     end;
 end;
 
--- ESP ADVANCED DEALER (CORRIGIDO LIMPEZA)
 AdvanFruitEsp = function()
     if advanEsp == true then
         for I, e in pairs(game:GetService("ReplicatedStorage").NPCs:GetChildren()) do
@@ -10360,7 +10138,7 @@ AdvanFruitEsp = function()
                     Adv.Parent = workspace;
                     Adv.CFrame = e.HumanoidRootPart.CFrame;
                 end
-                
+
                 if Adv then
                     if not Adv:FindFirstChild("NameEsp") then
                         local I = Instance.new("BillboardGui", Adv);
@@ -10391,7 +10169,6 @@ AdvanFruitEsp = function()
     end;
 end;
 
--- ESP HAKI COLOR (CORRIGIDO LIMPEZA)
 HakiClorEsp = function()
     if ColorEsp == true then
         for I, e in pairs(game:GetService("ReplicatedStorage").NPCs:GetChildren()) do
@@ -10438,7 +10215,6 @@ HakiClorEsp = function()
     end;
 end;
 
--- ESP SWORD DEALER
 LegenSword = function()
     if LegenS == true then
         for I, e in pairs(game:GetService("ReplicatedStorage").NPCs:GetChildren()) do
@@ -10482,7 +10258,6 @@ LegenSword = function()
     end;
 end;
 
--- ESP CHESTS
 ChestEsp = function()
     if ChestESP then
         local I = game:GetService("CollectionService");
@@ -10519,7 +10294,6 @@ ChestEsp = function()
     end;
 end;
 
--- ESP BERRIES
 berriesEsp = function()
     if BerryEsp then
         local I = game:GetService("CollectionService");
@@ -10559,7 +10333,6 @@ berriesEsp = function()
     end;
 end;
 
--- ISLAND ESP
 _G.ESPColor = Color3.fromRGB(255, 255, 255)
 function IslandESP_Func()
         for _, island in pairs(workspace._WorldOrigin.Locations:GetChildren()) do
@@ -10589,22 +10362,21 @@ function IslandESP_Func()
         end
 end
 
--- UI E TOGGLES
 Esp:AddSection({"Esp Items / Entity / Island"});
 
-Esp:AddToggle({Name = "Esp Berries", Default = false, Callback = function(I) 
-    BerryEsp = I; 
-    task.spawn(function() while BerryEsp do task.wait(1); berriesEsp(); end; end); 
+Esp:AddToggle({Name = "Esp Berries", Default = false, Callback = function(I)
+    BerryEsp = I;
+    task.spawn(function() while BerryEsp do task.wait(1); berriesEsp(); end; end);
 end});
 
-Esp:AddToggle({Name = "Esp Players", Default = false, Callback = function(I) 
-    PlayerEsp = I; 
-    task.spawn(function() while PlayerEsp do task.wait(0.1); EspPly(); end; end); 
+Esp:AddToggle({Name = "Esp Players", Default = false, Callback = function(I)
+    PlayerEsp = I;
+    task.spawn(function() while PlayerEsp do task.wait(0.1); EspPly(); end; end);
 end});
 
-Esp:AddToggle({Name = "Esp Chests", Default = false, Callback = function(I) 
-    ChestESP = I; 
-    task.spawn(function() while ChestESP do task.wait(1); ChestEsp(); end; end); 
+Esp:AddToggle({Name = "Esp Chests", Default = false, Callback = function(I)
+    ChestESP = I;
+    task.spawn(function() while ChestESP do task.wait(1); ChestEsp(); end; end);
 end});
 
 Esp:AddToggle({Name = "Esp Fruits", Default = false, Callback = function(I)
@@ -10646,15 +10418,14 @@ if World3 then
     end})
 end
 
-
 Esp:AddSection({"Fontes"});
 
-local currentFont = Enum.Font.Arial -- Initial default font
+local currentFont = Enum.Font.Arial
 
 local function ApplyGlobalFont(fontEnum)
     currentFont = fontEnum
 
-    -- Aplica a fonte para todos os objetos existentes
+
     for _, obj in ipairs(game.Players.LocalPlayer.PlayerGui:GetDescendants()) do
         if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
             obj.Font = fontEnum
@@ -10662,7 +10433,6 @@ local function ApplyGlobalFont(fontEnum)
     end
 end
 
--- Observa novos objetos adicionados futuramente
 game.Players.LocalPlayer.PlayerGui.DescendantAdded:Connect(function(obj)
     if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
         obj.Font = currentFont
@@ -10790,8 +10560,6 @@ Esp:AddButton({
 })
 Esp:AddSection({"Stats"});
 
--- // AUTO STATS (Added to VI_S tab as requested) // --
-
 Esp:AddToggle({
     Name = "Add Points Melee",
     Description = "Gasta pontos automaticamente em Melee",
@@ -10847,7 +10615,6 @@ Esp:AddToggle({
     end,
 })
 
--- // LOOP DOS STATS (Execute isso uma vez no seu script) // --
 task.spawn(function()
     while task.wait(1) do
         pcall(function()
@@ -10861,9 +10628,7 @@ task.spawn(function()
     end
 end)
 
--- We use a large value (like 9999999) to simulate spending 'all' available points.
--- We assume the 'statsSetings' function will only spend the maximum points the player actually has.
-local AllAvailablePoints = 9999999; 
+local AllAvailablePoints = 9999999;
 
 task.spawn(function()
         while task.wait(Sec) do
@@ -10895,8 +10660,8 @@ end);
 task.spawn(function()
         while task.wait(Sec) do
                 pcall(function()
-                        -- Note: In your original code it was 'Auto_DevilFruit', but in the menu it was 'Fruit'. Fixed to use the same menu variable.
-                        if _G.Auto_Blox then 
+
+                        if _G.Auto_Blox then
                                 statsSetings("Devil", AllAvailablePoints);
                         end;
                 end);
@@ -10912,11 +10677,10 @@ task.spawn(function()
         end;
 end);
 Player:AddSection({"Pvp, aimbot, movement"})
--- VARIAVEL PARA GUARDAR O MENU DE PLAYERS
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
--- LISTA INICIAL (O5)
 local O5 = {}
 
 for _, p in pairs(Players:GetPlayers()) do
@@ -10925,8 +10689,7 @@ for _, p in pairs(Players:GetPlayers()) do
     end
 end
 
--- DROPDOWN
-local PlayerDropdown = Player:AddDropdown({ 
+local PlayerDropdown = Player:AddDropdown({
     Name = "Select Players",
     Description = "",
     Options = O5,
@@ -10937,21 +10700,20 @@ local PlayerDropdown = Player:AddDropdown({
     end,
 })
 
--- REAL UPDATE BUTTON
 Player:AddButton({
     Name = "Refresh Player List",
     Description = "",
     Callback = function()
         local NewPlayers = {}
 
-        -- SCAN EM TEMPO REAL
+
         for _, p in pairs(Players:GetPlayers()) do
             if p.Name ~= LocalPlayer.Name then
                 table.insert(NewPlayers, p.Name)
             end
         end
 
-        -- ATUALIZA O DROPDOWN
+
         PlayerDropdown:Refresh(NewPlayers, true)
     end
 })
@@ -11040,9 +10802,6 @@ task.spawn(function()
         end;
 end);
 
---==================================================
--- SINGLE TOGGLE (FIRST IN CODE)
---==================================================
 local SilentAim_Enabled = false
 
 Player:AddToggle({
@@ -11054,9 +10813,6 @@ Player:AddToggle({
         end
 })
 
---==================================================
--- SISTEMA SILENT AIM (LOGO DEPOIS DO TOGGLE)
---==================================================
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local RS = game:GetService("ReplicatedStorage")
@@ -11074,12 +10830,10 @@ local PlayersPosition = nil
 local Selectedplayer = nil
 local characterConnections = {}
 
--- ================= HRP =================
 local function getHRP(model)
         return model and model:FindFirstChild("HumanoidRootPart")
 end
 
--- ================= CLEAR =================
 local function clearConnections()
         for _, c in ipairs(characterConnections) do
                 pcall(function() c:Disconnect() end)
@@ -11087,14 +10841,12 @@ local function clearConnections()
         characterConnections = {}
 end
 
--- ================= TEAM CHECK =================
 local function isEnemy(plr)
         if not plr or plr == player then return false end
         if not player.Team or not plr.Team then return true end
         return player.Team ~= plr.Team
 end
 
--- ================= PREDICTION =================
 local function getPredictedPosition(hrp)
         if not hrp then return nil end
         local hum = hrp.Parent:FindFirstChildWhichIsA("Humanoid")
@@ -11104,7 +10856,6 @@ local function getPredictedPosition(hrp)
         return hrp.Position + (hrp.Velocity * PredictionAmount)
 end
 
--- ================= CLOSEST PLAYER =================
 local function getClosestPlayer(lpHRP)
         local closest, dist = nil, math.huge
         for _, plr in ipairs(Players:GetPlayers()) do
@@ -11123,7 +10874,6 @@ local function getClosestPlayer(lpHRP)
         return closest
 end
 
--- ================= SKILL READY =================
 local function isSkillReadyForTool(toolName)
         if not toolName then return false end
         local gui = player:FindFirstChild("PlayerGui")
@@ -11146,7 +10896,6 @@ local function isSkillReadyForTool(toolName)
         return false
 end
 
--- ================= RENDER LOOP =================
 local function startRender()
         if renderConnection then return end
 
@@ -11187,10 +10936,9 @@ local function stopRender()
         end
 end
 
--- ================= TOOL TRACK =================
 local function trackCharacter(char)
         clearConnections()
-        -- grab already-equipped tool
+
         for _, obj in ipairs(char:GetChildren()) do
                 if obj:IsA("Tool") then
                         currentTool = obj
@@ -11214,12 +10962,10 @@ end
 
 player.CharacterAdded:Connect(trackCharacter)
 
--- init for character already loaded
 if player.Character then
         trackCharacter(player.Character)
 end
 
--- ================= METAMETHOD =================
 pcall(function()
         local mt = getrawmetatable(game)
         setreadonly(mt, false)
@@ -11244,7 +10990,6 @@ pcall(function()
         setreadonly(mt, true)
 end)
 
--- ================= AUTO START / STOP =================
 RunService.RenderStepped:Connect(function()
         if SilentAim_Enabled then
                 startRender()
@@ -11305,7 +11050,6 @@ end)
 
 protectSpeed()
 
--- Toggle para WalkSpeed
 Player:AddToggle({
         Name  = "Set WalkSpeed",
     Description = "Enable custom WalkSpeed",
@@ -11315,7 +11059,7 @@ Player:AddToggle({
         applyStats()
     end
 })
--- Input para definir valor da WalkSpeed 
+
 Player:AddTextBox({
     Name = "WalkSpeed Value",
     Description = "Digite a velocidade desejada",
@@ -11329,7 +11073,7 @@ Player:AddTextBox({
         end
     end
 })
--- Toggle para JumpPower
+
 Player:AddToggle({
         Name  = "Set JumpPower",
     Description = "Enable custom JumpPower",
@@ -11440,9 +11184,6 @@ task.spawn(function()
         end;
 end);
 
--- ========================================
--- KILL AURA
--- ========================================
 Player:AddSection({"Kill Aura"});
 
 _G.ZX_KillAura = GetSetting("ZX_KillAura_Save", false)
@@ -11524,13 +11265,11 @@ Teleport:AddButton({ Name = "Teleport Sea 3", Description = "", Callback = funct
         end });
 Teleport:AddSection({"Travel - Island"})
 
--- Lista de Ilhas
 Location = {}
 for _, e in pairs(workspace._WorldOrigin.Locations:GetChildren()) do
         table.insert(Location, e.Name)
 end
 
--- Dropdown
 Teleport:AddDropdown({
         Name = "Select Travelling",
         Description = "",
@@ -11542,50 +11281,49 @@ Teleport:AddDropdown({
         end,
 })
 
-
 Teleport:AddToggle({
     Name = "Auto Travel",
     Description = "",
     Default = false,
     Callback = function(Value)
         _G.Teleport = Value
-        
+
         if Value then
-            -- Procurar a ilha selecionada
+
             local targetIsland = workspace._WorldOrigin.Locations:FindFirstChild(_G.Island)
-            
+
             if targetIsland then
                 task.spawn(function()
-                    -- 1. Rise only 80 studs (not 700) to clear terrain
+
                     Root.CFrame = Root.CFrame * CFrame.new(0, 80, 0)
                     task.wait(0.1)
-                    
-                    -- 2. Travel at reduced speed (80 studs above destination)
+
+
                     local destination = targetIsland.CFrame * CFrame.new(0, 80, 0)
                     local savedFar  = getgenv().TweenSpeedFar
                     local savedNear = getgenv().TweenSpeedNear
                     getgenv().TweenSpeedFar  = getgenv().TweenSpeedTravel or 120
                     getgenv().TweenSpeedNear = getgenv().TweenSpeedTravel or 120
-                    
+
                     repeat
                         task.wait()
                         _tp(destination)
                     until not _G.Teleport or (Root.Position - destination.p).Magnitude < 10
-                    
-                    -- restore auto-farm speed
+
+
                     getgenv().TweenSpeedFar  = savedFar
                     getgenv().TweenSpeedNear = savedNear
-                    
-                    -- 3. Land 3 studs above island surface
+
+
                     if _G.Teleport then
                         Root.CFrame = targetIsland.CFrame * CFrame.new(0, 3, 0)
                     end
-                    
-                    -- 4. Auto Turn Off
+
+
                     _G.Teleport = false
-                    -- Note: For the menu button to "turn off" by itself, 
-                    -- depends on the library you are using (e.g., Fluent, Orion, Rayfield).
-                    -- Geralmente: NomeDaVariavelDoToggle:SetValue(false)
+
+
+
                 end)
             else
                 print("Selecione uma ilha primeiro!")
@@ -11686,6 +11424,7 @@ Get:AddToggle({
         end,
 });
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 if _G.Auto_Soul_Guitar then
                         pcall(function()
@@ -12017,12 +11756,12 @@ task.spawn(function()
                                 local character = game.Players.LocalPlayer.Character
                                 if not character or not character:FindFirstChild("HumanoidRootPart") then return end
 
-                                -- ===============================
-                                -- PRIORIDADE 100000 PARA MOBS
-                                -- ===============================
+
+
+
                                 local Target = GetClosestMob()
 
-                                -- Only uses CFrame IF NO MOB EXISTS
+
                                 if not Target then
                                         local distToArea = (character.HumanoidRootPart.Position - FarmPos.Position).Magnitude
                                         if distToArea > 150 then
@@ -12031,7 +11770,7 @@ task.spawn(function()
                                         end
                                 end
 
-                                -- Procura espada e farma mastery
+
                                 for _, e in next, commF:InvokeServer("getInventory") do
                                         if type(e) == "table" and e.Type == "Sword" then
                                                 local SwordName = e.Name
@@ -12089,15 +11828,15 @@ end);
 Get:AddToggle({
  Name = "Auto Get CDK [ Last Quest ]",
     Description = "",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoCDK_Save", false),
     Callback = function(I)
         _G.CDK = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoCDK_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -12131,20 +11870,21 @@ end);
 Get:AddToggle({
  Name = "Auto Yama CDK",
     Description = "",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoYamaCDK_Save", false),
     Callback = function(I)
         _G.CDK_YM = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoYamaCDK_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 pcall(function()
                         if _G.CDK_YM then
@@ -12272,6 +12012,7 @@ task.spawn(function()
         end;
 end);
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 pcall(function()
                         if _G.CDK_YM then
@@ -12320,19 +12061,20 @@ end);
 Get:AddToggle({
  Name = "Auto Tushita CDK",
     Description = "",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoTushitaCDK_Save", false),
     Callback = function(I)
         _G.CDK_TS = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["AutoTushitaCDK_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
 task.spawn(function()
+        task.wait(0.1)
         while task.wait() do
                 pcall(function()
                         if _G.CDK_TS then
@@ -12489,12 +12231,12 @@ Get:AddToggle({
     Default = GetSetting("TpLegendarySword_Save", false),
     Callback = function(I)
         _G.Tp_LgS = I
-        
-        -- Salva na tabela de dados
+
+
         _G.SaveData["TpLegendarySword_Save"] = I
         SaveSettings()
 
-        -- Execute toggle code
+
         if I then
             task.spawn(function()
                 while _G.Tp_LgS do
@@ -12503,7 +12245,7 @@ Get:AddToggle({
                         commF:InvokeServer("LegendarySwordDealer", "2")
                         commF:InvokeServer("LegendarySwordDealer", "3")
                     end)
-                    task.wait(1) -- Delay to avoid freezing the game
+                    task.wait(1)
                 end
             end)
         end
@@ -12512,15 +12254,15 @@ Get:AddToggle({
 Get:AddToggle({
  Name = "Teleport Legendary Sword Dealer",
     Description = "",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("TpLegendarySword_Save", false),
     Callback = function(I)
         _G.Tp_LgS = I
-        
-        -- 2. Guarda na tabela de salvamento
+
+
         _G.SaveData["TpLegendarySword_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -12553,13 +12295,13 @@ task.spawn(function()
     while task.wait(Sec) do
         if _G.AutoLawKak then
             pcall(function()
-                -- Comprar o Microchip
+
                 commF:InvokeServer("BlackbeardReward", "Microchip", "2")
-                
-                -- Iniciar a raid
+
+
                 fireclickdetector(workspace.Map.CircleIsland.RaidSummon.Button.Main.ClickDetector)
-                
-                -- Procurar inimigo "Order"
+
+
                 local enemy = GetConnectionEnemies("Order")
                 if enemy then
                     repeat
@@ -12842,26 +12584,26 @@ task.spawn(function()
     while task.wait(0.1) do
         pcall(function()
             if _G.AutoKeyRen then
-                -- Check if already has the key
+
                 if plr.Backpack:FindFirstChild(K[3]) or plr.Character:FindFirstChild(K[3]) then
                     EquipWeapon(K[3])
                     task.wait(0.1)
-                    -- Go get the key at the specific point
+
                     _tp(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
                 else
-                    -- Procura inimigos
+
                     local enemy = GetConnectionEnemies("Awakened Ice Admiral")
                     if enemy then
                         repeat
                             task.wait()
-                            -- Mata o inimigo
+
                             G.Kill(enemy, _G.AutoKeyRen)
-                        until plr.Backpack:FindFirstChild(K[3]) 
-                            or not enemy.Parent 
-                            or enemy.Humanoid.Health <= 0 
+                        until plr.Backpack:FindFirstChild(K[3])
+                            or not enemy.Parent
+                            or enemy.Humanoid.Health <= 0
                             or _G.AutoKeyRen == false
                     else
-                        -- Teleport to enemy spawn if not found
+
                         _tp(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
                         task.wait(1)
                     end
@@ -13260,13 +13002,13 @@ Fruit:AddToggle({
                         while _G.AutoBuyChip do
 
                                 if not GetBP("Special Microchip") then
-                                        
-                                        local I = {} -- List of valid fruits
+
+                                        local I = {}
 
                                         for _, data in next, commF:InvokeServer("GetFruits") do
                                                 local rarity = tostring(data.Rarity or ""):lower()
 
-                                                -- Accept fruits up to 1,150,000 OR Common/Uncommon/Rare rarities
+
                                                 if data.Price <= 1150000
                                                         or rarity == "common"
                                                         or rarity == "uncommon"
@@ -13276,7 +13018,7 @@ Fruit:AddToggle({
                                                 end
                                         end
 
-                                        -- Use valid fruits to buy chip
+
                                         for _, fruitName in pairs(I) do
                                                 if not GetBP("Special Microchip") then
                                                         commF:InvokeServer("LoadFruit", fruitName)
@@ -13303,37 +13045,36 @@ Fruit:AddToggle({
 });
 
 task.spawn(function()
-    -- The loop now waits 10 seconds for each execution
-    while true do 
-        task.wait(10)
-        
+
+    while task.wait(10) do
+
         if _G.Auto_StartRaid then
             pcall(function()
-                -- Only try to start if Raid is not active (Invisible Timer)
+
                 if plr.PlayerGui.Main.TopHUDList.RaidTimer.Visible == false then
-                    
-                    -- Verifica se o player possui o Microchip
+
+
                     if GetBP("Special Microchip") then
-                        
+
                         if World2 then
                             _tp(CFrame.new(-6438.73535, 250.645355, -4501.50684));
                             fireclickdetector(workspace.Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector);
-                            
+
                         elseif World3 then
-                            -- 1. Try using the portal via InvokeServer (just one quick attempt)
+
                             commF:InvokeServer("requestEntrance", Vector3.new(-5097.93164, 316.447021, -3142.66602));
-                            
-                            -- Pequena pausa para o teleporte do jogo acontecer
-                            task.wait(0.5); 
-                            
-                            -- 2. Fallback: If the portal failed or player doesn't have access, 
-                            -- the script uses your _tp to go to the button position.
+
+
+                            task.wait(0.5);
+
+
+
                             _tp(CFrame.new(-5033.50879, 315.014252, -2947.77539));
-                            
-                            -- 3. Activate the Raid button
+
+
                             fireclickdetector(workspace.Map["Boat Castle"].RaidSummon2.Button.Main.ClickDetector);
                         end;
-                        
+
                     end;
                 end;
             end);
@@ -13350,7 +13091,6 @@ Fruit:AddToggle({
     end,
 })
 
--- Detectar ilha correta
 function IsIslandRaid(cu)
     local locs = game:GetService("Workspace")["_WorldOrigin"].Locations
     if locs:FindFirstChild("Island " .. cu) then
@@ -13376,7 +13116,6 @@ function IsIslandRaid(cu)
     end
 end
 
--- Ordem das ilhas (5 → 1)
 function getNextIsland()
     local order = {5,4,3,2,1}
     for _, id in ipairs(order) do
@@ -13390,7 +13129,6 @@ function getNextIsland()
     end
 end
 
--- Atacar inimigos usando SEU G.Kill
 function attackNearbyEnemies()
     for _, mob in pairs(workspace.Enemies:GetChildren()) do
         if mob:FindFirstChild("HumanoidRootPart") and mob:FindFirstChild("Humanoid") then
@@ -13407,7 +13145,6 @@ function attackNearbyEnemies()
     end
 end
 
--- Loop principal (igual ao seu)
 task.spawn(function()
 pcall(function()
 while task.wait(Sec) do
@@ -13415,13 +13152,13 @@ while task.wait(Sec) do
 
         if plr.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
 
-            -- Kill nearby ones
+
             attackNearbyEnemies()
 
-            -- Pegar ilha certa
+
             local nextIsland = getNextIsland()
             if nextIsland then
-                -- USA SEU TELEPORTE REAL
+
                 _tp(nextIsland.CFrame * CFrame.new(0, 50, 0))
 
                 NextIs = true
@@ -13522,15 +13259,15 @@ Fruit:AddButton({ Name = "Buy Mirage Stock", Description = "", Callback = functi
 Fruit:AddToggle({
         Name  = "Auto Random Fruit",
     Description = "Automatic random devil fruit",
-    -- 1. Load if auto rotation was on
+
     Default = GetSetting("AutoRandomFruit_Save", false),
     Callback = function(I)
         _G.Random_Auto = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["AutoRandomFruit_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -13563,15 +13300,15 @@ end);
 Fruit:AddToggle({
         Name  = "Auto Store Fruit",
     Description = "Automatic store devil fruit",
-    -- 1. Load if auto storage was on
+
     Default = GetSetting("AutoStoreFruit_Save", false),
     Callback = function(I)
         _G.StoreF = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["AutoStoreFruit_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -13587,15 +13324,15 @@ end);
 Fruit:AddToggle({
         Name  = "Auto Tween to Fruit",
     Description = "Automatic tween to get devil fruit",
-    -- 1. Carrega o estado salvo
+
     Default = GetSetting("AutoTweenFruit_Save", false),
     Callback = function(I)
         _G.TwFruits = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["AutoTweenFruit_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -13615,15 +13352,15 @@ end);
 Fruit:AddToggle({
         Name  = "Auto Collect Fruit",
     Description = "Automatic bring devil fruit",
-    -- 1. Load saved state or false by default
+
     Default = GetSetting("AutoCollectFruit_Save", false),
     Callback = function(I)
         _G.InstanceF = I
-        
-        -- 2. Store in save memory
+
+
         _G.SaveData["AutoCollectFruit_Save"] = I
-        
-        -- 3. Save in Settings.json file
+
+
         SaveSettings()
     end,
 })
@@ -13637,9 +13374,6 @@ task.spawn(function()
         end;
 end);
 
--- ========================================
--- FRUIT SHOP SNIPER (wrapped in function to avoid local overflow)
--- ========================================
 do
 Fruit:AddSection({"Fruit Shop Sniper"});
 
@@ -13694,9 +13428,6 @@ task.spawn(function()
     end
 end)
 
--- ========================================
--- FRUIT STOCK CHECKER
--- ========================================
 Fruit:AddSection({"Fruit Stock Checker"});
 
 local function ZX_FormatNumber(num)
@@ -13827,7 +13558,7 @@ Setting:AddButton({ Name = "Set Pirate Team", Description = "", Callback = funct
 Setting:AddButton({ Name = "Set Marine Team", Description = "", Callback = function()
                 Marines();
         end });
--- [V3.8] SeaSettings-style toggles (bulk skill toggles + boat noclip)
+
 _G.Lightning = _G.Lightning or false
 _G.NoClipRock = _G.NoClipRock or false
 Setting:AddSection({"Sea / Boat Settings"})
@@ -13963,9 +13694,6 @@ Setting:AddToggle({
 });
 Setting:AddSection({"Bring Mobs & Fps"});
 
--- ========================================
--- BRING MOB (Moved from Farm tab)
--- ========================================
 Setting:AddToggle({
         Name = "Bring Mob",
         Description = "Bring mobs near you while farming",
@@ -14006,7 +13734,6 @@ Setting:AddSlider({
     end,
 })
 
--- Fps Fix Lag (Moved from Farm tab)
 Setting:AddButton({ Name = "Fps Fix Lag", Description = "Reduce lag and boost FPS", Callback = function()
                 LowCpu();
                 game.StarterGui:SetCore("SendNotification", {
@@ -14018,11 +13745,7 @@ Setting:AddButton({ Name = "Fps Fix Lag", Description = "Reduce lag and boost FP
 
 Setting:AddSection({"Fps & Animation"});
 
-end -- end FRUIT SHOP SNIPER do-block
-
--- =========================
--- NO ANIMATION LOGIC
--- =========================
+end
 
 _G.NoAni = _G.NoAni or false
 local player = game.Players.LocalPlayer
@@ -14031,12 +13754,12 @@ local AnimConnection
 local function EnableNoAni(char)
         local humanoid = char:WaitForChild("Humanoid")
 
-        -- stop animation running
+
         for _,track in pairs(humanoid:GetPlayingAnimationTracks()) do
                 track:Stop()
         end
 
-        -- chặn animation mới
+
         AnimConnection = humanoid.AnimationPlayed:Connect(function(track)
                 if _G.NoAni then
                         track:Stop()
@@ -14051,7 +13774,6 @@ local function DisableNoAni()
         end
 end
 
--- Track character
 local function SetupChar(char)
         if _G.NoAni then
                 EnableNoAni(char)
@@ -14063,10 +13785,6 @@ if player.Character then
 end
 
 player.CharacterAdded:Connect(SetupChar)
-
--- =========================
--- TOGGLE UI
--- =========================
 
 Setting:AddToggle({
         Name = "No Animation",
@@ -14092,14 +13810,14 @@ Setting:AddButton({
     Name = "Stretch the screen",
     Description = "",
     Callback = function()
-        -- SET RESOLUTION
+
         getgenv().Resolution = {
             [".gg/scripters"] = 0.65
         }
 
         local Camera = workspace.CurrentCamera
 
-        -- IF THE SCRIPT IS NOT RUNNING YET
+
         if getgenv().gg_scripters == nil then
             game:GetService("RunService").RenderStepped:Connect(function()
                 pcall(function()
@@ -14115,17 +13833,13 @@ Setting:AddButton({
             end)
         end
 
-        -- FLAG TO AVOID DUPLICATION
+
         getgenv().gg_scripters = "Aori0001"
     end
 })
 
--- ========================================
--- GRAPHICS / MISC SETTINGS (ناقصة)
--- ========================================
 Setting:AddSection({"Graphics & Visual"})
 
--- Full Bright
 _G.ZX_FullBright = GetSetting("ZX_FullBright_Save", false)
 Setting:AddToggle({
     Name = "Full Bright",
@@ -14147,7 +13861,6 @@ Setting:AddToggle({
     end,
 })
 
--- RTX Mode
 _G.ZX_RTXMode = GetSetting("ZX_RTXMode_Save", false)
 Setting:AddToggle({
     Name = "RTX Mode (Visual)",
@@ -14170,7 +13883,6 @@ Setting:AddToggle({
     end,
 })
 
--- Fast Mode
 Setting:AddButton({
     Name = "Fast Mode (Low Graphics)",
     Description = "Changes all parts to Plastic for better performance",
@@ -14186,7 +13898,6 @@ Setting:AddButton({
     end,
 })
 
--- Low CPU Mode
 Setting:AddButton({
     Name = "Low CPU Mode",
     Description = "Reduces CPU usage",
@@ -14195,7 +13906,6 @@ Setting:AddButton({
     end,
 })
 
--- Remove Sky Fog
 Setting:AddButton({
     Name = "Remove Sky Fog",
     Description = "Removes fog and lighting effects",
@@ -14208,7 +13918,6 @@ Setting:AddButton({
     end,
 })
 
--- Ice Walk
 _G.ZX_IceWalk = GetSetting("ZX_IceWalk_Save", false)
 Setting:AddToggle({
     Name = "Ice Walk (Visual)",
@@ -14227,7 +13936,6 @@ Setting:AddToggle({
     end,
 })
 
--- Rain Fruits (Client)
 Setting:AddButton({
     Name = "Rain Fruits (Client)",
     Description = "Makes fruits fall around you (visual only)",
@@ -14244,9 +13952,6 @@ Setting:AddButton({
     end,
 })
 
--- ========================================
--- TIME SETTINGS
--- ========================================
 Setting:AddSection({"Time Settings"})
 
 local ZX_TimeOptions = {"Day", "Night"}
@@ -14280,12 +13985,8 @@ task.spawn(function()
     end
 end)
 
--- ========================================
--- GUI SETTINGS
--- ========================================
 Setting:AddSection({"GUI Settings"})
 
--- Disable Chat GUI
 _G.ZX_DisableChat = GetSetting("ZX_DisableChat_Save", false)
 Setting:AddToggle({
     Name = "Disable Chat GUI",
@@ -14302,7 +14003,6 @@ Setting:AddToggle({
     end,
 })
 
--- Disable Leaderboard GUI
 _G.ZX_DisableLeader = GetSetting("ZX_DisableLeader_Save", false)
 Setting:AddToggle({
     Name = "Disable Leaderboard GUI",
@@ -14319,7 +14019,6 @@ Setting:AddToggle({
     end,
 })
 
--- No Clip
 _G.ZX_NoClip = GetSetting("ZX_NoClip_Save", false)
 Setting:AddToggle({
     Name = "No Clip",
@@ -14344,15 +14043,9 @@ RunSer.Stepped:Connect(function()
     end)
 end)
 
--- ========================================
--- TRANSLATION SYSTEM (Auto-Translate All Languages)
--- Optimized: Uses JSON decode to avoid local register overflow
--- Wrapped in do...end to free local registers
--- ========================================
 do
 Setting:AddSection({"Language / Translation"})
 
--- Translation data stored as JSON string (avoids local register overflow)
 local ZX_TransJSON = [[
 {
   "ZX | Info & Server":{"ar":"معلومات و سيرفر","es":"Info y Servidor","pt":"Info e Servidor","fr":"Info et Serveur","de":"Info und Server","tr":"Bilgi ve Sunucu","zh":"信息与服务器","ja":"情報とサーバー","ko":"정보 및 서버","ru":"Инфо и Сервер","id":"Info & Server","it":"Info e Server","hi":"जानकारी और सर्वर","th":"ข้อมูลและเซิร์ฟเวอร์","vi":"Thông tin & Máy chủ","pl":"Info i Serwer","nl":"Info en Server","uk":"Інфо та Сервер","ms":"Maklumat & Pelayan","ro":"Info și Server","fil":"Impormasyon at Server"},
@@ -14417,22 +14110,18 @@ local ZX_TransJSON = [[
 }
 ]]
 
--- Decode JSON into translation table (single local instead of hundreds)
 local ZX_Translations = {}
 pcall(function()
     ZX_Translations = HttpService:JSONDecode(ZX_TransJSON)
 end)
 
--- Available languages (compact format to save locals)
 local ZX_Languages = {"English","العربية","Español","Português","Français","Deutsch","Türkçe","中文","日本語","한국어","Русский","Bahasa Indonesia","Italiano","हिन्दी","ไทย","Tiếng Việt","Polski","Nederlands","Українська","Bahasa Melayu","Română","Filipino"}
 
 local ZX_LangCodes = {English="en",["العربية"]="ar",["Español"]="es",["Português"]="pt",["Français"]="fr",Deutsch="de",["Türkçe"]="tr",["中文"]="zh",["日本語"]="ja",["한국어"]="ko",["Русский"]="ru",["Bahasa Indonesia"]="id",Italiano="it",["हिन्दी"]="hi",["ไทย"]="th",["Tiếng Việt"]="vi",Polski="pl",Nederlands="nl",["Українська"]="uk",["Bahasa Melayu"]="ms",["Română"]="ro",Filipino="fil"}
 
--- Current language setting
 _G.ZX_CurrentLang = GetSetting("ZX_Lang_Save", "English")
 local ZX_CurrentLang = _G.ZX_CurrentLang
 
--- Translation function - Exact match only (reliable)
 local function ZX_Translate(text)
     if ZX_CurrentLang == "English" or not text or text == "" then return text end
     local langCode = ZX_LangCodes[ZX_CurrentLang]
@@ -14444,7 +14133,6 @@ local function ZX_Translate(text)
     return text
 end
 
--- Scan a single GUI container and translate all text elements
 local function ZX_ScanGui(gui)
     if not gui then return end
     for _, desc in pairs(gui:GetDescendants()) do
@@ -14463,17 +14151,16 @@ local function ZX_ScanGui(gui)
     end
 end
 
--- Apply translation to UI elements (CoreGui + PlayerGui)
 local function ZX_ApplyTranslation()
     pcall(function()
-        -- CoreGui (hub library lives here on most executors)
+
         local coreGui = game:GetService("CoreGui")
         for _, gui in pairs(coreGui:GetChildren()) do
             if gui:IsA("ScreenGui") and gui.Name ~= "ControlGUI" then
                 ZX_ScanGui(gui)
             end
         end
-        -- PlayerGui (fallback — some executors put UI here)
+
         local playerGui = game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")
         if playerGui then
             for _, gui in pairs(playerGui:GetChildren()) do
@@ -14485,7 +14172,6 @@ local function ZX_ApplyTranslation()
     end)
 end
 
--- Revert translation back to English
 local function ZX_RevertTranslation()
     pcall(function()
         local function revertGui(container)
@@ -14507,7 +14193,6 @@ local function ZX_RevertTranslation()
     end)
 end
 
--- Language dropdown
 Setting:AddDropdown({
     Name = "Language / اللغة",
     Description = "Select your language - auto translates the UI",
@@ -14521,7 +14206,7 @@ Setting:AddDropdown({
         if v == "English" then
             ZX_RevertTranslation()
         else
-            -- Revert first, then apply new language
+
             ZX_RevertTranslation()
             task.wait(0.1)
             ZX_ApplyTranslation()
@@ -14534,7 +14219,6 @@ Setting:AddDropdown({
     end,
 })
 
--- Auto-translate toggle (applies translation continuously for newly loaded elements)
 _G.ZX_AutoTranslate = GetSetting("ZX_AutoTranslate_Save", false)
 Setting:AddToggle({
     Name = "Auto Translate (Live)",
@@ -14547,7 +14231,6 @@ Setting:AddToggle({
     end,
 })
 
--- Live translation loop
 task.spawn(function()
     while task.wait(2) do
         if _G.ZX_AutoTranslate and ZX_CurrentLang ~= "English" then
@@ -14556,19 +14239,14 @@ task.spawn(function()
     end
 end)
 
--- Apply saved language on startup
 if _G.ZX_CurrentLang ~= "English" then
     task.delay(3, function()
         ZX_ApplyTranslation()
     end)
 end
 
--- ========================================
--- SEARCH SYSTEM (Feature Search)
--- ========================================
 Setting:AddSection({"Feature Search"})
 
--- Search function: scans all UI elements in CoreGui
 local function ZX_SearchFeatures(query)
     if not query or query == "" then return {} end
     query = query:lower()
@@ -14581,7 +14259,7 @@ local function ZX_SearchFeatures(query)
                     if desc:IsA("TextLabel") or desc:IsA("TextButton") then
                         local text = desc.Text
                         if text and text ~= "" and text:lower():find(query) then
-                            -- Get the tab name (parent structure)
+
                             local tabName = "Unknown"
                             local parent = desc.Parent
                             for _ = 1, 5 do
@@ -14603,7 +14281,6 @@ local function ZX_SearchFeatures(query)
     return results
 end
 
--- Search TextBox
 local ZX_SearchParagraph = Setting:AddParagraph({
     Title = "Search Results",
     Desc = "Type a keyword in the search box above"
@@ -14637,7 +14314,6 @@ Setting:AddTextBox({
     end
 })
 
--- Quick search buttons for popular features
 Setting:AddSection({"Quick Search"})
 
 do
@@ -14672,13 +14348,11 @@ for _, term in ipairs(quickSearchTerms) do
     })
 end
 
-end -- end of quick search do-block
-end -- end of translation do-block
+end
+end
 
--- [ZX-FIX] External attack-module removed (patched/unreliable) - built-in FastAttack system used instead
-
-local AttackInstance -- declared here so it stays in scope after IIFE
-;(function() -- FastAttack setup — own function = own 200-local register pool
+local AttackInstance
+;(function()
 
 local function GetBladeHits()
 local t={}
@@ -14800,7 +14474,6 @@ if vector and vector.create then return vector.create(p.X,p.Y,p.Z) end
 return Vector3.new(p.X,p.Y,p.Z)
 end
 
--- wrapped in do...end to free a local register slot
 do local function _handle(m)
 if not m or not m.Parent then return nil end
 for _,d in ipairs(m:GetDescendants())do
@@ -14815,7 +14488,6 @@ return nil
 end
 _G._ZX_handle = _handle
 end
--- use _G._ZX_handle directly below to avoid consuming a local register
 
 function FastAttack:_PrimeGun(tl)
 if not tl or not tl.Parent or tl.Parent~=Player.Character then return end
@@ -14900,9 +14572,8 @@ if not tl or tl.ToolTip~="Gun" then return end
 AttackInstance:_PrimeGun(tl)
 end)
 
-end)() -- FastAttack setup
+end)()
 
--- ZytheraX: wrap hookfunction loop in do-block to avoid local register overflow
 do
 for _,v in pairs(getgc(true))do
 if typeof(v)=="function" and iscclosure(v) then
@@ -14925,11 +14596,9 @@ end
 
 
 
-  -- ============================================================
-  -- V3.4 MERGED FEATURES — Zythera-X Full Merge
-  -- ============================================================
 
-  -- ── DEATH ANIMATION FREEZE FIX ──────────────────────────────
+
+
   do
       local _lp = game:GetService("Players").LocalPlayer
       local function _fixDeathAnim(char)
@@ -14974,13 +14643,13 @@ end
       _lp.CharacterAdded:Connect(function(c) pcall(_fixDeathAnim, c) end)
   end
 
-  -- ── SHARED GLOBALS for V3.4 additions ──────────────────────
+
   getgenv().ZA_AutoStoreFruit = false
   getgenv().ZA_RandomAuto     = false
   getgenv().ZA_Tweenfruit     = false
   getgenv().ZA_Grabfruit      = false
 
-  -- Shared helper (global scope so all blocks can use it)
+
   getgenv().ZA_FormatBeli = function(n)
       local s = tostring(n)
       repeat local ns, c = s:gsub("^(-?%d+)(%d%d%d)", "%1,%2"); s = ns; if c == 0 then break end until false
@@ -15017,7 +14686,7 @@ end
       return out
   end
 
-  -- ── FRUIT AUTOMATION LOOPS ────────────────────────────────────
+
   do
       task.spawn(function()
           pcall(function()
@@ -15097,13 +14766,13 @@ end
       end)
   end
 
-  -- ============================================================
-  -- EXTRAS TAB
-  -- ============================================================
+
+
+
   do
       local ExtrasTab = Library:MakeTab({ Title = "Extras & ESP", Icon = "rbxassetid://10747372167" })
 
-      -- Chest ESP
+
       do
           getgenv().ZA_ChestESP2 = false
           ExtrasTab:AddSection("Advanced ESP")
@@ -15147,7 +14816,7 @@ end
           end)
       end
 
-      -- Island ESP
+
       do
           getgenv().ZA_IslandESP = false
           ExtrasTab:AddToggle({
@@ -15182,7 +14851,7 @@ end
           end)
       end
 
-      -- Mirage Island ESP
+
       do
           getgenv().ZA_MirageESP = false
           ExtrasTab:AddToggle({
@@ -15217,7 +14886,7 @@ end
           end)
       end
 
-      -- Flower ESP
+
       do
           getgenv().ZA_FlowerESP = false
           ExtrasTab:AddToggle({
@@ -15254,7 +14923,7 @@ end
           end)
       end
 
-      -- Enemy ESP
+
       do
           getgenv().ZA_MobESP = false
           ExtrasTab:AddToggle({
@@ -15289,7 +14958,7 @@ end
           end)
       end
 
-      -- Sea Beast ESP
+
       do
           getgenv().ZA_SeaBeastESP = false
           ExtrasTab:AddToggle({
@@ -15327,7 +14996,7 @@ end
           end)
       end
 
-      -- NPC ESP
+
       do
           getgenv().ZA_NpcESP = false
           ExtrasTab:AddToggle({
@@ -15365,7 +15034,7 @@ end
           end)
       end
 
-      -- Fruit Dealer ESP
+
       do
           getgenv().ZA_AfdESP = false
           ExtrasTab:AddToggle({
@@ -15403,7 +15072,7 @@ end
           end)
       end
 
-      -- Fruit Stock
+
       do
           ExtrasTab:AddSection("Fruit Stock")
           local _stockPara = ExtrasTab:AddParagraph({ Title = "Fruit Stock", Desc = "Loading..." })
@@ -15422,14 +15091,14 @@ end
           })
       end
 
-      -- Fruits Automation toggles
+
       ExtrasTab:AddSection("Fruits Automation")
       ExtrasTab:AddToggle({ Name = "Auto Random Fruits", Default = false, Callback = function(v) getgenv().ZA_RandomAuto = v end })
       ExtrasTab:AddToggle({ Name = "Auto Store Fruits",  Default = false, Callback = function(v) getgenv().ZA_AutoStoreFruit = v end })
       ExtrasTab:AddToggle({ Name = "Teleport To Fruit Spawn", Default = false, Callback = function(v) getgenv().ZA_Tweenfruit = v end })
       ExtrasTab:AddToggle({ Name = "Auto Teleport Fruits",    Default = false, Callback = function(v) getgenv().ZA_Grabfruit  = v end })
 
-      -- Fast Attack
+
       do
           ExtrasTab:AddSection("Fast Attack (Remote)")
           ExtrasTab:AddParagraph({ Title = "Info", Desc = "Uses LeftClickRemote / RegisterAttack+RegisterHit. Safe method." })
@@ -15439,8 +15108,7 @@ end
           ExtrasTab:AddSlider({ Name = "Attack Delay (ms)", Min = 0, Max = 300, Default = 50, Callback = function(v) getgenv().ZA_FADelay2 = v / 1000 end })
           task.spawn(function()
               local RS = game:GetService("ReplicatedStorage")
-              while true do
-                  task.wait(getgenv().ZA_FADelay2 or 0.05)
+              while task.wait(getgenv().ZA_FADelay2 or 0.05) do
                   if getgenv().ZA_FastAttack2 then
                       pcall(function()
                           local _player2 = game.Players.LocalPlayer
@@ -15495,7 +15163,7 @@ end
           end)
       end
 
-      -- Sword Items
+
       do
           ExtrasTab:AddSection("Sword Items")
           getgenv().ZA_AutoLegSword = false
@@ -15556,11 +15224,11 @@ end
               end
           end)
       end
-  end -- end ExtrasTab block
+  end
 
-  -- ============================================================
-  -- MELEE STYLES TAB
-  -- ============================================================
+
+
+
   do
       local MeleeTab = Library:MakeTab({ Title = "Melee Styles", Icon = "rbxassetid://10734975692" })
 
@@ -15576,7 +15244,7 @@ end
 
       MeleeTab:AddSection("Auto Unlock Fighting Styles")
 
-      -- Auto Superhuman
+
       do
           getgenv().ZA_AutoSuperHuman2 = false
           MeleeTab:AddToggle({ Name = "Auto Superhuman", Default = false, Callback = function(v) getgenv().ZA_AutoSuperHuman2 = v end })
@@ -15603,7 +15271,7 @@ end
           end)
       end
 
-      -- Auto Death Step
+
       do
           getgenv().ZA_AutoDeathStep2 = false
           MeleeTab:AddToggle({ Name = "Auto Death Step", Default = false, Callback = function(v) getgenv().ZA_AutoDeathStep2 = v end })
@@ -15625,7 +15293,7 @@ end
           end)
       end
 
-      -- Auto Sharkman Karate
+
       do
           getgenv().ZA_AutoSharkman2 = false
           MeleeTab:AddToggle({ Name = "Auto Sharkman Karate", Default = false, Callback = function(v) getgenv().ZA_AutoSharkman2 = v end })
@@ -15647,7 +15315,7 @@ end
           end)
       end
 
-      -- Auto Electric Claw
+
       do
           getgenv().ZA_AutoElecClaw2 = false
           MeleeTab:AddToggle({ Name = "Auto Electric Claw", Default = false, Callback = function(v) getgenv().ZA_AutoElecClaw2 = v end })
@@ -15669,7 +15337,7 @@ end
           end)
       end
 
-      -- Auto Dragon Talon
+
       do
           getgenv().ZA_AutoDragonTalon2 = false
           MeleeTab:AddToggle({ Name = "Auto Dragon Talon", Default = false, Callback = function(v) getgenv().ZA_AutoDragonTalon2 = v end })
@@ -15693,7 +15361,7 @@ end
           end)
       end
 
-      -- Auto Godhuman
+
       do
           getgenv().ZA_AutoGodhuman2 = false
           MeleeTab:AddToggle({ Name = "Auto Godhuman", Default = false, Callback = function(v) getgenv().ZA_AutoGodhuman2 = v end })
@@ -15715,7 +15383,7 @@ end
           end)
       end
 
-      -- Auto Sanguine Art
+
       do
           getgenv().ZA_AutoSanguine2 = false
           MeleeTab:AddToggle({ Name = "Auto Sanguine Art", Default = false, Callback = function(v) getgenv().ZA_AutoSanguine2 = v end })
@@ -15732,7 +15400,7 @@ end
           end)
       end
 
-      -- M1 No-Cooldown
+
       do
           MeleeTab:AddSection("Attack No-Cooldown (M1)")
           getgenv().ZA_InitAttack2   = false
@@ -15799,7 +15467,7 @@ end
           end)
       end
 
-      -- Weapon Config
+
       do
           MeleeTab:AddSection("Weapon Config")
           MeleeTab:AddDropdown({
@@ -15819,15 +15487,15 @@ end
               end
           end)
       end
-  end -- end MeleeTab block
+  end
 
-  -- ============================================================
-  -- MISC & ENV TAB
-  -- ============================================================
+
+
+
   do
       local MiscTab = Library:MakeTab({ Title = "Misc & Env", Icon = "rbxassetid://10723434557" })
 
-      -- Player UI
+
       do
           MiscTab:AddSection("Player UI / GUI")
           MiscTab:AddButton({ Name = "Open Awakenings Expert", Callback = function()
@@ -15853,7 +15521,7 @@ end
           end })
       end
 
-      -- Movement & Safety
+
       do
           MiscTab:AddSection("Movement & Safety")
           MiscTab:AddSlider({ Name = "Walk Speed", Min = 16, Max = 300, Default = 16, Callback = function(v)
@@ -15971,7 +15639,7 @@ end
           end)
       end
 
-      -- Stats Allocation
+
       do
           MiscTab:AddSection("Stats Allocation")
           getgenv().ZA_StatSel  = "Melee"
@@ -15999,7 +15667,7 @@ end
           end)
       end
 
-      -- Redeem Codes
+
       do
           MiscTab:AddSection("Redeem Codes")
           local _codes = {
@@ -16026,25 +15694,17 @@ end
           end })
       end
 
-      -- Server
+
       MiscTab:AddSection("Server")
       MiscTab:AddButton({ Name = "Rejoin Server", Callback = function()
           game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
       end })
       MiscTab:AddButton({ Name = "Server Hop", Callback = function() Hop() end })
 
-  end -- end MiscTab block
+  end
 
-  
--- ============================================================
--- ZYTHERA-X v3.7 | CONSOLIDATED FEATURES (moved from removed tabs)
--- All unique features below have been moved into their proper
--- existing tabs. Duplicates (Buy Melee buttons, Refund, Chest/Fruit
--- ESP, Auto Start Raid, Auto Elite Hunter) were deleted because
--- they already exist in Shop / Esp / Fruit / Others tabs.
--- ============================================================
 
--- ---- [ Farm tab -> Other section ] Auto Buddha when farming ----
+
 Farm:AddSection({"Buddha Transform"})
 getgenv().ZX_BuddhaWhenFarming = false
 Farm:AddToggle({
@@ -16076,7 +15736,6 @@ task.spawn(function()
     end
 end)
 
--- ---- [ Others tab -> Cursed Swords section ] Auto Holy Torch ----
 Others:AddSection({"Holy Torch (Auto Collect)"})
 getgenv().ZX_AutoHolyTorch = false
 Others:AddToggle({
@@ -16102,7 +15761,7 @@ task.spawn(function()
                     if not getgenv().ZX_AutoHolyTorch then break end
                     _tp(pos)
                     task.wait(0.3)
-                    -- search only NPCs / Map area for torch, not full workspace
+
                     pcall(function()
                         local function fireTorch(parent)
                             if not parent then return end
@@ -16125,7 +15784,6 @@ task.spawn(function()
     end
 end)
 
--- ---- [ Others tab ] Elite Hunter Hop (companion to existing Auto Elite Hunter) ----
 getgenv().ZX_EliteHunterHop = false
 Others:AddToggle({
     Name = "Hop Server (Elite Hunter)",
@@ -16153,7 +15811,6 @@ task.spawn(function()
     end
 end)
 
--- ---- [ Event tab ] Dungeon System (full, moved from removed AdvTab) ----
 Event:AddSection({"Dungeon System"})
 _G.DungeonWeaponMode = _G.DungeonWeaponMode or "Melee"
 _G.FarmDistance = _G.FarmDistance or 35
@@ -16220,7 +15877,6 @@ Event:AddSlider({
     Callback = function(I) _G.FarmDistance = I end,
 })
 
--- Dungeon helper functions (declared as globals, unique names)
 function GetDungeonMap()
     return workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Dungeon")
 end
@@ -16406,7 +16062,6 @@ task.spawn(function()
     end
 end)
 
--- ---- [ Teleport tab ] Teleport to Nearest Island ----
 Teleport:AddSection({"Nearest Island (Auto)"})
 getgenv().ZX_TeleportIsland = false
 Teleport:AddToggle({
@@ -16438,7 +16093,6 @@ task.spawn(function()
     end
 end)
 
--- ---- [ Get tab ] Auto Get Fighting Style (materials collector) ----
 Get:AddSection({"Auto Get Fighting Style (Materials)"})
 getgenv().ZX_AutoGetGodHuman = false
 local ZX_GetStyle_Mode = "GodHuman"
@@ -16461,7 +16115,7 @@ task.spawn(function()
             if not getgenv().ZX_AutoGetGodHuman then return end
             local mode = ZX_GetStyle_Mode or "GodHuman"
             if mode == "GodHuman" then
-                -- Requirements: 20 Fish Tail, 20 Magma Ore, 10 Dragon Scale, 10 Mystic Droplet
+
                 if GetM and (not GetM("Dragon Scale") or GetM("Dragon Scale") < 10) then
                     if World3 then
                         _G.Level = true; getgenv().AutoFarm = true
@@ -16515,7 +16169,6 @@ task.spawn(function()
     end
 end)
 
--- ---- [ Fruit tab ] Open Devil Fruit Shop ----
 Fruit:AddSection({"Devil Fruit Shop"})
 Fruit:AddButton({
     Name = "Open Devil Fruit Shop",
@@ -16524,7 +16177,6 @@ Fruit:AddButton({
     end
 })
 
--- ---- [ Get tab ] Auto Saber Quest ----
 Get:AddSection({"Auto Saber Quest"})
 getgenv().ZX_AutoSaber = false
 Get:AddToggle({
@@ -16585,7 +16237,6 @@ task.spawn(function()
     end
 end)
 
--- ---- [ Esp tab ] Boss ESP (unique - did not exist in original Esp tab) ----
 Esp:AddSection({"Boss ESP"})
 getgenv().ZX_BossESP = false
 local _espBossObjs = {}
@@ -16638,13 +16289,6 @@ task.spawn(function()
     end
 end)
 
--- ============================================================
--- End of consolidated features
--- ============================================================
-
--- ========================================
--- FINAL ATTACK SECTION (loaded in separate chunk to avoid local register limit)
--- ========================================
 local _finalChunk = [[
 local Modules = game.ReplicatedStorage.Modules
 local Net = Modules.Net
